@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "194326811606",
+    "project_id": "suseela-catering-crm",
+    "storage_bucket": "suseela-catering-crm.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194326811606:android:9557b2d468e79d254f4a77",
+        "android_client_info": {
+          "package_name": "com.example.suseelacateringcrm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6zvEinAVAyavC7WKMYfmHKxA9iOCldVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

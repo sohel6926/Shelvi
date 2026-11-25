@@ -16,6 +16,20 @@ import os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PREFIX = {"fn:": "functions/src/", "web:": "web/src/", "app:": "app/src/main/java/com/example/suseelacateringcrm/"}
 SKIP = {"npm test", "npm run build", "npm run lint"}  # command snippets are skipped automatically (they contain spaces)
+OPTIONAL_LOCAL = {
+    "Catering-CRM-Complete-v15/",
+    "_backup_2026-11-05/",
+    "_snap/",
+    "_snap/2026-11-18_module1a",
+    "_snap/2026-11-18_module2a",
+    "_snap/2026-11-18_module2b",
+    "_to_delete/",
+    "_xfer/",
+    "app/build/outputs/apk/debug/",
+    "keystore/",
+    "local.properties",
+    "web/.env.emulator",
+}
 
 
 def read(rel):
@@ -37,6 +51,8 @@ def main():
     for tok in re.findall(r"`([^`\n]+)`", doc):
         if " " in tok and not tok.endswith(".command"):
             continue  # a command or phrase, not a path
+        if tok in OPTIONAL_LOCAL:
+            continue
         checked += 1
         t = tok
         for p, full in PREFIX.items():
