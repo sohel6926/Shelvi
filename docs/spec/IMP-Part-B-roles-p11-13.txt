@@ -1,0 +1,188 @@
+                                                    PART B - PRF
+                                                         Permission & Role Freeze
+
+ PRF STATUS: FROZEN
+
+
+ B1. Permission Actions
+  Code                Action
+
+  V                   View
+
+  C                   Create
+
+  E                   Edit
+
+  S                   Submit
+
+  X                   Verify
+
+  A                   Approve/Reject
+
+  P                   Pay/Post Financial
+
+  R                   Reopen/Reverse
+
+  D                   Soft-delete/Archive where allowed
+
+  O                   Export/Download sensitive data
+
+
+ A hidden menu is not security. Every backend write/read/export must enforce permission + data scope + approval
+ limit.
+
+
+ B2. Frozen Business Roles
+  Role                                     Frozen Scope
+
+  Owner / CEO                              Company-wide visibility and final/high-value approvals; routine data entry not required.
+
+  COO / Operations Head                    Cross-event operations, capacity, closing and exceptions.
+
+  Finance Head                             Finance verification, limits, reconciliation, P&L;, payroll totals.
+
+  Accountant                               Invoices, receipts, bills, reconciliation preparation; cannot self-approve sensitive payments.
+
+  Sales Manager                            Leads, customers, quotations, bookings, customer due within allowed visibility.
+
+  Sales Executive                          Assigned leads/customers/quotes/bookings; restricted cost/profit visibility.
+
+  Purchase Manager                         Requirements, vendors, RFQ, PO preparation and approved buying.
+
+  Store Manager                            GRN, stock, issues, returns, counts, expiry, wastage.
+
+  Kitchen Head / Chef                      Recipes, production plans, prep, quality, stock requests.
+
+  Event Manager                            Assigned event/session, BEO/checklists, live count, extras, incidents, operational close.
+
+  HR Manager                               Employee, roster, attendance, payroll preparation.
+
+  Logistics Manager                        Vehicles, trips, equipment, loading, return.
+
+  Worker / Staff                           Own assigned duties, attendance, tasks, own payslip where applicable.
+
+  Driver                                   Own trip, route, loading/proof, trip status; no commercial profit view.
+
+  Marketing / CRM                          Consent-compliant segments/source attribution; no finance editing.
+
+  System Admin                             Technical users/settings/backups/integrations; no business payment approval by default.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                                    Page 11
+  Role                                  Frozen Scope
+
+  Auditor / Viewer                      Authorized read-only/report/audit evidence.
+
+
+
+ B3. Module Permission Matrix
+  Role                          Modules                                         Action Boundary
+
+  Owner/CEO                     All                                             Approve high-value; view all; reopen by policy.
+
+  COO                           Events, Kitchen, Store, Logistics, Closing      Create/edit/verify operational; approve configured
+                                                                                operational exceptions.
+
+  Finance Head                  Finance, Customer Credit, Vendor Payable,       Verify/approve/post within configured limits.
+                                Payroll Totals
+
+  Accountant                    Invoice, Receipt, Vendor Bill, Expense,         Create/edit/submit/verify as assigned; payment
+                                Reconciliation                                  approval restricted.
+
+  Sales Manager                 Lead, Customer, Quote, Booking                  Create/edit/approve normal commercial actions within
+                                                                                limit.
+
+  Sales Executive               Assigned Lead, Customer, Quote, Booking         Create/edit/submit; no high discount approval; no
+                                                                                detailed food cost.
+
+  Purchase Manager              Demand view, Vendor, RFQ, PO                    Create/edit/submit/approve within purchase limit; no
+                                                                                payment.
+
+  Store Manager                 GRN, Inventory, Count, Wastage                  Receive/issue/return/count/submit adjustments;
+                                                                                approval by configured role.
+
+  Kitchen Head                  Menu/Recipe, Demand, Production                 Create/edit recipe/production per scope; no customer
+                                                                                finance.
+
+  Event Manager                 Assigned Event/Session, Live Ops                Edit operations, submit extras/close; no unrelated
+                                                                                events.
+
+  HR Manager                    People, Roster, Attendance, Payroll Prep        Create/edit/verify HR; no business bank/P&L; detail.
+
+  Logistics Manager             Vehicle, Trip, Equipment                        Assign/verify/reconcile logistics.
+
+  Worker                        Own assignments                                 View own, update allowed task/attendance only.
+
+  Driver                        Own trip                                        View/update trip status/proof only.
+
+  Marketing/CRM                 Segments, Consent, Source, Follow-up            No finance posting, stock adjustment or payroll.
+
+  System Admin                  Technical control                               No implicit business approve/pay permission.
+
+  Auditor                       Read-only configured scope                      No create/edit/approve/pay.
+
+
+
+ B4. Sensitive Field Visibility
+  Sensitive Data                           Frozen Visibility Rule
+
+  Salary / bank details                    HR + Finance + Owner as configured; workers only own records.
+
+  Detailed food/purchase cost              Owner, Finance, Purchase, Kitchen as needed; Sales restricted.
+
+  Event profit / company P&L;              Owner/Finance; managers only configured summary.
+
+  Customer risk/blacklist                  Sales Manager, Finance, Owner; restricted from broad staff.
+
+  Customer consent/contact export          Marketing/Sales only within permitted scope; export audited.
+
+  Vendor bank/payment details              Finance + authorized Purchase; restricted elsewhere.
+
+  Audit logs                               Owner/System Admin/Auditor by scope; not broadly editable.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                               Page 12
+  Sensitive Data                          Frozen Visibility Rule
+
+  System secrets                          Never exposed to normal business UI.
+
+
+
+ B5. Segregation of Duties
+  Process                              Frozen Separation
+
+  Purchase                             Requester != receiver != bill verifier != payer for sensitive/high-value flow.
+
+  Stock adjustment                     Counter/Store submits; configured supervisor approves material variance.
+
+  Refund                               Accounts prepares; Finance verifies; authorized approver approves; payment posted
+                                       separately.
+
+  Payroll                              Attendance verified -> HR calculates -> Finance verifies -> authorized approval -> payment.
+
+  Customer discount                    Sales requests; configured manager/owner approves above limit.
+
+  Event reopen                         Operations/Accounts request; authorized role approves; audit captures reason.
+
+  Vendor master bank change            Creator/editor cannot silently cause payment destination change without controlled verification.
+
+  Role/permission change               System Admin may configure; business owner authorizes sensitive access policy.
+
+
+ OWNER CONFIGURATION REQUIRED - NOT INVENTED
+
+   - Exact approval limits by role/module.
+   - Whether branch managers exist as separate role in final org.
+   - Delegation/backup approver assignments.
+   - Exact export permissions.
+   - Whether MFA is mandatory for all users or only privileged roles.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                                  Page 13
+

@@ -1,0 +1,978 @@
+                              CATERING CRM + ERP
+                               MASTER DATA FREEZE 01
+                         Company -> Brand -> Branch -> Kitchen -> Store / Warehouse
+
+
+       Status                        FROZEN MASTER
+
+
+       Version                       1.0
+
+
+       Scope                         Company, Brand, Branch, Kitchen, Store / Warehouse
+
+
+       Purpose                       Lock the core organization and inventory-location hierarchy before database
+                                     and UI implementation.
+
+
+
+ Freeze principle: These five masters define who owns the business, which brand sells, where operations happen,
+ where food is produced, and where stock physically or logically exists.
+
+
+
+
+Catering CRM + ERP - Master Data Freeze 01                                                                         Page 1
+ 1. MASTER HIERARCHY - FROZEN
+ Company / Legal Entity
+ -> Brand
+ -> Branch
+ -> Kitchen
+ -> Store / Warehouse / Stock Location
+
+ Example Structure
+ Company: Ramanadh Global Private Limited
+
+ Brand: Suseela Caterings
+
+ Branch: Hyderabad
+
+ Kitchen: Central Veg Kitchen
+
+   - Main Grocery Store
+
+   - Vegetable Store
+
+   - Dairy Cold Store
+   - Dry Store
+
+   - Packing Store
+
+ The same company can operate another brand and separate branches without mixing business data.
+
+
+ 2. COMPANY / LEGAL ENTITY MASTER
+ Company is the highest legal and accounting owner in the CRM.
+
+ A. Identity
+   - Company ID - Auto Generated
+
+   - Legal Company Name
+
+   - Display Name
+
+   - Short Name
+
+   - Company Code
+
+   - Company Type
+   - Registration Number
+
+   - Incorporation Date
+
+   - Company Status
+
+   - Financial Year Start Month
+
+ B. Registered Details
+   - Registered Address
+
+   - Address Line 1
+
+   - Address Line 2
+   - Area
+
+   - City
+
+
+
+Catering CRM + ERP - Master Data Freeze 01                                                        Page 2
+   - District
+
+   - State
+
+   - PIN Code
+
+   - Country
+
+ C. Contact Details
+   - Primary Mobile
+
+   - Alternate Mobile
+
+   - Office Phone
+
+   - Official Email
+
+   - Accounts Email
+
+   - Support Email
+
+   - Website
+
+ D. Tax / Compliance Identity
+   - GST Registered - Yes / No
+
+   - GSTIN
+
+   - PAN
+
+   - TAN
+
+   - CIN / Registration ID
+
+   - State Code
+
+   - Place of Supply Default
+
+   - Tax Profile
+
+   - Invoice Tax Mode
+
+ E. Financial Settings
+   - Base Currency
+
+   - Currency Symbol
+   - Default Payment Terms
+
+   - Default Customer Credit Days
+
+   - Default Vendor Credit Days
+
+   - Financial Year
+
+   - Accounting Method Configuration
+
+   - Default Cost Centre
+
+   - Default Overhead Cost Centre
+
+ F. Company Bank References
+ Company master links to approved finance masters instead of copying bank data into every module.
+
+   - Bank Account Master
+
+
+
+Catering CRM + ERP - Master Data Freeze 01                                                          Page 3
+   - Cash Account Master
+
+   - UPI Account Master
+
+   - Payment Gateway Master
+
+ G. Company Branding
+   - Company Logo
+
+   - Invoice Logo
+
+   - Letterhead
+
+   - Authorized Signature
+
+   - Company Seal
+
+   - Invoice Footer
+
+   - Terms Footer
+
+ H. Status
+   - Active
+   - Temporarily Inactive
+
+   - Closed
+
+   - Archived
+
+ Company should never be permanently deleted once transactions exist.
+
+
+ 3. COMPANY RULES - FROZEN
+ 1. Every Brand belongs to exactly one Company.
+
+ 2. Every Branch ultimately belongs to one Company.
+
+ 3. Financial transactions must know their Company.
+
+ 4. Invoice numbering cannot cross legal entities unless explicitly configured.
+
+ 5. GST/tax settings belong primarily to the legal entity or tax registration.
+
+ 6. Company deletion is forbidden after business transactions exist.
+
+ 7. Company changes must be audited.
+
+ 8. Sensitive company tax/bank changes require authorized approval.
+
+
+ 4. BRAND MASTER
+ Brand represents the customer-facing commercial identity. One Company can operate multiple Brands.
+
+ A. Identity
+   - Brand ID - Auto
+
+   - Company ID
+
+   - Brand Name
+   - Short Name
+
+   - Brand Code
+
+
+
+Catering CRM + ERP - Master Data Freeze 01                                                            Page 4
+   - Brand Type
+
+   - Active From
+
+   - Status
+
+ B. Business Type
+   - Pure Veg Catering
+
+   - Non-Veg Catering
+
+   - Mixed Catering
+
+   - Corporate Catering
+
+   - Wedding Catering
+
+   - Religious Catering
+
+   - Cloud Kitchen
+
+   - Event Food Services
+
+   - Other
+ Multiple selections are allowed where required.
+
+ C. Brand Contact
+   - Public Mobile
+
+   - WhatsApp
+
+   - Booking Phone
+
+   - Customer Support Phone
+
+   - Public Email
+
+   - Website
+
+   - Instagram
+
+   - Facebook
+
+   - YouTube
+
+   - Google Business Profile reference
+
+ D. Brand Identity
+   - Logo
+
+   - Secondary Logo
+
+   - Brand Colours
+
+   - Tagline
+
+   - Invoice Display Name
+
+   - Quotation Display Name
+
+   - Public Footer
+   - Customer Communication Signature
+
+ E. Brand Commercial Controls
+
+
+Catering CRM + ERP - Master Data Freeze 01         Page 5
+   - Default Quotation Template
+
+   - Default Terms & Conditions
+
+   - Default Cancellation Policy
+
+   - Default Advance Rule
+
+   - Default Pricing Profile
+
+   - Default Menu Catalogue
+
+   - Default Customer Communication Template
+
+ F. Brand Operational Rules
+   - Veg only
+
+   - Non-Veg allowed
+
+   - Outside-food policy
+
+   - Default service style
+
+   - Default event buffer
+   - Default packing rules
+
+   - Other configurable operational restrictions
+
+
+ 5. BRAND RULES - FROZEN
+ 1. Brand must always belong to a Company.
+
+ 2. Brand cannot own accounting independently unless mapped to the proper legal entity.
+
+ 3. Brand revenue and cost reports must be separately available.
+
+ 4. Customer can have bookings across multiple Brands.
+
+ 5. The same Vendor can supply multiple Brands.
+
+ 6. Items may be shared or Brand-restricted.
+
+ 7. Recipes may be global or Brand-specific.
+
+ 8. Brand-specific selling prices are allowed.
+
+ 9. Brand-specific logos/documents must not retroactively change finalized historical invoices.
+
+ 10. Archived Brand remains visible in historical records.
+
+
+ 6. BRANCH MASTER
+ Branch represents a physical or operational business unit.
+
+ A. Identity
+   - Branch ID
+
+   - Company ID
+
+   - Brand ID / Supported Brands
+   - Branch Name
+
+   - Branch Code
+
+
+
+Catering CRM + ERP - Master Data Freeze 01                                                        Page 6
+   - Branch Type
+
+   - Opening Date
+
+   - Status
+
+ B. Branch Types
+   - Sales Branch
+
+   - Kitchen Branch
+
+   - Full Operations Branch
+
+   - Office Only
+
+   - Warehouse Only
+
+   - Dispatch Hub
+
+   - Combination
+
+ C. Address
+   - Address Line 1
+   - Address Line 2
+
+   - Area
+
+   - Landmark
+
+   - City
+
+   - District
+
+   - State
+
+   - PIN
+
+   - Country
+
+   - Latitude
+
+   - Longitude
+
+ D. Contact
+   - Branch Manager
+   - Primary Phone
+
+   - Alternate Phone
+
+   - WhatsApp
+
+   - Email
+
+ E. Operating Information
+   - Opening Time
+
+   - Closing Time
+
+   - Weekly Off
+   - Working Days
+
+   - Emergency Contact
+
+
+
+Catering CRM + ERP - Master Data Freeze 01   Page 7
+ F. Operational Capacity
+   - Maximum Events Per Day
+
+   - Kitchen Capacity Reference
+
+   - Staff Capacity Reference
+
+   - Vehicle Capacity Reference
+
+   - Equipment Capacity Reference
+ Actual resource availability is still calculated by operational modules.
+
+ G. Commercial Controls
+   - Allowed Brands
+
+   - Default Price List
+
+   - Default Sales Team
+
+   - Default Tax Registration Reference
+
+   - Default Invoice Series
+   - Default Cash Account
+
+   - Default Bank/UPI Mapping
+
+   - Default Cost Centre
+
+ H. Branch Service Area
+   - City
+
+   - Areas
+
+   - PIN Codes
+
+   - Delivery Radius
+
+   - Outside Radius Charge Rules
+
+
+ 7. BRANCH RULES - FROZEN
+ 1. Every Event belongs to an operating Branch.
+
+ 2. Every employee has a home Branch unless centrally assigned.
+
+ 3. Inventory stock always belongs to a physical stock location under a Branch.
+
+ 4. Customer itself need not permanently belong to one Branch.
+
+ 5. Booking is assigned to a Branch.
+
+ 6. Event may be transferred to another Branch only through an approved transfer.
+
+ 7. Branch transfer must retain history.
+
+ 8. Branch-specific price lists are allowed.
+
+ 9. Branch-specific approval limits are allowed.
+
+ 10. Branch reporting must include Revenue, Cost, Stock, Staff and Profit.
+
+
+ 8. KITCHEN MASTER
+
+Catering CRM + ERP - Master Data Freeze 01                                          Page 8
+ Kitchen is a production unit. A Branch may have one Kitchen, multiple Kitchens, or no Kitchen.
+
+ A. Identity
+   - Kitchen ID
+
+   - Branch ID
+
+   - Kitchen Name
+
+   - Kitchen Code
+
+   - Kitchen Type
+
+   - Status
+
+ B. Kitchen Types
+   - Central Kitchen
+
+   - Veg Kitchen
+
+   - Non-Veg Kitchen
+
+   - Mixed Kitchen
+   - Sweet Kitchen
+
+   - Bakery
+
+   - Prep Kitchen
+
+   - Satellite Kitchen
+
+   - Event-Site Kitchen
+
+ C. Kitchen Address
+   - Use Branch Address - Yes/No
+
+   - Full Address if different
+
+   - Map Location
+
+ D. Kitchen Contact
+   - Kitchen Head
+
+   - Phone
+   - Alternate Contact
+
+ E. Kitchen Capacity
+   - Maximum Production Capacity
+
+   - Capacity Unit
+
+   - Maximum Meals/Plates Per Shift
+
+   - Maximum Events Supported
+
+   - Operating Shifts
+ Capacity values can later be configured per product or section.
+
+ F. Kitchen Sections
+   - Vegetable Prep
+
+
+Catering CRM + ERP - Master Data Freeze 01                                                        Page 9
+   - Rice
+
+   - Curry
+
+   - Fry
+
+   - Non-Veg
+
+   - Tiffin
+
+   - Sweet
+
+   - Bakery
+
+   - Live Counter Prep
+
+   - Packing
+
+   - Washing
+ Each section can later have Section Lead, Staff, Equipment, Capacity and Production Tasks.
+
+ G. Kitchen Controls
+   - Veg Only
+   - Non-Veg Allowed
+
+   - Allergen Controls
+
+   - Production Buffer Default
+
+   - Quality Approval Required
+
+   - Temperature Log Required
+
+   - Batch Tracking Required
+
+
+ 9. KITCHEN RULES - FROZEN
+ 1. Production Batch must belong to a Kitchen.
+
+ 2. One Event Session can receive products from multiple Kitchens.
+
+ 3. Kitchen is not equal to Store.
+
+ 4. Raw material must move into Kitchen through Stock Movement.
+
+ 5. Production output must create proper production inventory/consumption records where applicable.
+
+ 6. Kitchen transfer must be auditable.
+
+ 7. Veg/Non-Veg restrictions cannot be bypassed without authorized configuration.
+
+ 8. Kitchen closure/inactivation cannot remove historical production data.
+
+
+ 10. STORE / WAREHOUSE MASTER
+ Store represents an actual stock-holding location.
+
+ A. Identity
+   - Store ID
+   - Branch ID
+
+   - Kitchen ID - Optional
+
+
+
+Catering CRM + ERP - Master Data Freeze 01                                                            Page 10
+   - Store Name
+
+   - Store Code
+
+   - Store Type
+
+   - Status
+
+ B. Store Types
+   - Main Store
+
+   - Grocery Store
+
+   - Dry Store
+
+   - Vegetable Store
+
+   - Fruit Store
+
+   - Dairy Store
+
+   - Cold Store
+
+   - Freezer
+   - Non-Veg Cold Store
+
+   - Beverage Store
+
+   - Packing Store
+
+   - Cleaning Store
+
+   - Equipment Store
+
+   - Gas/Fuel Store
+
+   - Return Store
+
+   - Quarantine Store
+
+   - Scrap/Waste Location
+
+   - Transit Location
+
+
+ 11. STORE PHYSICAL DETAILS
+   - Address / Location
+   - Floor
+
+   - Room/Section
+
+   - Responsible Store Manager
+
+   - Contact
+
+   - Storage Capacity
+
+   - Temperature Controlled - Yes/No
+
+   - Temperature Range
+
+   - Restricted Access - Yes/No
+
+
+ 12. STORE INVENTORY SETTINGS
+
+
+Catering CRM + ERP - Master Data Freeze 01   Page 11
+   - Allowed Item Categories
+
+   - Negative Stock Allowed - Default NO
+
+   - Batch Tracking
+
+   - Expiry Tracking
+
+   - FEFO
+
+   - Physical Count Frequency
+
+   - Reorder Responsibility
+
+   - Adjustment Approval Required
+
+
+ 13. STOCK LOCATION SUB-STRUCTURE
+ Optional detailed hierarchy:
+ Store -> Zone -> Rack -> Shelf -> Bin
+
+ Example: Main Grocery Store -> Zone A -> Rack 03 -> Shelf 02 -> Bin 05
+
+ This is optional for small operations, but the architecture must support it.
+
+
+ 14. STORE RULES - FROZEN
+ 1. Stock cannot exist without a Stock Location.
+
+ 2. Store balance cannot be directly typed or edited.
+
+ 3. Every increase/decrease comes from a Stock Movement.
+
+ 4. Transfer between Stores creates an Out movement and an In movement.
+
+ 5. Event Venue stock is treated as a valid temporary location.
+
+ 6. Vehicle/Transit can be a temporary inventory location.
+
+ 7. Quarantine stock cannot be issued normally.
+
+ 8. Expired stock cannot be issued normally.
+
+ 9. Scrap/Waste stock cannot return to usable inventory without an approved reversal.
+
+ 10. Physical count variance requires an adjustment transaction and approval.
+
+
+ 15. LOCATION HIERARCHY - FROZEN
+ Company -> Brand -> Branch -> Kitchen / Warehouse -> Store -> Zone -> Rack -> Shelf -> Bin
+
+ Temporary operational locations:
+
+   - Vehicle / Transit
+
+   - Event Venue
+
+   - Return Area
+
+   - Quarantine
+
+   - Waste / Scrap
+
+
+ 16. COST CENTRE LINKING
+
+
+Catering CRM + ERP - Master Data Freeze 01                                               Page 12
+   Company                              Highest accounting entity.
+
+   Brand                                Profitability reporting dimension.
+
+   Branch                               Primary operational cost centre.
+
+   Kitchen                              Optional cost centre.
+
+   Event                                Direct project/event cost centre.
+
+   Meal Session                         Operational cost sub-dimension.
+
+   General Overhead                     Non-event expense cost centre.
+
+
+
+
+ 17. ID STRUCTURE
+ Recommended display IDs:
+
+   - Company: COM-0001
+
+   - Brand: BRD-0001
+   - Branch: BRN-0001
+
+   - Kitchen: KIT-0001
+
+   - Store: STR-0001
+
+ Database should use permanent unique internal IDs. Display codes may change with approval; internal
+ identity must not change.
+
+
+ 18. DUPLICATE PREVENTION
+ Company Checks
+   - Legal Name
+
+   - Registration Number
+
+   - GSTIN
+
+   - PAN
+
+ Brand Checks
+   - Company + Brand Name
+
+ Branch Checks
+   - Company + Branch Code
+
+   - Address similarity
+
+ Kitchen Checks
+   - Branch + Kitchen Name
+
+ Store Checks
+   - Branch + Store Code
+
+ System should warn before duplicate creation.
+
+
+
+
+Catering CRM + ERP - Master Data Freeze 01                                                     Page 13
+ 19. MASTER STATUS RULE
+ All five master types support:
+
+   - Draft
+
+   - Active
+
+   - Temporarily Inactive
+
+   - Archived
+
+ Do not hard-delete records used in transactions.
+
+
+ 20. APPROVAL CONTROL
+ Sensitive master changes can require approval.
+
+   - Company GST change
+
+   - Company tax profile
+
+   - Bank mapping
+   - Branch transfer
+
+   - Invoice series
+
+   - Kitchen type
+
+   - Store item restrictions
+
+   - Store negative-stock policy
+
+   - Brand pricing profile
+
+
+ 21. AUDIT REQUIREMENT
+   - Record ID
+
+   - Changed By
+
+   - Role
+
+   - Old Value
+
+   - New Value
+   - Date
+
+   - Time
+
+   - Device
+
+   - Reason
+
+   - Approval Reference
+
+
+ 22. ROLE VISIBILITY
+   Owner / CEO                          All Companies / Brands / Branches.
+
+   Operations                           Branches, Kitchens and Stores.
+
+   Finance                              Company, Brand and Branch financial mappings.
+
+
+
+
+Catering CRM + ERP - Master Data Freeze 01                                              Page 14
+   Store Manager                        Assigned Stores.
+
+   Kitchen Head                         Assigned Kitchens and relevant Stores.
+
+   Staff                                Only assigned operational location where necessary.
+
+   System Admin                         Technical setup; no automatic business financial approval.
+
+
+
+
+ 23. MAIN RELATIONSHIP RULE
+ Company: 1 -> Many Brands
+
+ Brand: Many -> Many Branches where shared branches are required
+
+ Branch: 1 -> Many Kitchens
+
+ Branch: 1 -> Many Stores
+
+ Kitchen: 1 -> Many Sections
+
+ Store: 1 -> Many Stock Locations
+
+
+ 24. IMPORTANT DESIGN DECISION
+ Brand and Branch should not be hard-coded as one-to-one.
+
+ Example: one Hyderabad Central Kitchen may serve multiple approved Brands. Therefore architecture must allow
+ one operational Branch/Kitchen to serve multiple Brands while every transaction still records the responsible
+ Brand/Event.
+
+
+ 25. TRANSACTION LINKING RULE
+ Purchase
+ Company + Branch + Store + Event/Overhead + Brand where applicable.
+
+ Production
+ Company + Branch + Kitchen + Event + Session + Product.
+
+ Sale
+ Company + Brand + Branch + Customer + Booking + Event.
+
+
+ 26. FREEZE DECISIONS
+     Decision            Frozen Rule
+
+     F-01                Company is the legal/accounting parent.
+
+     F-02                Brand is the customer-facing commercial identity.
+
+     F-03                Branch is the operational business location.
+
+     F-04                Kitchen is the production unit.
+
+     F-05                Store is the inventory holding unit.
+
+     F-06                Kitchen and Store are different objects.
+
+
+
+Catering CRM + ERP - Master Data Freeze 01                                                                 Page 15
+     Decision            Frozen Rule
+
+     F-07                One Branch can contain multiple Kitchens and Stores.
+
+     F-08                Architecture supports multiple Brands using an approved shared Branch/Kitchen.
+
+     F-09                Every stock balance belongs to a physical/logical Stock Location.
+
+     F-10                No transactional history is deleted when a master becomes inactive.
+
+
+
+
+ FINAL. MASTER FREEZE STATUS
+        Company Master                                                                FROZEN
+
+        Brand Master                                                                  FROZEN
+
+        Branch Master                                                                 FROZEN
+
+        Kitchen Master                                                                FROZEN
+
+        Store / Warehouse Master                                                      FROZEN
+
+
+ Next planned freeze: Master Data Freeze 02 - Customer Master.
+
+
+
+
+Catering CRM + ERP - Master Data Freeze 01                                                                Page 16
+

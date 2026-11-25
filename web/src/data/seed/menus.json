@@ -1,0 +1,1503 @@
+{
+ "_note": "Seed menus from the owner's menu text (Nov 2026). Owner confirmed: 1 free serving boy per 50 plates on lunch menus; Aloo Matar costs nothing extra; prices are revised by the owner (CRM reminds 12 months after menuDate). English names for tiffin-4/5, dinner-1/2/3 and lunch-dinner were translated — owner to review. 'Mysore Bajji' kept from the Telugu text (English sheet said 'Mysore Bonda').",
+ "menus": [
+  {
+   "code": "tiffin-1",
+   "nameTe": "టిఫిన్ మెనూ–1",
+   "nameEn": "Tiffin Menu–1",
+   "mealType": "tiffin",
+   "menuDate": "2025-06-28",
+   "deliveryWindow": "08:00-08:30",
+   "groups": [
+    [
+     {
+      "te": "రవ్వ కేసరి",
+      "en": "Rava Kesari"
+     },
+     {
+      "te": "సేమియా పైనాపిల్ కేసరి",
+      "en": "Semiya Pineapple Kesari"
+     }
+    ],
+    [
+     {
+      "te": "ఇడ్లీ – 3",
+      "en": "Idli – 3"
+     }
+    ],
+    [
+     {
+      "te": "గారెలు – 2",
+      "en": "Garelu – 2"
+     },
+     {
+      "te": "మైసూర్ బజ్జీ – 3",
+      "en": "Mysore Bajji – 3"
+     },
+     {
+      "te": "అరటికాయ బజ్జీ – 3",
+      "en": "Raw Banana Bajji – 3"
+     },
+     {
+      "te": "పునుగులు – 3",
+      "en": "Punugulu – 3"
+     }
+    ],
+    [
+     {
+      "te": "పల్లి–పుట్నాల చట్నీ",
+      "en": "Peanut and Roasted Gram Chutney"
+     }
+    ],
+    [
+     {
+      "te": "అల్లం చట్నీ",
+      "en": "Ginger Chutney"
+     },
+     {
+      "te": "కొబ్బరి చట్నీ",
+      "en": "Coconut Chutney"
+     },
+     {
+      "te": "టమాటా చట్నీ",
+      "en": "Tomato Chutney"
+     },
+     {
+      "te": "పుదీనా చట్నీ",
+      "en": "Mint Chutney"
+     }
+    ],
+    [
+     {
+      "te": "సాంబార్",
+      "en": "Sambar"
+     }
+    ],
+    [
+     {
+      "te": "కారంపొడి",
+      "en": "Karam Podi"
+     }
+    ],
+    [
+     {
+      "te": "నెయ్యి",
+      "en": "Ghee"
+     }
+    ],
+    [
+     {
+      "te": "కాఫీ",
+      "en": "Coffee"
+     }
+    ],
+    [
+     {
+      "te": "టీ",
+      "en": "Tea"
+     }
+    ],
+    [
+     {
+      "te": "ప్లేట్లు",
+      "en": "Plates"
+     }
+    ],
+    [
+     {
+      "te": "గ్లాసులు",
+      "en": "Glasses"
+     }
+    ],
+    [
+     {
+      "te": "కప్పులు మరియు స్పూన్లు",
+      "en": "Cups and Spoons"
+     }
+    ],
+    [
+     {
+      "te": "డస్ట్‌బిన్ కవర్",
+      "en": "Dustbin Cover"
+     }
+    ]
+   ],
+   "pricePerPlate": 130,
+   "transportExtra": true,
+   "minOrder": 30,
+   "servingBoy": {
+    "chargePerPerson": 700,
+    "freeRule": "none"
+   },
+   "freePlates": null,
+   "extras": [],
+   "replacements": [],
+   "pricePolicy": {
+    "fixedMonths": 12,
+    "annualIncreasePerPlate": 10
+   },
+   "chooseOneRule": true,
+   "active": true
+  },
+  {
+   "code": "tiffin-2",
+   "nameTe": "టిఫిన్ మెనూ–2",
+   "nameEn": "Tiffin Menu–2",
+   "mealType": "tiffin",
+   "menuDate": "2025-06-28",
+   "deliveryWindow": "08:00-08:30",
+   "groups": [
+    [
+     {
+      "te": "ఇడ్లీ – 3",
+      "en": "Idli – 3"
+     }
+    ],
+    [
+     {
+      "te": "గారెలు – 2",
+      "en": "Garelu – 2"
+     },
+     {
+      "te": "మైసూర్ బజ్జీ – 3",
+      "en": "Mysore Bajji – 3"
+     },
+     {
+      "te": "అరటికాయ బజ్జీ – 3",
+      "en": "Raw Banana Bajji – 3"
+     },
+     {
+      "te": "పునుగులు – 3",
+      "en": "Punugulu – 3"
+     }
+    ],
+    [
+     {
+      "te": "పల్లి–పుట్నాల చట్నీ",
+      "en": "Peanut and Roasted Gram Chutney"
+     }
+    ],
+    [
+     {
+      "te": "అల్లం చట్నీ",
+      "en": "Ginger Chutney"
+     },
+     {
+      "te": "కొబ్బరి చట్నీ",
+      "en": "Coconut Chutney"
+     },
+     {
+      "te": "టమాటా చట్నీ",
+      "en": "Tomato Chutney"
+     },
+     {
+      "te": "పుదీనా చట్నీ",
+      "en": "Mint Chutney"
+     }
+    ],
+    [
+     {
+      "te": "సాంబార్",
+      "en": "Sambar"
+     }
+    ],
+    [
+     {
+      "te": "కారంపొడి",
+      "en": "Karam Podi"
+     }
+    ],
+    [
+     {
+      "te": "నెయ్యి",
+      "en": "Ghee"
+     }
+    ],
+    [
+     {
+      "te": "కాఫీ",
+      "en": "Coffee"
+     }
+    ],
+    [
+     {
+      "te": "టీ",
+      "en": "Tea"
+     }
+    ],
+    [
+     {
+      "te": "ప్లేట్లు",
+      "en": "Plates"
+     }
+    ],
+    [
+     {
+      "te": "గ్లాసులు",
+      "en": "Glasses"
+     }
+    ],
+    [
+     {
+      "te": "కప్పులు మరియు స్పూన్లు",
+      "en": "Cups and Spoons"
+     }
+    ],
+    [
+     {
+      "te": "డస్ట్‌బిన్ కవర్",
+      "en": "Dustbin Cover"
+     }
+    ]
+   ],
+   "pricePerPlate": 110,
+   "transportExtra": true,
+   "minOrder": 30,
+   "servingBoy": {
+    "chargePerPerson": 700,
+    "freeRule": "none"
+   },
+   "freePlates": null,
+   "extras": [],
+   "replacements": [],
+   "pricePolicy": {
+    "fixedMonths": 12,
+    "annualIncreasePerPlate": 10
+   },
+   "chooseOneRule": true,
+   "active": true
+  },
+  {
+   "code": "tiffin-3",
+   "nameTe": "టిఫిన్ మెనూ–3",
+   "nameEn": "Tiffin Menu–3",
+   "mealType": "tiffin",
+   "menuDate": "2025-06-28",
+   "deliveryWindow": "08:00-08:30",
+   "groups": [
+    [
+     {
+      "te": "రవ్వ కేసరి",
+      "en": "Rava Kesari"
+     },
+     {
+      "te": "సేమియా పైనాపిల్ కేసరి",
+      "en": "Semiya Pineapple Kesari"
+     }
+    ],
+    [
+     {
+      "te": "ఇడ్లీ – 3",
+      "en": "Idli – 3"
+     }
+    ],
+    [
+     {
+      "te": "గారెలు – 2",
+      "en": "Garelu – 2"
+     },
+     {
+      "te": "మైసూర్ బజ్జీ – 3",
+      "en": "Mysore Bajji – 3"
+     },
+     {
+      "te": "అరటికాయ బజ్జీ – 3",
+      "en": "Raw Banana Bajji – 3"
+     },
+     {
+      "te": "పునుగులు – 3",
+      "en": "Punugulu – 3"
+     }
+    ],
+    [
+     {
+      "te": "ఉప్మా",
+      "en": "Upma"
+     },
+     {
+      "te": "పొంగల్",
+      "en": "Pongal"
+     }
+    ],
+    [
+     {
+      "te": "పల్లి–పుట్నాల చట్నీ",
+      "en": "Peanut and Roasted Gram Chutney"
+     }
+    ],
+    [
+     {
+      "te": "అల్లం చట్నీ",
+      "en": "Ginger Chutney"
+     },
+     {
+      "te": "కొబ్బరి చట్నీ",
+      "en": "Coconut Chutney"
+     },
+     {
+      "te": "టమాటా చట్నీ",
+      "en": "Tomato Chutney"
+     },
+     {
+      "te": "పుదీనా చట్నీ",
+      "en": "Mint Chutney"
+     }
+    ],
+    [
+     {
+      "te": "సాంబార్",
+      "en": "Sambar"
+     }
+    ],
+    [
+     {
+      "te": "కారంపొడి",
+      "en": "Karam Podi"
+     }
+    ],
+    [
+     {
+      "te": "నెయ్యి",
+      "en": "Ghee"
+     }
+    ],
+    [
+     {
+      "te": "కాఫీ",
+      "en": "Coffee"
+     }
+    ],
+    [
+     {
+      "te": "టీ",
+      "en": "Tea"
+     }
+    ],
+    [
+     {
+      "te": "ప్లేట్లు",
+      "en": "Plates"
+     }
+    ],
+    [
+     {
+      "te": "గ్లాసులు",
+      "en": "Glasses"
+     }
+    ],
+    [
+     {
+      "te": "కప్పులు మరియు స్పూన్లు",
+      "en": "Cups and Spoons"
+     }
+    ],
+    [
+     {
+      "te": "డస్ట్‌బిన్ కవర్",
+      "en": "Dustbin Cover"
+     }
+    ]
+   ],
+   "pricePerPlate": 150,
+   "transportExtra": true,
+   "minOrder": 30,
+   "servingBoy": {
+    "chargePerPerson": 700,
+    "freeRule": "none"
+   },
+   "freePlates": null,
+   "extras": [],
+   "replacements": [],
+   "pricePolicy": {
+    "fixedMonths": 12,
+    "annualIncreasePerPlate": 10
+   },
+   "chooseOneRule": true,
+   "active": true
+  },
+  {
+   "code": "tiffin-4",
+   "nameTe": "టిఫిన్ మెనూ–4",
+   "nameEn": "Tiffin Menu–4",
+   "mealType": "tiffin",
+   "menuDate": "2025-06-28",
+   "deliveryWindow": "08:00-08:30",
+   "groups": [
+    [
+     {
+      "te": "ఇడ్లీ – 3",
+      "en": "Idli – 3"
+     }
+    ],
+    [
+     {
+      "te": "గారెలు – 2",
+      "en": "Garelu – 2"
+     },
+     {
+      "te": "మైసూర్ బజ్జీ – 3",
+      "en": "Mysore Bajji – 3"
+     },
+     {
+      "te": "అరటికాయ బజ్జీ – 3",
+      "en": "Raw Banana Bajji – 3"
+     },
+     {
+      "te": "పునుగులు – 3",
+      "en": "Punugulu – 3"
+     }
+    ],
+    [
+     {
+      "te": "ఉప్మా",
+      "en": "Upma"
+     },
+     {
+      "te": "పొంగల్",
+      "en": "Pongal"
+     }
+    ],
+    [
+     {
+      "te": "పల్లి–పుట్నాల చట్నీ",
+      "en": "Peanut and Roasted Gram Chutney"
+     }
+    ],
+    [
+     {
+      "te": "అల్లం చట్నీ",
+      "en": "Ginger Chutney"
+     },
+     {
+      "te": "కొబ్బరి చట్నీ",
+      "en": "Coconut Chutney"
+     },
+     {
+      "te": "టమాటా చట్నీ",
+      "en": "Tomato Chutney"
+     },
+     {
+      "te": "పుదీనా చట్నీ",
+      "en": "Mint Chutney"
+     }
+    ],
+    [
+     {
+      "te": "సాంబార్",
+      "en": "Sambar"
+     }
+    ],
+    [
+     {
+      "te": "కారంపొడి",
+      "en": "Karam Podi"
+     }
+    ],
+    [
+     {
+      "te": "నెయ్యి",
+      "en": "Ghee"
+     }
+    ],
+    [
+     {
+      "te": "కాఫీ",
+      "en": "Coffee"
+     }
+    ],
+    [
+     {
+      "te": "టీ",
+      "en": "Tea"
+     }
+    ],
+    [
+     {
+      "te": "ప్లేట్లు",
+      "en": "Plates"
+     }
+    ],
+    [
+     {
+      "te": "గ్లాసులు",
+      "en": "Glasses"
+     }
+    ],
+    [
+     {
+      "te": "కప్పులు మరియు స్పూన్లు",
+      "en": "Cups and Spoons"
+     }
+    ],
+    [
+     {
+      "te": "డస్ట్‌బిన్ కవర్",
+      "en": "Dustbin Cover"
+     }
+    ]
+   ],
+   "pricePerPlate": 130,
+   "transportExtra": true,
+   "minOrder": 30,
+   "servingBoy": {
+    "chargePerPerson": 700,
+    "freeRule": "none"
+   },
+   "freePlates": null,
+   "extras": [],
+   "replacements": [],
+   "pricePolicy": {
+    "fixedMonths": 12,
+    "annualIncreasePerPlate": 10
+   },
+   "chooseOneRule": true,
+   "active": true
+  },
+  {
+   "code": "tiffin-5",
+   "nameTe": "టిఫిన్ మెనూ–5",
+   "nameEn": "Tiffin Menu–5",
+   "mealType": "tiffin",
+   "menuDate": "2024-02-11",
+   "deliveryWindow": "08:00-08:30",
+   "groups": [
+    [
+     {
+      "te": "టమాటా బాత్",
+      "en": "Tomato Bath"
+     }
+    ],
+    [
+     {
+      "te": "పల్లి–పుట్నాల చట్నీ",
+      "en": "Peanut and Roasted Gram Chutney"
+     }
+    ],
+    [
+     {
+      "te": "అల్లం చట్నీ",
+      "en": "Ginger Chutney"
+     },
+     {
+      "te": "కొబ్బరి చట్నీ",
+      "en": "Coconut Chutney"
+     },
+     {
+      "te": "టమాటా చట్నీ",
+      "en": "Tomato Chutney"
+     },
+     {
+      "te": "పుదీనా చట్నీ",
+      "en": "Mint Chutney"
+     }
+    ],
+    [
+     {
+      "te": "కాఫీ",
+      "en": "Coffee"
+     }
+    ],
+    [
+     {
+      "te": "టీ",
+      "en": "Tea"
+     }
+    ],
+    [
+     {
+      "te": "ప్లేట్లు",
+      "en": "Plates"
+     }
+    ],
+    [
+     {
+      "te": "గ్లాసులు",
+      "en": "Glasses"
+     }
+    ],
+    [
+     {
+      "te": "కప్పులు మరియు స్పూన్లు",
+      "en": "Cups and Spoons"
+     }
+    ],
+    [
+     {
+      "te": "డస్ట్‌బిన్ కవర్",
+      "en": "Dustbin Cover"
+     }
+    ]
+   ],
+   "pricePerPlate": 80,
+   "transportExtra": true,
+   "minOrder": 40,
+   "servingBoy": {
+    "chargePerPerson": 700,
+    "freeRule": "none"
+   },
+   "freePlates": null,
+   "extras": [],
+   "replacements": [],
+   "pricePolicy": {
+    "fixedMonths": 12,
+    "annualIncreasePerPlate": 10
+   },
+   "chooseOneRule": true,
+   "active": true
+  },
+  {
+   "code": "dinner-1",
+   "nameTe": "డిన్నర్ మెనూ–1 (స్వీట్‌తో)",
+   "nameEn": "Dinner Menu–1 (with sweet)",
+   "mealType": "dinner",
+   "menuDate": null,
+   "deliveryWindow": "19:00-19:30",
+   "groups": [
+    [
+     {
+      "te": "రవ్వ కేసరి",
+      "en": "Rava Kesari"
+     },
+     {
+      "te": "సేమియా పైనాపిల్ కేసరి",
+      "en": "Semiya Pineapple Kesari"
+     },
+     {
+      "te": "స్పెషల్ పాయసం",
+      "en": "Special Payasam"
+     }
+    ],
+    [
+     {
+      "te": "పుల్కా – 2",
+      "en": "Pulka – 2"
+     },
+     {
+      "te": "చపాతీ – 2",
+      "en": "Chapati – 2"
+     },
+     {
+      "te": "రుమాలి రోటీ – 2",
+      "en": "Rumali Roti – 2"
+     }
+    ],
+    [
+     {
+      "te": "చోలే మసాలా కర్రీ",
+      "en": "Chole Masala Curry"
+     },
+     {
+      "te": "ఆలూ టమాటా కర్రీ",
+      "en": "Aloo Tomato Curry"
+     },
+     {
+      "te": "మిక్స్‌డ్ వెజిటబుల్ కర్రీ",
+      "en": "Mixed Vegetable Curry"
+     }
+    ],
+    [
+     {
+      "te": "పిండి పులిహోర",
+      "en": "Pindi Pulihora"
+     },
+     {
+      "te": "ఉప్పిడి పిండి (వరి నూక ఉప్మా)",
+      "en": "Uppidi Pindi (Rice Rava Upma)"
+     }
+    ],
+    [
+     {
+      "te": "మజ్జిగ",
+      "en": "Buttermilk"
+     }
+    ],
+    [
+     {
+      "te": "ప్లేట్లు",
+      "en": "Plates"
+     }
+    ],
+    [
+     {
+      "te": "గ్లాసులు",
+      "en": "Glasses"
+     }
+    ],
+    [
+     {
+      "te": "కప్పులు మరియు స్పూన్లు",
+      "en": "Cups and Spoons"
+     }
+    ],
+    [
+     {
+      "te": "డస్ట్‌బిన్ కవర్",
+      "en": "Dustbin Cover"
+     }
+    ]
+   ],
+   "pricePerPlate": 140,
+   "transportExtra": true,
+   "minOrder": 40,
+   "servingBoy": {
+    "chargePerPerson": 700,
+    "freeRule": "none"
+   },
+   "freePlates": null,
+   "extras": [],
+   "replacements": [],
+   "pricePolicy": {
+    "fixedMonths": 12,
+    "annualIncreasePerPlate": 10
+   },
+   "chooseOneRule": true,
+   "active": true
+  },
+  {
+   "code": "dinner-2",
+   "nameTe": "డిన్నర్ మెనూ–2 (స్వీట్‌తో)",
+   "nameEn": "Dinner Menu–2 (with sweet)",
+   "mealType": "dinner",
+   "menuDate": null,
+   "deliveryWindow": "19:00-19:30",
+   "groups": [
+    [
+     {
+      "te": "రవ్వ కేసరి",
+      "en": "Rava Kesari"
+     },
+     {
+      "te": "సేమియా పైనాపిల్ కేసరి",
+      "en": "Semiya Pineapple Kesari"
+     },
+     {
+      "te": "స్పెషల్ పాయసం",
+      "en": "Special Payasam"
+     }
+    ],
+    [
+     {
+      "te": "పుల్కా – 3",
+      "en": "Pulka – 3"
+     },
+     {
+      "te": "చపాతీ – 3",
+      "en": "Chapati – 3"
+     },
+     {
+      "te": "రుమాలి రోటీ – 3",
+      "en": "Rumali Roti – 3"
+     }
+    ],
+    [
+     {
+      "te": "చోలే మసాలా కర్రీ",
+      "en": "Chole Masala Curry"
+     },
+     {
+      "te": "ఆలూ టమాటా కర్రీ",
+      "en": "Aloo Tomato Curry"
+     },
+     {
+      "te": "మిక్స్‌డ్ వెజిటబుల్ కర్రీ",
+      "en": "Mixed Vegetable Curry"
+     }
+    ],
+    [
+     {
+      "te": "ప్లేట్లు",
+      "en": "Plates"
+     }
+    ],
+    [
+     {
+      "te": "గ్లాసులు",
+      "en": "Glasses"
+     }
+    ],
+    [
+     {
+      "te": "కప్పులు మరియు స్పూన్లు",
+      "en": "Cups and Spoons"
+     }
+    ],
+    [
+     {
+      "te": "డస్ట్‌బిన్ కవర్",
+      "en": "Dustbin Cover"
+     }
+    ]
+   ],
+   "pricePerPlate": 100,
+   "transportExtra": true,
+   "minOrder": 40,
+   "servingBoy": {
+    "chargePerPerson": 700,
+    "freeRule": "none"
+   },
+   "freePlates": null,
+   "extras": [],
+   "replacements": [],
+   "pricePolicy": {
+    "fixedMonths": 12,
+    "annualIncreasePerPlate": 10
+   },
+   "chooseOneRule": true,
+   "active": true
+  },
+  {
+   "code": "dinner-3",
+   "nameTe": "డిన్నర్ మెనూ–3 (స్వీట్ లేకుండా)",
+   "nameEn": "Dinner Menu–3 (without sweet)",
+   "mealType": "dinner",
+   "menuDate": null,
+   "deliveryWindow": "19:00-19:30",
+   "groups": [
+    [
+     {
+      "te": "పుల్కా – 2",
+      "en": "Pulka – 2"
+     },
+     {
+      "te": "చపాతీ – 2",
+      "en": "Chapati – 2"
+     },
+     {
+      "te": "రుమాలి రోటీ – 2",
+      "en": "Rumali Roti – 2"
+     }
+    ],
+    [
+     {
+      "te": "చోలే మసాలా కర్రీ",
+      "en": "Chole Masala Curry"
+     },
+     {
+      "te": "ఆలూ టమాటా కర్రీ",
+      "en": "Aloo Tomato Curry"
+     },
+     {
+      "te": "మిక్స్‌డ్ వెజిటబుల్ కర్రీ",
+      "en": "Mixed Vegetable Curry"
+     }
+    ],
+    [
+     {
+      "te": "పిండి పులిహోర",
+      "en": "Pindi Pulihora"
+     },
+     {
+      "te": "ఉప్పిడి పిండి (వరి నూక ఉప్మా)",
+      "en": "Uppidi Pindi (Rice Rava Upma)"
+     }
+    ],
+    [
+     {
+      "te": "మజ్జిగ",
+      "en": "Buttermilk"
+     }
+    ],
+    [
+     {
+      "te": "ప్లేట్లు",
+      "en": "Plates"
+     }
+    ],
+    [
+     {
+      "te": "గ్లాసులు",
+      "en": "Glasses"
+     }
+    ],
+    [
+     {
+      "te": "కప్పులు మరియు స్పూన్లు",
+      "en": "Cups and Spoons"
+     }
+    ],
+    [
+     {
+      "te": "డస్ట్‌బిన్ కవర్",
+      "en": "Dustbin Cover"
+     }
+    ]
+   ],
+   "pricePerPlate": 120,
+   "transportExtra": true,
+   "minOrder": 40,
+   "servingBoy": {
+    "chargePerPerson": 700,
+    "freeRule": "none"
+   },
+   "freePlates": null,
+   "extras": [],
+   "replacements": [],
+   "pricePolicy": {
+    "fixedMonths": 12,
+    "annualIncreasePerPlate": 10
+   },
+   "chooseOneRule": true,
+   "active": true
+  },
+  {
+   "code": "lunch-1",
+   "nameTe": "లంచ్ మెనూ",
+   "nameEn": "Lunch Menu",
+   "mealType": "lunch",
+   "menuDate": "2026-08-24",
+   "deliveryWindow": "12:00-12:30",
+   "groups": [
+    [
+     {
+      "te": "పూర్ణం బూరెలు",
+      "en": "Poornam Boorelu"
+     },
+     {
+      "te": "సేమియా పైనాపిల్ కేసరి",
+      "en": "Semiya Pineapple Kesari"
+     },
+     {
+      "te": "చక్కెర పొంగలి",
+      "en": "Chakkara Pongali"
+     },
+     {
+      "te": "స్పెషల్ పాయసం",
+      "en": "Special Payasam"
+     }
+    ],
+    [
+     {
+      "te": "పులిహార",
+      "en": "Pulihora"
+     }
+    ],
+    [
+     {
+      "te": "మిరపకాయ బజ్జీ",
+      "en": "Mirchi Bajji"
+     },
+     {
+      "te": "అరటికాయ బజ్జీ",
+      "en": "Raw Banana Bajji"
+     },
+     {
+      "te": "ఆలూ బజ్జీ",
+      "en": "Aloo Bajji"
+     }
+    ],
+    [
+     {
+      "te": "మామిడికాయ పప్పు",
+      "en": "Raw Mango Dal"
+     },
+     {
+      "te": "టమాటా పప్పు",
+      "en": "Tomato Dal"
+     },
+     {
+      "te": "పాలకూర పప్పు",
+      "en": "Spinach Dal"
+     }
+    ],
+    [
+     {
+      "te": "వంకాయ ధనియాల కారం",
+      "en": "Brinjal Coriander Masala"
+     }
+    ],
+    [
+     {
+      "te": "ఆలూ లెమన్",
+      "en": "Aloo Lemon Curry"
+     },
+     {
+      "te": "అరటికాయ ముద్దకూర",
+      "en": "Raw Banana Mudda Curry"
+     },
+     {
+      "te": "కంద బచ్చలి కూర",
+      "en": "Yam and Malabar Spinach Curry"
+     }
+    ],
+    [
+     {
+      "te": "క్యాబేజీ పకోడా",
+      "en": "Cabbage Pakoda"
+     },
+     {
+      "te": "ఆలూ 65",
+      "en": "Aloo 65"
+     },
+     {
+      "te": "బెండకాయ పకోడా",
+      "en": "Okra Pakoda"
+     }
+    ],
+    [
+     {
+      "te": "వైట్ రైస్",
+      "en": "White Rice"
+     }
+    ],
+    [
+     {
+      "te": "కంది పొడి",
+      "en": "Toor Dal Powder"
+     }
+    ],
+    [
+     {
+      "te": "కరివేపాకు పొడి",
+      "en": "Curry Leaf Powder"
+     }
+    ],
+    [
+     {
+      "te": "నెయ్యి",
+      "en": "Ghee"
+     }
+    ],
+    [
+     {
+      "te": "చిట్టి ఆవకాయ",
+      "en": "Chitti Avakaya"
+     },
+     {
+      "te": "దోస ఆవకాయ",
+      "en": "Cucumber Avakaya"
+     },
+     {
+      "te": "గోంగూర పచ్చడి",
+      "en": "Gongura Pickle"
+     }
+    ],
+    [
+     {
+      "te": "రోటీ పచ్చడి",
+      "en": "Traditional Roti Chutney"
+     }
+    ],
+    [
+     {
+      "te": "సాంబారు",
+      "en": "Sambar"
+     },
+     {
+      "te": "ముక్కల పులుసు",
+      "en": "Vegetable Pulusu"
+     },
+     {
+      "te": "మజ్జిగ పులుసు",
+      "en": "Majjiga Pulusu"
+     }
+    ],
+    [
+     {
+      "te": "పెరుగు",
+      "en": "Curd"
+     }
+    ],
+    [
+     {
+      "te": "చిప్స్",
+      "en": "Chips"
+     },
+     {
+      "te": "చిట్టి అప్పడాలు",
+      "en": "Mini Papads"
+     },
+     {
+      "te": "చల్ల మిరపకాయలు",
+      "en": "Curd Chillies"
+     }
+    ],
+    [
+     {
+      "te": "ప్లేట్లు",
+      "en": "Plates"
+     }
+    ],
+    [
+     {
+      "te": "వాటర్ గ్లాసులు",
+      "en": "Water Glasses"
+     }
+    ],
+    [
+     {
+      "te": "డస్ట్‌బిన్ కవర్లు మరియు టిష్యూస్",
+      "en": "Dustbin Covers and Tissues"
+     }
+    ]
+   ],
+   "pricePerPlate": 290,
+   "transportExtra": true,
+   "minOrder": 50,
+   "servingBoy": {
+    "chargePerPerson": 700,
+    "freeRule": "per50"
+   },
+   "freePlates": {
+    "perPlates": 50,
+    "extraPlates": 5
+   },
+   "extras": [
+    {
+     "te": "250 ml వాటర్ బాటిల్",
+     "en": "250 ml Water Bottle",
+     "price": 15,
+     "key": "water250"
+    },
+    {
+     "te": "ఐస్‌క్రీమ్",
+     "en": "Ice Cream",
+     "price": 15,
+     "key": "icecream"
+    },
+    {
+     "te": "స్వీట్ పాన్",
+     "en": "Sweet Paan",
+     "price": 20,
+     "key": "sweetpan"
+    },
+    {
+     "te": "కూలింగ్ వాటర్ క్యాన్",
+     "en": "Cooling Water Can",
+     "price": 70,
+     "key": "watercan"
+    },
+    {
+     "te": "అదనపు స్వీట్",
+     "en": "Extra Sweet",
+     "price": null,
+     "key": "extrasweet"
+    }
+   ],
+   "replacements": [
+    {
+     "te": "బొబ్బట్టు",
+     "en": "Bobbatlu",
+     "extraPerPlate": 10,
+     "key": "bobbatlu"
+    },
+    {
+     "te": "పనసపొట్టు కూర",
+     "en": "Panasapottu Curry",
+     "extraPerPlate": 20,
+     "key": "panasapottu"
+    }
+   ],
+   "pricePolicy": {
+    "fixedMonths": 12,
+    "annualIncreasePerPlate": 10
+   },
+   "chooseOneRule": true,
+   "active": true
+  },
+  {
+   "code": "lunch-dinner-1",
+   "nameTe": "లంచ్ / డిన్నర్ మెనూ",
+   "nameEn": "Lunch / Dinner Menu",
+   "mealType": "lunch-dinner",
+   "menuDate": "2026-08-24",
+   "deliveryWindow": "12:00-12:30 | 18:30-19:30",
+   "groups": [
+    [
+     {
+      "te": "పూర్ణం బూరెలు",
+      "en": "Poornam Boorelu"
+     },
+     {
+      "te": "స్పెషల్ పాయసం",
+      "en": "Special Payasam"
+     },
+     {
+      "te": "సేమియా పైనాపిల్ కేసరి",
+      "en": "Semiya Pineapple Kesari"
+     },
+     {
+      "te": "కాలా జామున్",
+      "en": "Kala Jamun"
+     },
+     {
+      "te": "బొబ్బట్టు",
+      "en": "Bobbatlu"
+     }
+    ],
+    [
+     {
+      "te": "మిరపకాయ బజ్జీ",
+      "en": "Mirchi Bajji"
+     },
+     {
+      "te": "అరటికాయ బజ్జీ",
+      "en": "Raw Banana Bajji"
+     },
+     {
+      "te": "మసాలా వడ",
+      "en": "Masala Vada"
+     }
+    ],
+    [
+     {
+      "te": "వెజిటేబుల్ పలావ్ (బాస్మతి)",
+      "en": "Vegetable Pulao (Basmati)"
+     },
+     {
+      "te": "బగారా రైస్ (బాస్మతి)",
+      "en": "Bagara Rice (Basmati)"
+     }
+    ],
+    [
+     {
+      "te": "ఆనియన్ రైతా",
+      "en": "Onion Raita"
+     },
+     {
+      "te": "కీరా క్యారెట్ రైతా",
+      "en": "Cucumber Carrot Raita"
+     }
+    ],
+    [
+     {
+      "te": "రుమాలి రోటీ",
+      "en": "Rumali Roti"
+     },
+     {
+      "te": "పుల్కా",
+      "en": "Pulka"
+     }
+    ],
+    [
+     {
+      "te": "పనీర్ బటర్ మసాలా",
+      "en": "Paneer Butter Masala"
+     }
+    ],
+    [
+     {
+      "te": "వంకాయ ధనియాల కారం",
+      "en": "Brinjal Coriander Masala"
+     },
+     {
+      "te": "వంకాయ మసాలా కర్రీ",
+      "en": "Brinjal Masala Curry"
+     },
+     {
+      "te": "మునక్కాడ టమాటా కర్రీ",
+      "en": "Drumstick Tomato Curry"
+     },
+     {
+      "te": "నవరత్న కుర్మా",
+      "en": "Navaratna Kurma"
+     },
+     {
+      "te": "ఆలూ మటర్ మసాలా కర్రీ",
+      "en": "Aloo Matar Masala Curry"
+     }
+    ],
+    [
+     {
+      "te": "క్యాబేజీ పకోడా",
+      "en": "Cabbage Pakoda"
+     },
+     {
+      "te": "ఆలూ 65",
+      "en": "Aloo 65"
+     },
+     {
+      "te": "బెండకాయ పకోడా",
+      "en": "Okra Pakoda"
+     },
+     {
+      "te": "దొండకాయ కారప్పూస",
+      "en": "Ivy Gourd Karappusa"
+     },
+     {
+      "te": "బెండకాయ బూందీ",
+      "en": "Okra Boondi"
+     }
+    ],
+    [
+     {
+      "te": "మామిడికాయ పప్పు",
+      "en": "Raw Mango Dal"
+     },
+     {
+      "te": "టమాటా పప్పు",
+      "en": "Tomato Dal"
+     },
+     {
+      "te": "పాలకూర పప్పు",
+      "en": "Spinach Dal"
+     }
+    ],
+    [
+     {
+      "te": "వైట్ రైస్",
+      "en": "White Rice"
+     }
+    ],
+    [
+     {
+      "te": "కంది పొడి",
+      "en": "Toor Dal Powder"
+     },
+     {
+      "te": "కరివేపాకు పొడి",
+      "en": "Curry Leaf Powder"
+     }
+    ],
+    [
+     {
+      "te": "గోంగూర పచ్చడి",
+      "en": "Gongura Pickle"
+     },
+     {
+      "te": "చిట్టి ఆవకాయ",
+      "en": "Chitti Avakaya"
+     },
+     {
+      "te": "దోస ఆవకాయ",
+      "en": "Cucumber Avakaya"
+     }
+    ],
+    [
+     {
+      "te": "బీరకాయ రోటీ పచ్చడి",
+      "en": "Ridge Gourd Roti Chutney"
+     }
+    ],
+    [
+     {
+      "te": "నెయ్యి",
+      "en": "Ghee"
+     }
+    ],
+    [
+     {
+      "te": "సాంబారు",
+      "en": "Sambar"
+     },
+     {
+      "te": "ముక్కల పులుసు",
+      "en": "Vegetable Pulusu"
+     },
+     {
+      "te": "మజ్జిగ పులుసు",
+      "en": "Majjiga Pulusu"
+     }
+    ],
+    [
+     {
+      "te": "చిట్టి అప్పడాలు",
+      "en": "Mini Papads"
+     },
+     {
+      "te": "చిప్స్",
+      "en": "Chips"
+     },
+     {
+      "te": "చల్ల మిరపకాయలు",
+      "en": "Curd Chillies"
+     }
+    ],
+    [
+     {
+      "te": "పెరుగు",
+      "en": "Curd"
+     }
+    ],
+    [
+     {
+      "te": "పెద్ద ప్లేట్లు (13 అంగుళాలు)",
+      "en": "Big Plates (13 inch)"
+     }
+    ],
+    [
+     {
+      "te": "వాటర్ గ్లాసులు",
+      "en": "Water Glasses"
+     }
+    ],
+    [
+     {
+      "te": "250 ml వాటర్ బాటిల్",
+      "en": "250 ml Water Bottle"
+     }
+    ],
+    [
+     {
+      "te": "స్వీట్ పాన్",
+      "en": "Sweet Paan"
+     }
+    ],
+    [
+     {
+      "te": "ఐస్‌క్రీమ్ – వెనీలా",
+      "en": "Ice Cream – Vanilla"
+     },
+     {
+      "te": "ఐస్‌క్రీమ్ – స్ట్రాబెర్రీ",
+      "en": "Ice Cream – Strawberry"
+     },
+     {
+      "te": "ఐస్‌క్రీమ్ – బటర్‌స్కాచ్",
+      "en": "Ice Cream – Butterscotch"
+     }
+    ],
+    [
+     {
+      "te": "డస్ట్‌బిన్ కవర్లు",
+      "en": "Dustbin Covers"
+     }
+    ],
+    [
+     {
+      "te": "టిష్యూస్, కప్పులు మరియు స్పూన్లు",
+      "en": "Tissues, Cups and Spoons"
+     }
+    ],
+    [
+     {
+      "te": "కూలింగ్ వాటర్ క్యాన్",
+      "en": "Cooling Water Can"
+     }
+    ]
+   ],
+   "pricePerPlate": 360,
+   "transportExtra": true,
+   "minOrder": 80,
+   "servingBoy": {
+    "chargePerPerson": 700,
+    "freeRule": "per50"
+   },
+   "freePlates": {
+    "perPlates": 50,
+    "extraPlates": 5
+   },
+   "extras": [
+    {
+     "te": "అదనపు స్వీట్",
+     "en": "Extra Sweet",
+     "price": null,
+     "key": "extrasweet"
+    }
+   ],
+   "replacements": [
+    {
+     "te": "పనసపొట్టు కూర",
+     "en": "Panasapottu Curry",
+     "extraPerPlate": 20,
+     "key": "panasapottu"
+    }
+   ],
+   "pricePolicy": {
+    "fixedMonths": 12,
+    "annualIncreasePerPlate": 10
+   },
+   "chooseOneRule": true,
+   "active": true
+  }
+ ]
+}

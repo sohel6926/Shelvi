@@ -1,0 +1,19 @@
+{
+ "Non-Veg": "मांसाहारी",
+ "Main Course": "मुख्य व्यंजन",
+ "Dessert": "मिठाई",
+ "Package": "पैकेज",
+ "Starter": "स्टार्टर",
+ "Beverage": "पेय",
+ "Enter a valid price per plate": "प्रति प्लेट सही कीमत लिखें",
+ "Could not save. Only admins can change the menu.": "सेव नहीं हुआ। मेन्यू केवल मालिक बदल सकते हैं।",
+ "Edit Menu Item": "मेन्यू आइटम बदलें",
+ "New Menu Item": "नया मेन्यू आइटम",
+ "Price per plate (₹)": "प्रति प्लेट कीमत (₹)",
+ "Active (shown when making bookings)": "चालू (बुकिंग बनाते समय दिखेगा)",
+ "Saving...": "सेव हो रहा है...",
+ "/plate": "/प्लेट",
+ "Payment is held on these bills (they do not match their order) — correct the bill or have the owner release it first:": "इन बिलों का भुगतान रुका है (ऑर्डर से मेल नहीं खाते) — पहले बिल ठीक करें या मालिक से छुड़वाएँ:",
+ "Held (bill mismatch)": "रुका हुआ (बिल में अंतर)",
+ "Held": "रुका"
+}

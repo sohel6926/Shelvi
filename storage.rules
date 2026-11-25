@@ -1,0 +1,119 @@
+rules_version = '2';
+
+// =====================================================================================
+// Suseela Caterings CRM — Cloud Storage security rules
+//
+// Same roles as firestore.rules (users/{uid}: role, active, branchId).  The user doc is
+// read ONCE per request (profile() is passed into the checks) to stay inside the
+// cross-service read limit.  Default: deny.  Cloud Functions (Admin SDK) bypass these
+// rules — the nightly backup writes to backups/ that way.
+// =====================================================================================
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function profile() {
+      return firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isActive(u) {
+      return u.get('active', false) == true;
+    }
+
+    function isAdmin(u) {
+      return u.get('role', '') == 'admin';
+    }
+
+    function isManager(u) {
+      return isActive(u) && u.get('role', '') == 'manager';
+    }
+
+    function isAdminOrManager(u) {
+      return isAdmin(u) || isManager(u);
+    }
+
+    function isActiveOrAdmin(u) {
+      return isActive(u) || isAdmin(u);
+    }
+
+    // Admin: any branch.  Everyone else (active manager / staff): only their own branch.
+    function canUseBranch(u, branchId) {
+      return isAdmin(u)
+          || (isActive(u) && u.get('branchId', '') != '' && u.get('branchId', '') == branchId);
+    }
+
+    function isImageUnder(maxMb) {
+      return request.resource.size < maxMb * 1024 * 1024
+          && request.resource.contentType != null
+          && request.resource.contentType.matches('image/.*');
+    }
+
+    // ---------------------------------------------------------- bill / receipt photos (branch-scoped)
+
+    match /expenses/{branchId}/{filePath=**} {
+      allow read: if request.auth != null && canUseBranch(profile(), branchId);
+      allow create: if request.auth != null && isImageUnder(5) && canUseBranch(profile(), branchId);
+      allow update, delete: if request.auth != null && isAdmin(profile());
+    }
+
+    match /purchases/{branchId}/{filePath=**} {
+      allow read: if request.auth != null && canUseBranch(profile(), branchId);
+      allow create: if request.auth != null && isImageUnder(5) && canUseBranch(profile(), branchId);
+      allow update, delete: if request.auth != null && isAdmin(profile());
+    }
+
+    // LEGACY flat paths still used by the current Android build
+    // (PurchaseEditViewModel -> purchase_bills/, ExpenseEntryViewModel -> expense_receipts/).
+    // Create-only (no overwrite/delete by clients).  Remove once the app uploads to
+    // expenses/{branchId}/ and purchases/{branchId}/.
+    match /purchase_bills/{fileName} {
+      allow read: if request.auth != null && isActiveOrAdmin(profile());
+      allow create: if request.auth != null && isImageUnder(10) && isActiveOrAdmin(profile());
+      allow delete: if request.auth != null && isAdmin(profile());
+    }
+
+    match /expense_receipts/{fileName} {
+      allow read: if request.auth != null && isActiveOrAdmin(profile());
+      allow create: if request.auth != null && isImageUnder(10) && isActiveOrAdmin(profile());
+      allow delete: if request.auth != null && isAdmin(profile());
+    }
+
+    // ---------------------------------------------------------- business assets
+
+    // Logo, signature (setup wizard): admin (owner) only writes, approved users read.
+    match /settings/{filePath=**} {
+      allow read: if request.auth != null && isActiveOrAdmin(profile());
+      allow create, update: if request.auth != null && isImageUnder(5) && isAdmin(profile());
+      allow delete: if request.auth != null && isAdmin(profile());
+    }
+
+    // Food / gallery photos and menu photos ("Manager uploads", docs/api-contract.md):
+    // admin or an active manager uploads new images (< 5 MB); only admin replaces or deletes;
+    // approved users read.
+    match /gallery/{filePath=**} {
+      allow read: if request.auth != null && isActiveOrAdmin(profile());
+      allow create: if request.auth != null && isImageUnder(5) && isAdminOrManager(profile());
+      allow update: if request.auth != null && isImageUnder(5) && isAdmin(profile());
+      allow delete: if request.auth != null && isAdmin(profile());
+    }
+
+    match /menus/{filePath=**} {
+      allow read: if request.auth != null && isActiveOrAdmin(profile());
+      allow create: if request.auth != null && isImageUnder(5) && isAdminOrManager(profile());
+      allow update: if request.auth != null && isImageUnder(5) && isAdmin(profile());
+      allow delete: if request.auth != null && isAdmin(profile());
+    }
+
+    // ---------------------------------------------------------- server only
+
+    // Nightly backups — no client access at all (written by the backup function).
+    match /backups/{filePath=**} {
+      allow read, write: if false;
+    }
+
+    // Default deny for every other path.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

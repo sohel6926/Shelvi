@@ -1,0 +1,2325 @@
+                                   CATERING CRM + ERP
+           COMPLETE IMPLEMENTATION FREEZE PACK
+                           DSRF + PRF + CRF + UIF + API + RRF + TAF + Security / Reliability
+
+  Status                             FROZEN IMPLEMENTATION BLUEPRINT
+
+  Prerequisites                      CMF master-data freeze and TWF transaction-workflow freeze already established.
+
+  Scope                              Database schema, relationships, permissions, calculations, screens, API contract, reports, tests,
+                                     security, offline, backup and go-live acceptance.
+
+  No-Assumption Rule                 No business-specific rate, rupee limit, percentage, tax interpretation, deadline or approval threshold
+                                     is invented. Unknown values are marked OWNER CONFIGURATION REQUIRED.
+
+  Goal                               Make the architecture implementation-ready without repeatedly asking the owner for every
+                                     unresolved configuration value.
+
+
+ Freeze meaning: structure, relationships, workflow boundaries, calculation definitions, permission principles and
+ screen/API/report contracts are locked. Business-specific values remain configurable until supplied by the owner.
+
+
+ PACK CONTENTS
+  Part            Freeze
+
+  A               DSRF - Database Schema & Relationship Freeze
+
+  B               PRF - Permission & Role Freeze
+
+  C               CRF - Calculation Rules Freeze
+
+  D               UIF - Screen / UI Freeze
+
+  E               APIF - API Contract Freeze
+
+  F               RRF - Report & Analytics Freeze
+
+  G               TAF - Testing & Acceptance Freeze
+
+  H               SRF - Security, Offline, Backup & Reliability Freeze
+
+  I               Owner Configuration Register & Final Freeze Status
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                                      Page 1
+                                              PART A - DSRF
+                                           Database Schema & Relationship Freeze
+
+ DSRF STATUS: FROZEN
+
+
+ A1. Database Design Principles
+ 1. One authoritative database serves web, mobile and reporting; no duplicate business database.
+
+ 2. Every business entity has an immutable internal primary key. Human-readable codes are separate display identifiers.
+
+ 3. Foreign keys enforce ownership relationships; important relationships are not stored only as free text.
+
+ 4. Transactional history is not hard-deleted through normal application workflows.
+
+ 5. Stock balances, customer outstanding, vendor payable and P&L; are derived from authoritative transactions or controlled
+ materialized summaries, not manually maintained totals.
+
+ 6. Every event-related operational/financial row links to Event ID and Meal Session when applicable; general costs use an
+ approved Overhead/Cost Centre.
+
+ 7. Standard, estimated and actual costing data are stored separately.
+
+ 8. Commercial and operational snapshots preserve historical values after master data changes.
+
+ 9. Concurrency-sensitive reservations/confirmations use database transactions and uniqueness/locking controls.
+
+ 10. Audit and approval history are append-oriented and cannot be silently replaced.
+
+
+ A2. Naming & Key Conventions
+  Convention                       Frozen Rule
+
+  Primary key                      UUID/opaque internal ID recommended; never business name as key.
+
+  Display code                     Human-readable unique code, e.g. CUS-000001, EVT-000001; format configurable.
+
+  Foreign key                      _id pattern in logical model.
+
+  Money                            Fixed decimal numeric type; never binary floating point.
+
+  Quantity                         Decimal numeric with UOM.
+
+  Date/time                        Store timestamp with timezone handling; event local timezone preserved.
+
+  Status                           Controlled enumerated/reference value; not arbitrary free text.
+
+  Soft lifecycle                   status / inactive_at / archived_at instead of normal hard delete.
+
+  Versioning                       version_no + effective timestamp + previous/reference where history is required.
+
+  Audit stamps                     created_at/by, updated_at/by; sensitive changes additionally in audit log.
+
+
+
+ A3. Organization & Location Schema
+  Logical Table                         Purpose
+
+  company                               Legal/accounting parent.
+
+  brand                                 Customer-facing business identity; belongs to company.
+
+  branch                                Operational location/cost centre.
+
+  brand_branch                          Many-to-many permission for approved brand use of shared branch.
+
+  kitchen                               Production unit under branch.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                     Page 2
+  Logical Table                        Purpose
+
+  kitchen_section                      Rice/curry/prep/packing/etc. section under kitchen.
+
+  store                                Inventory holding location under branch; kitchen link optional.
+
+  stock_location                       Store zone/rack/shelf/bin plus logical temporary locations.
+
+  cost_center                          Branch, kitchen, event, overhead and other finance dimensions.
+
+  tax_profile                          Company/registration-linked configurable tax setup.
+
+  bank_account_ref                     Approved finance account reference; sensitive details access-controlled.
+
+
+
+ A4. Customer Schema
+  Logical Table                           Purpose
+
+  customer_account                        Permanent customer parent identity.
+
+  customer_contact                        People linked to customer.
+
+  customer_contact_channel                Phone/email/WhatsApp channels.
+
+  customer_address                        Multiple customer addresses.
+
+  customer_billing_profile                Billing/tax/customer PO profile.
+
+  customer_consent                        Marketing/transactional consent history.
+
+  customer_preference                     Food/service/communication preferences.
+
+  customer_tag                            Reusable segmentation tags.
+
+  customer_tag_link                       Many-to-many customer/tag link.
+
+  customer_credit_control                 Credit allowed, limit, days, hold state.
+
+  customer_risk_flag                      Blacklist/risk/dispute controls.
+
+  customer_note                           Controlled customer notes.
+
+  customer_document                       Customer attachments.
+
+  customer_merge_history                  Duplicate merge evidence and alias IDs.
+
+
+
+ A5. Venue & Site Survey Schema
+  Logical Table                           Purpose
+
+  venue                                   Reusable venue identity/location.
+
+  venue_contact                           Venue coordinator/contact.
+
+  venue_site_survey                       Event/date-specific survey header.
+
+  venue_site_survey_check                 Water, power, lift, loading, LPG, parking, washing, buffet, safety checks.
+
+  venue_rule                              Reusable operational restrictions/notes.
+
+  venue_attachment                        Photos/documents/site plan evidence.
+
+
+
+ A6. Item, UOM, Product, Recipe & Menu Schema
+  Logical Table                           Purpose
+
+  category                                Hierarchical item/product/vendor/reporting categories.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                               Page 3
+  Logical Table                           Purpose
+
+  uom                                     KG, G, L, ML, piece, bag, box, tray, etc.
+
+  uom_conversion                          Purchase/stock/recipe unit conversion rules with effective dates.
+
+  item                                    Purchased/stored/consumed/rented inventory/service item master.
+
+  item_storage_rule                       Batch/expiry/temp/FEFO/location restrictions.
+
+  item_vendor                             Approved vendor/item relation.
+
+  product                                 Sellable/produced dish/output.
+
+  recipe                                  Recipe identity for product/sub-recipe.
+
+  recipe_version                          Effective frozen recipe version.
+
+  recipe_line                             Ingredient/sub-recipe requirement + qty + UOM + yield rule.
+
+  menu                                    Reusable menu/package identity.
+
+  menu_version                            Versioned menu composition.
+
+  menu_product                            Products included in menu version.
+
+  price_list                              Brand/branch/customer-class price list header.
+
+  price_list_line                         Product/service price by effective date/scope.
+
+
+
+ A7. Vendor & Outsource Master Schema
+  Logical Table                           Purpose
+
+  vendor                                  Vendor identity and status.
+
+  vendor_contact                          Multiple vendor contacts.
+
+  vendor_item_rate                        Item/service rate card with effective dates.
+
+  vendor_term                             Payment/MOQ/lead-time/SLA terms.
+
+  vendor_document                         Compliance/business documents.
+
+  vendor_score_event                      Delivery/quality/price issue event used for score.
+
+  outsource_category                      Configurable outside food/service category.
+
+  outsource_variant                       Small Pulka, Big Pulka, etc.; not hard-coded modules.
+
+
+
+ A8. Lead, Quote, Booking & Event Schema
+  Logical Table                              Purpose
+
+  lead                                       Enquiry header with source, owner and requirements.
+
+  lead_activity                              Call/message/meeting/follow-up history.
+
+  quotation                                  Quotation identity.
+
+  quotation_version                          Immutable commercial version/snapshot.
+
+  quotation_line                             Menu/product/service/charge lines.
+
+  quotation_approval                         Discount/margin exception approval link.
+
+  booking                                    Commercial parent after acceptance.
+
+  booking_payment_schedule                   Installment/advance due schedule.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                      Page 4
+  Logical Table                              Purpose
+
+  booking_contract_snapshot                  Terms/contract accepted version.
+
+  event                                      Operational event under booking.
+
+  sub_event                                  Optional intermediate event part.
+
+  meal_session                               Breakfast/lunch/dinner/etc. operational unit.
+
+  event_menu_snapshot                        Approved menu version copied to session.
+
+  event_change_request                       Menu/headcount/time/venue/commercial change history.
+
+  capacity_reservation                       Tentative/confirmed resource reservation.
+
+  event_status_history                       Status timeline and actor.
+
+
+
+ A9. Demand & Reservation Schema
+  Logical Table                           Purpose
+
+  demand_run                              Demand calculation run by date/event scope.
+
+  demand_line                             Item requirement from recipe/menu.
+
+  inventory_reservation                   Reserved quantity by item/location/event/session.
+
+  demand_override                         Planner override with reason/approval.
+
+  shortage_line                           Net shortage requiring purchase/transfer/action.
+
+
+
+ A10. Purchase & GRN Schema
+  Logical Table                              Purpose
+
+  purchase_request                           PR header linked to demand/event/overhead.
+
+  purchase_request_line                      Item/service requirement.
+
+  rfq                                        Request for vendor quotations.
+
+  rfq_vendor                                 Vendors invited.
+
+  vendor_quote                               Vendor quote header.
+
+  vendor_quote_line                          Quoted rate/qty/tax/freight/terms.
+
+  purchase_order                             Approved PO header.
+
+  purchase_order_line                        Ordered item/service lines.
+
+  po_revision                                PO change history.
+
+  goods_receipt                              GRN header.
+
+  goods_receipt_line                         Delivered/accepted/rejected/short qty, batch/expiry/QC.
+
+  vendor_bill                                Vendor invoice/bill header.
+
+  vendor_bill_line                           Bill lines.
+
+  match_exception                            PO-GRN-Bill mismatch.
+
+  purchase_allocation                        Split cost to event/session/overhead.
+
+  vendor_return                              Rejected/returned goods.
+
+  vendor_credit_note                         Vendor credit adjustment reference.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                               Page 5
+ A11. Inventory Schema
+  Logical Table                              Purpose
+
+  stock_movement                             Authoritative item movement row: item, qty, UOM, from/to, source, event/session, batch.
+
+  stock_batch                                Batch/lot/expiry quantity identity where applicable.
+
+  physical_count                             Count session/header.
+
+  physical_count_line                        System qty, physical qty, variance, reason.
+
+  stock_adjustment                           Approved variance correction referencing count/incident.
+
+  wastage_record                             Wastage/disposition transaction.
+
+  wastage_line                               Item/product qty, reason, value, event/session.
+
+  stock_balance_cache                        Optional derived/cache table only; rebuildable from movements.
+
+
+ The authoritative stock truth is movement history. A balance table may exist for performance but cannot become an
+ independent manually editable source.
+
+
+ A12. Production, Packing & Dispatch Schema
+  Logical Table                             Purpose
+
+  production_plan                           Planned product quantities by kitchen/event/session.
+
+  production_batch                          Actual batch execution header.
+
+  batch_ingredient                          Planned/issued/actual ingredient use.
+
+  batch_yield_stage                         Raw/cleaned/usable/cooked/output quantities.
+
+  batch_output                              Finished/sub-recipe output quantity.
+
+  quality_check                             Tasting/temp/allergen/QC result.
+
+  packing_batch                             Packing header by event/session.
+
+  packing_line                              Product qty/container/seal/packer.
+
+  dispatch                                  Dispatch header.
+
+  dispatch_line                             Packed item/equipment/load reference.
+
+  venue_receipt                             Venue acceptance/proof of delivery.
+
+
+
+ A13. Outside Food / Outsourcing Schema
+  Logical Table                             Purpose
+
+  outsource_order                           Vendor order header.
+
+  outsource_order_line                      Item/variant/service + qty + rate + transport.
+
+  outsource_delivery                        Delivery header/time/status.
+
+  outsource_delivery_line                   Delivered/accepted/returned/short qty.
+
+  outsource_quality_check                   Quality acceptance/exception.
+
+  outsource_settlement_ref                  Finance reference to advance/bill/payment.
+
+
+
+ A14. Live Event Operations Schema
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                               Page 6
+  Logical Table                             Purpose
+
+  guest_count_log                           Time-stamped actual guest/plate count.
+
+  service_counter                           Counter setup/owner/product/event/session.
+
+  counter_activity                          Opening, replenishment, served/closing, shortage/waste.
+
+  customer_extra                            Extra request, price impact, approval, execution, billing status.
+
+  event_incident                            Venue/food/service/equipment incident.
+
+  event_checklist                           Operational checklist header.
+
+  event_checklist_item                      Task/status/proof/owner/due time.
+
+
+
+ A15. Staff, Attendance & Settlement Schema
+  Logical Table                             Purpose
+
+  employee                                  Permanent/contract employee master.
+
+  employee_role_assignment                  Role/branch/kitchen assignment history.
+
+  shift                                     Reusable shift definition.
+
+  roster_assignment                         Employee/event/session/shift assignment.
+
+  attendance                                Check-in/out and work hours.
+
+  attendance_adjustment                     Correction/approval history.
+
+  temporary_person                          Casual/one-day staff identity.
+
+  temporary_assignment                      Event/session role/rate/hours assignment.
+
+  staff_advance                             Advance issued.
+
+  staff_settlement                          Temporary/event payable and settlement.
+
+  payroll_run                               Payroll period/header.
+
+  payroll_line                              Employee computed payroll line.
+
+  payslip                                   Final locked payslip reference.
+
+
+
+ A16. Vehicles, Trips & Equipment Schema
+  Logical Table                             Purpose
+
+  vehicle                                   Vehicle master.
+
+  vehicle_document                          Insurance/permit/service docs.
+
+  trip                                      Event/session trip header.
+
+  trip_cost                                 Fuel/toll/parking/extra cost lines.
+
+  load_list                                 Load header.
+
+  load_line                                 Food/container/equipment quantity.
+
+  equipment_item                            Reusable non-serialized equipment type.
+
+  equipment_asset                           Serialized/trackable asset where needed.
+
+  equipment_reservation                     Reserved for event/session.
+
+  equipment_issue                           Issued/loaded/venue-received record.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                        Page 7
+  Logical Table                             Purpose
+
+  equipment_return                          Returned quantity/asset.
+
+  equipment_damage                          Missing/damage/recovery incident.
+
+
+
+ A17. Finance & Accounting Schema
+  Logical Table                              Purpose
+
+  chart_of_account                           Account master.
+
+  ledger_account                             Company-specific ledger mapping.
+
+  journal_entry                              Accounting entry header.
+
+  journal_line                               Debit/credit lines; event/branch/cost-centre dimensions.
+
+  customer_invoice                           Invoice header.
+
+  customer_invoice_line                      Commercial/tax lines.
+
+  receipt                                    Customer money received.
+
+  receipt_allocation                         Receipt applied to invoice/advance.
+
+  credit_note                                Customer credit adjustment.
+
+  refund                                     Customer refund transaction.
+
+  vendor_payment                             Payment against vendor bill/advance.
+
+  staff_payment                              Staff reimbursement/settlement payment.
+
+  expense                                    General/event expense header.
+
+  expense_line                               Expense lines and allocations.
+
+  payment_account                            Cash/bank/UPI/card/gateway account reference.
+
+  bank_transaction                           Imported/entered external account transaction.
+
+  reconciliation                             Account reconciliation session.
+
+  reconciliation_match                       Bank/UPI transaction matched to internal transaction.
+
+  cost_allocation                            Split event/overhead/branch cost allocations.
+
+  overhead_allocation_run                    Configured overhead distribution to reporting periods/events.
+
+
+
+ A18. Feedback, Complaint & Recovery Schema
+  Logical Table                             Purpose
+
+  feedback                                  Customer feedback/event rating.
+
+  complaint                                 Complaint header linked to customer/event/session/product/service.
+
+  complaint_action                          Investigation/corrective action.
+
+  compensation_ref                          Finance-linked compensation/refund reference.
+
+  vendor_recovery_claim                     Recovery from responsible vendor.
+
+  referral                                  Customer referral link.
+
+  repeat_followup                           Future sales follow-up for repeat business.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                         Page 8
+ A19. Control, Approval, Reminder & Audit Schema
+  Logical Table                              Purpose
+
+  app_user                                   Login identity.
+
+  role                                       Business/technical role.
+
+  permission                                 Action permission definition.
+
+  role_permission                            Role-to-permission relation.
+
+  user_role                                  User-to-role assignment with effective dates.
+
+  data_scope                                 Company/brand/branch/event/own scope.
+
+  user_scope                                 User scope assignments.
+
+  approval_request                           Generic approval header referencing source record.
+
+  approval_action                            Approve/reject/return/reopen action history.
+
+  reminder                                   Reminder source/owner/due/priority/status.
+
+  reminder_escalation                        Escalation history.
+
+  notification_delivery                      Push/SMS/email/WhatsApp delivery state.
+
+  attachment                                 Generic evidence attachment with controlled access.
+
+  audit_log                                  Append-only sensitive action history.
+
+  system_setting                             Typed configuration setting with scope/effective date.
+
+  idempotency_key                            Write-request duplicate protection.
+
+
+
+ A20. Core Relationship Freeze
+  Parent                           Cardinality           Child / Link
+
+  Company                          1:N                   Brand, Branch, Finance Accounts, Users/Scopes
+
+  Brand                            M:N                   Branch through Brand-Branch link
+
+  Branch                           1:N                   Kitchen, Store, Booking/Event ownership
+
+  Kitchen                          1:N                   Sections, Production Batches
+
+  Store                            1:N                   Stock Locations
+
+  Customer                         1:N                   Contacts, Addresses, Leads, Bookings, Invoices, Complaints
+
+  Booking                          1:N                   Events
+
+  Event                            1:N                   Sub-events, Meal Sessions, Costs, Staff, Trips, Incidents
+
+  Meal Session                     1:N                   Menu Snapshot, Production, Outsourcing, Live Counts, Staff/Counter records
+
+  Product                          1:N                   Recipe Versions / Menu links
+
+  Recipe Version                   1:N                   Recipe Lines
+
+  Item                             1:N                   Vendor Rates, Stock Movements, Demand Lines, Purchase Lines
+
+  Purchase Order                   1:N                   PO Lines, GRNs, Bill matching
+
+  GRN                              1:N                   GRN Lines -> Stock Receipt Movements
+
+  Production Batch                 1:N                   Ingredient Use, Yield Stages, Outputs
+
+  Invoice                          1:N                   Invoice Lines / Receipt allocations
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                              Page 9
+  Parent                           Cardinality         Child / Link
+
+  Journal Entry                    1:N                 Journal Lines
+
+  Approval Request                 1:N                 Approval Actions
+
+
+
+ A21. Database Constraints - FROZEN
+   - Unique normalized customer phone/email constraints are warning/controlled uniqueness where shared family/business
+     contacts make strict uniqueness unsafe.
+
+   - Unique display codes per configured scope.
+   - No stock movement with zero quantity unless explicit correction type allows it.
+   - No negative money totals on normal invoices/bills except dedicated credit/reversal documents.
+   - No cross-company finance posting without explicit inter-company design; not assumed in this freeze.
+   - Closed event records reject unauthorized edits at backend and database/service validation layers.
+   - Approval source record cannot change critical values while approval is pending without invalidating/restarting approval.
+   - Inventory reservations cannot exceed permitted available/override logic without recorded exception.
+   - Foreign-key delete actions default to RESTRICT for live transactional relationships.
+   - Every financial/stock multi-row write runs in one transaction to prevent partial posting.
+ OWNER CONFIGURATION REQUIRED - NOT INVENTED
+
+   - Exact database engine and hosting choice.
+   - Display code formats/sequences.
+   - Data-retention years for non-statutory records.
+   - Multi-company/inter-company accounting if ever required.
+   - Exact tax registration structure if multiple GST registrations exist.
+   - Performance partitioning thresholds based on actual volume.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                   Page 10
+                                                    PART B - PRF
+                                                         Permission & Role Freeze
+
+ PRF STATUS: FROZEN
+
+
+ B1. Permission Actions
+  Code                Action
+
+  V                   View
+
+  C                   Create
+
+  E                   Edit
+
+  S                   Submit
+
+  X                   Verify
+
+  A                   Approve/Reject
+
+  P                   Pay/Post Financial
+
+  R                   Reopen/Reverse
+
+  D                   Soft-delete/Archive where allowed
+
+  O                   Export/Download sensitive data
+
+
+ A hidden menu is not security. Every backend write/read/export must enforce permission + data scope + approval
+ limit.
+
+
+ B2. Frozen Business Roles
+  Role                                     Frozen Scope
+
+  Owner / CEO                              Company-wide visibility and final/high-value approvals; routine data entry not required.
+
+  COO / Operations Head                    Cross-event operations, capacity, closing and exceptions.
+
+  Finance Head                             Finance verification, limits, reconciliation, P&L;, payroll totals.
+
+  Accountant                               Invoices, receipts, bills, reconciliation preparation; cannot self-approve sensitive payments.
+
+  Sales Manager                            Leads, customers, quotations, bookings, customer due within allowed visibility.
+
+  Sales Executive                          Assigned leads/customers/quotes/bookings; restricted cost/profit visibility.
+
+  Purchase Manager                         Requirements, vendors, RFQ, PO preparation and approved buying.
+
+  Store Manager                            GRN, stock, issues, returns, counts, expiry, wastage.
+
+  Kitchen Head / Chef                      Recipes, production plans, prep, quality, stock requests.
+
+  Event Manager                            Assigned event/session, BEO/checklists, live count, extras, incidents, operational close.
+
+  HR Manager                               Employee, roster, attendance, payroll preparation.
+
+  Logistics Manager                        Vehicles, trips, equipment, loading, return.
+
+  Worker / Staff                           Own assigned duties, attendance, tasks, own payslip where applicable.
+
+  Driver                                   Own trip, route, loading/proof, trip status; no commercial profit view.
+
+  Marketing / CRM                          Consent-compliant segments/source attribution; no finance editing.
+
+  System Admin                             Technical users/settings/backups/integrations; no business payment approval by default.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                                    Page 11
+  Role                                  Frozen Scope
+
+  Auditor / Viewer                      Authorized read-only/report/audit evidence.
+
+
+
+ B3. Module Permission Matrix
+  Role                          Modules                                         Action Boundary
+
+  Owner/CEO                     All                                             Approve high-value; view all; reopen by policy.
+
+  COO                           Events, Kitchen, Store, Logistics, Closing      Create/edit/verify operational; approve configured
+                                                                                operational exceptions.
+
+  Finance Head                  Finance, Customer Credit, Vendor Payable,       Verify/approve/post within configured limits.
+                                Payroll Totals
+
+  Accountant                    Invoice, Receipt, Vendor Bill, Expense,         Create/edit/submit/verify as assigned; payment
+                                Reconciliation                                  approval restricted.
+
+  Sales Manager                 Lead, Customer, Quote, Booking                  Create/edit/approve normal commercial actions within
+                                                                                limit.
+
+  Sales Executive               Assigned Lead, Customer, Quote, Booking         Create/edit/submit; no high discount approval; no
+                                                                                detailed food cost.
+
+  Purchase Manager              Demand view, Vendor, RFQ, PO                    Create/edit/submit/approve within purchase limit; no
+                                                                                payment.
+
+  Store Manager                 GRN, Inventory, Count, Wastage                  Receive/issue/return/count/submit adjustments;
+                                                                                approval by configured role.
+
+  Kitchen Head                  Menu/Recipe, Demand, Production                 Create/edit recipe/production per scope; no customer
+                                                                                finance.
+
+  Event Manager                 Assigned Event/Session, Live Ops                Edit operations, submit extras/close; no unrelated
+                                                                                events.
+
+  HR Manager                    People, Roster, Attendance, Payroll Prep        Create/edit/verify HR; no business bank/P&L; detail.
+
+  Logistics Manager             Vehicle, Trip, Equipment                        Assign/verify/reconcile logistics.
+
+  Worker                        Own assignments                                 View own, update allowed task/attendance only.
+
+  Driver                        Own trip                                        View/update trip status/proof only.
+
+  Marketing/CRM                 Segments, Consent, Source, Follow-up            No finance posting, stock adjustment or payroll.
+
+  System Admin                  Technical control                               No implicit business approve/pay permission.
+
+  Auditor                       Read-only configured scope                      No create/edit/approve/pay.
+
+
+
+ B4. Sensitive Field Visibility
+  Sensitive Data                           Frozen Visibility Rule
+
+  Salary / bank details                    HR + Finance + Owner as configured; workers only own records.
+
+  Detailed food/purchase cost              Owner, Finance, Purchase, Kitchen as needed; Sales restricted.
+
+  Event profit / company P&L;              Owner/Finance; managers only configured summary.
+
+  Customer risk/blacklist                  Sales Manager, Finance, Owner; restricted from broad staff.
+
+  Customer consent/contact export          Marketing/Sales only within permitted scope; export audited.
+
+  Vendor bank/payment details              Finance + authorized Purchase; restricted elsewhere.
+
+  Audit logs                               Owner/System Admin/Auditor by scope; not broadly editable.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                               Page 12
+  Sensitive Data                          Frozen Visibility Rule
+
+  System secrets                          Never exposed to normal business UI.
+
+
+
+ B5. Segregation of Duties
+  Process                              Frozen Separation
+
+  Purchase                             Requester != receiver != bill verifier != payer for sensitive/high-value flow.
+
+  Stock adjustment                     Counter/Store submits; configured supervisor approves material variance.
+
+  Refund                               Accounts prepares; Finance verifies; authorized approver approves; payment posted
+                                       separately.
+
+  Payroll                              Attendance verified -> HR calculates -> Finance verifies -> authorized approval -> payment.
+
+  Customer discount                    Sales requests; configured manager/owner approves above limit.
+
+  Event reopen                         Operations/Accounts request; authorized role approves; audit captures reason.
+
+  Vendor master bank change            Creator/editor cannot silently cause payment destination change without controlled verification.
+
+  Role/permission change               System Admin may configure; business owner authorizes sensitive access policy.
+
+
+ OWNER CONFIGURATION REQUIRED - NOT INVENTED
+
+   - Exact approval limits by role/module.
+   - Whether branch managers exist as separate role in final org.
+   - Delegation/backup approver assignments.
+   - Exact export permissions.
+   - Whether MFA is mandatory for all users or only privileged roles.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                                  Page 13
+                                               PART C - CRF
+                                                        Calculation Rules Freeze
+
+ CRF STATUS: FROZEN
+
+
+ C1. Quantity & Inventory Calculations
+  Metric                            Frozen Definition
+
+  On Hand                           Opening migration quantity + all approved inbound movements - all approved outbound
+                                    movements.
+
+  Reserved                          Sum of active inventory reservations not released/consumed.
+
+  Available                         On Hand - Reserved.
+
+  Incoming                          Approved open PO/transfer quantities not yet received, subject to configured inclusion rule.
+
+  Net Demand                        Planned requirement + configured buffer/safety stock - Available - eligible confirmed incoming.
+
+  Actual Consumption                Event/Kitchen issue + approved direct-event purchase - usable return to stock, adjusted for
+                                    production transfers where applicable.
+
+  Consumption Variance              Actual Consumption - Standard/Ideal Consumption.
+
+  Physical Variance                 Physical Count - System Quantity at count cut-off.
+
+  Wastage Value                     Approved wastage quantity x valuation cost at configured method.
+
+
+
+ C2. UOM & Yield Calculations
+  Metric                            Frozen Definition
+
+  Base Quantity                     Transaction Qty x approved UOM conversion factor.
+
+  Usable Quantity                   Received/processed quantity x actual or standard usable-yield ratio depending on stage.
+
+  Usable Unit Cost                  Landed input cost / usable quantity.
+
+  Recipe Scaled Qty                 Recipe base qty x required portions / recipe base portions.
+
+  Planned Qty                       Scaled recipe qty adjusted by approved event/production buffer.
+
+  Yield Variance                    Actual usable/output qty - standard expected usable/output qty.
+
+
+
+ C3. Purchase & Landed Cost
+  Metric                            Frozen Definition
+
+  Line Gross                        Ordered/accepted quantity x unit rate.
+
+  Line Discount                     Configured vendor discount calculation.
+
+  Tax                               Configured tax engine; not hard-coded in this freeze.
+
+  Freight/Other                     Allocated freight/handling/other landed charges.
+
+  Landed Cost                       Net item value + allocated non-recoverable charges/taxes as configured accounting policy.
+
+  Price Variance                    Current effective rate - comparison/base rate.
+
+  GRN Variance                      Delivered/accepted quantity vs PO quantity.
+
+  Bill Match Variance               Vendor bill values vs accepted GRN/PO according to match policy.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                              Page 14
+ C4. Product / Recipe Costing
+  Metric                                 Frozen Definition
+
+  Standard Ingredient Cost               Standard recipe quantities x standard/effective costing rate chosen by policy.
+
+  Standard Product Cost                  Standard ingredient cost + configured standard direct production allocations.
+
+  Estimated Event Food Cost              Event planned quantities x quote/planning cost snapshot.
+
+  Actual Food Cost                       Actual consumed quantities x actual inventory/direct-purchase valuation.
+
+  Actual Cost per Portion                Actual batch/product cost / actual approved portions/output quantity.
+
+  Estimated Margin                       Quoted net selling value - estimated event cost.
+
+  Actual Contribution                    Event revenue - actual direct event cost.
+
+  Full Net Profit                        Event contribution - allocated overhead.
+
+  Food Cost %                            Food cost / applicable net selling revenue x 100.
+
+  Margin %                               Margin / net selling revenue x 100.
+
+
+ Standard Cost, Estimated Event Cost and Actual Event Cost are separate values and must never overwrite one
+ another.
+
+
+ C5. Customer Commercial Calculations
+  Metric                               Frozen Definition
+
+  Quotation Subtotal                   Sum of commercial lines before discount/tax.
+
+  Discount                             Configured line/header discount subject to approval.
+
+  Taxable / Net Base                   Calculated by configured tax profile; exact GST treatment OWNER CONFIGURATION
+                                       REQUIRED.
+
+  Invoice Total                        Net commercial base + configured taxes/charges - credits.
+
+  Paid Amount                          Valid posted receipts allocated to booking/invoice/advance.
+
+  Customer Balance                     Final invoice/receivable amount - allocated receipts - approved credit notes + valid debit
+                                       adjustments.
+
+  Advance Available                    Posted customer advance not yet consumed/refunded.
+
+  Overdue Days                         Current local date - due date for unpaid due amount; floor at zero.
+
+
+
+ C6. Vendor & Staff Payables
+  Metric                               Frozen Definition
+
+  Vendor Payable                       Approved vendor bills - allocated vendor payments - vendor credit notes.
+
+  Vendor Advance Available             Posted vendor advance - amount applied/returned.
+
+  Temporary Staff Gross                Approved base rate calculation + OT + allowances + reimbursements.
+
+  Temporary Staff Net Payable          Gross - advances - approved deductions.
+
+  Payroll Net                          Approved gross components - advances/loans - deductions/statutory deductions per
+                                       configured policy.
+
+
+
+ C7. Logistics & Equipment Calculations
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                            Page 15
+  Metric                               Frozen Definition
+
+  Trip Cost                            Fuel/reimbursement + toll + parking + driver/vehicle charges + approved extras.
+
+  Equipment Outstanding                Issued quantity/assets - valid returned quantity/assets.
+
+  Damage/Missing Recovery              Approved recoverable amount linked to responsible party; no automatic amount invented.
+
+  Transport Charge to Customer         Commercial quote/extra line; independent from internal trip cost.
+
+
+
+ C8. Event Closing & Profit
+  Metric                               Frozen Definition
+
+  Event Revenue                        Approved final invoice revenue basis excluding pass-through tax according to accounting
+                                       configuration.
+
+  Direct Food Cost                     Actual food consumption + approved direct food purchases + outside food cost.
+
+  Direct Labour                        Temporary labour + allocated event labour according to configured policy.
+
+  Direct Logistics                     Trip/transport/rental/equipment direct costs.
+
+  Other Direct Cost                    Packing, disposables, event-specific fees and approved direct expenses.
+
+  Event Contribution                   Event Revenue - all direct event costs.
+
+  Allocated Overhead                   Configured overhead allocation run.
+
+  Net Event Profit                     Event Contribution - Allocated Overhead.
+
+  Provisional Profit                   Event P&L; containing identified expected/missing costs; clearly labeled provisional.
+
+  Final Profit                         P&L; after Financial Close or approved post-close adjustment policy.
+
+
+
+ C9. Rounding & Currency Rules
+   - All stored money uses fixed-decimal precision; display rounding is separate from calculation precision.
+   - Rounding occurs at explicitly defined accounting/tax stages; UI must not independently round and re-post totals.
+   - Quantity precision is item/UOM-specific and configurable.
+   - Currency is stored with transaction/company context; multi-currency is not assumed unless configured later.
+   - Every computed dashboard KPI can be reconciled to source transactions.
+ OWNER CONFIGURATION REQUIRED - NOT INVENTED
+
+   - GST/tax formulas and rounding policy.
+   - Inventory valuation method by category: weighted average/FIFO/other.
+   - Overhead allocation method.
+   - Permanent labour allocation method.
+   - Customer extra-plate commercial pricing rule.
+   - Production buffer/safety stock percentages.
+   - Payroll/OT formulas.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                         Page 16
+                                                PART D - UIF
+                                                           Screen / UI Freeze
+
+ UIF STATUS: FROZEN MINIMUM SCREEN INVENTORY
+
+
+ D1. Global UI Rules
+ 1. One consistent design system across web and Android; role changes available actions, not the meaning of status colors.
+
+ 2. Every list supports search, relevant filters, sort, pagination/infinite loading and export only where permission allows.
+
+ 3. Every detail screen shows source ID, status, owner, timestamps, linked records and audit/approval status where relevant.
+
+ 4. Create/Edit forms validate before submit and show server validation errors next to fields.
+
+ 5. Destructive/reversal/reopen actions require reason and confirmation.
+
+ 6. Every KPI/drill-down opens the exact source list or record; no dead summary numbers.
+
+ 7. Financially closed records are read-only except authorized reopen/adjustment flow.
+
+ 8. Mobile venue workflows prioritize large touch targets, offline state, sync status and proof capture.
+
+
+ D2. Frozen Web Screen Inventory
+  ID            Group                                Frozen Screen
+
+  W001          Foundation & Control                 Owner Command Dashboard
+
+  W002          Foundation & Control                 My Tasks / Alerts
+
+  W003          Foundation & Control                 Approvals Inbox
+
+  W004          Foundation & Control                 Reminder Centre
+
+  W005          Foundation & Control                 Audit Explorer
+
+  W006          Foundation & Control                 User Management
+
+  W007          Foundation & Control                 Role & Permission Matrix
+
+  W008          Foundation & Control                 Company / Brand / Branch Setup
+
+  W009          Foundation & Control                 Kitchen / Store / Location Setup
+
+  W010          Foundation & Control                 System Configuration
+
+  W011          CRM & Sales                          Lead Pipeline
+
+  W012          CRM & Sales                          Lead Create/Edit
+
+  W013          CRM & Sales                          Lead Detail & Activity
+
+  W014          CRM & Sales                          Customer Search/List
+
+  W015          CRM & Sales                          Customer Create/Edit
+
+  W016          CRM & Sales                          Customer 360
+
+  W017          CRM & Sales                          Contact / Address Manager
+
+  W018          CRM & Sales                          Quotation List
+
+  W019          CRM & Sales                          Quotation Builder
+
+  W020          CRM & Sales                          Quotation Version Compare
+
+  W021          CRM & Sales                          Quotation Approval
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                       Page 17
+  ID            Group                                Frozen Screen
+
+  W022          CRM & Sales                          Booking List
+
+  W023          CRM & Sales                          Booking Detail
+
+  W024          CRM & Sales                          Contract / Acceptance
+
+  W025          CRM & Sales                          Payment Schedule
+
+  W026          Event & Venue                        Event Calendar
+
+  W027          Event & Venue                        Event Command Centre
+
+  W028          Event & Venue                        Event Create/Edit
+
+  W029          Event & Venue                        Sub-Event / Session Planner
+
+  W030          Event & Venue                        Session Detail
+
+  W031          Event & Venue                        Venue Master
+
+  W032          Event & Venue                        Venue Detail
+
+  W033          Event & Venue                        Site Survey Form
+
+  W034          Event & Venue                        Capacity & Resource Check
+
+  W035          Event & Venue                        Event Change Request
+
+  W036          Event & Venue                        Operational Checklist
+
+  W037          Event & Venue                        Event Closing Centre
+
+  W038          Food Catalog & Costing               Category Master
+
+  W039          Food Catalog & Costing               UOM Master & Conversion
+
+  W040          Food Catalog & Costing               Item Master List
+
+  W041          Food Catalog & Costing               Item Detail / Stock 360
+
+  W042          Food Catalog & Costing               Product Master
+
+  W043          Food Catalog & Costing               Product Detail / Cost 360
+
+  W044          Food Catalog & Costing               Recipe List
+
+  W045          Food Catalog & Costing               Recipe Builder / Version
+
+  W046          Food Catalog & Costing               Recipe Cost Compare
+
+  W047          Food Catalog & Costing               Menu Master
+
+  W048          Food Catalog & Costing               Menu Builder / Version
+
+  W049          Food Catalog & Costing               Price List
+
+  W050          Food Catalog & Costing               Demand Planning Dashboard
+
+  W051          Food Catalog & Costing               Demand Run Detail
+
+  W052          Purchase & Vendors                   Vendor List
+
+  W053          Purchase & Vendors                   Vendor 360
+
+  W054          Purchase & Vendors                   Vendor Rate Card
+
+  W055          Purchase & Vendors                   Purchase Requirement / PR List
+
+  W056          Purchase & Vendors                   PR Create/Edit
+
+  W057          Purchase & Vendors                   RFQ / Vendor Quote Comparison
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                              Page 18
+  ID            Group                                Frozen Screen
+
+  W058          Purchase & Vendors                   PO List
+
+  W059          Purchase & Vendors                   PO Create / Approval
+
+  W060          Purchase & Vendors                   PO Detail / Revisions
+
+  W061          Purchase & Vendors                   GRN Queue
+
+  W062          Purchase & Vendors                   GRN Receive / QC
+
+  W063          Purchase & Vendors                   Vendor Bill List
+
+  W064          Purchase & Vendors                   Three-Way Match
+
+  W065          Purchase & Vendors                   Purchase Allocation
+
+  W066          Purchase & Vendors                   Emergency Purchase
+
+  W067          Inventory & Stores                   Inventory Dashboard
+
+  W068          Inventory & Stores                   Stock by Item
+
+  W069          Inventory & Stores                   Stock by Location
+
+  W070          Inventory & Stores                   Stock Movement Ledger
+
+  W071          Inventory & Stores                   Reservation / Commitment View
+
+  W072          Inventory & Stores                   Stock Issue
+
+  W073          Inventory & Stores                   Stock Return
+
+  W074          Inventory & Stores                   Store Transfer
+
+  W075          Inventory & Stores                   Batch / Expiry View
+
+  W076          Inventory & Stores                   Physical Count
+
+  W077          Inventory & Stores                   Variance Approval
+
+  W078          Inventory & Stores                   Wastage / Disposition Entry
+
+  W079          Inventory & Stores                   Low Stock / Reorder View
+
+  W080          Kitchen & Production                 Production Planner
+
+  W081          Kitchen & Production                 Production Batch Detail
+
+  W082          Kitchen & Production                 Ingredient Issue / Pull List
+
+  W083          Kitchen & Production                 Yield Tracking
+
+  W084          Kitchen & Production                 Quality / Tasting Check
+
+  W085          Kitchen & Production                 Packing Plan
+
+  W086          Kitchen & Production                 Packing Entry
+
+  W087          Kitchen & Production                 Dispatch Board
+
+  W088          Kitchen & Production                 Venue Receipt / POD
+
+  W089          Outsourcing & Live Event             Outsource Order List
+
+  W090          Outsourcing & Live Event             Outsource Order Create/Edit
+
+  W091          Outsourcing & Live Event             Outsource Delivery / Acceptance
+
+  W092          Outsourcing & Live Event             Live Event Dashboard
+
+  W093          Outsourcing & Live Event             Guest Count Log
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                               Page 19
+  ID            Group                                Frozen Screen
+
+  W094          Outsourcing & Live Event             Service Counter Board
+
+  W095          Outsourcing & Live Event             Counter Replenishment
+
+  W096          Outsourcing & Live Event             Customer Extra Request
+
+  W097          Outsourcing & Live Event             Event Incident / Complaint Capture
+
+  W098          People & Payroll                     Employee List
+
+  W099          People & Payroll                     Employee 360
+
+  W100          People & Payroll                     Roster Planner
+
+  W101          People & Payroll                     Attendance Dashboard
+
+  W102          People & Payroll                     Attendance Correction
+
+  W103          People & Payroll                     Temporary Staff Pool
+
+  W104          People & Payroll                     Temporary Staff Assignment
+
+  W105          People & Payroll                     Staff Advance
+
+  W106          People & Payroll                     Staff Settlement
+
+  W107          People & Payroll                     Payroll Run
+
+  W108          People & Payroll                     Payroll Review / Approval
+
+  W109          People & Payroll                     Payslip View
+
+  W110          Logistics & Equipment                Vehicle List
+
+  W111          Logistics & Equipment                Vehicle Detail
+
+  W112          Logistics & Equipment                Trip Planner
+
+  W113          Logistics & Equipment                Trip Detail / Costs
+
+  W114          Logistics & Equipment                Loading List
+
+  W115          Logistics & Equipment                Equipment Master
+
+  W116          Logistics & Equipment                Equipment Availability
+
+  W117          Logistics & Equipment                Equipment Issue
+
+  W118          Logistics & Equipment                Equipment Return
+
+  W119          Logistics & Equipment                Damage / Missing Recovery
+
+  W120          Finance                              Finance Dashboard
+
+  W121          Finance                              Customer Invoice List
+
+  W122          Finance                              Invoice Create/Finalize
+
+  W123          Finance                              Receipt / Advance Entry
+
+  W124          Finance                              Customer Outstanding / Aging
+
+  W125          Finance                              Credit Note / Refund
+
+  W126          Finance                              Vendor Bills & Payables
+
+  W127          Finance                              Vendor Payment
+
+  W128          Finance                              Expense Entry
+
+  W129          Finance                              Petty Cash / Cash Close
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                  Page 20
+  ID            Group                                Frozen Screen
+
+  W130          Finance                              Bank / UPI Transactions
+
+  W131          Finance                              Reconciliation
+
+  W132          Finance                              Journal / Ledger Viewer
+
+  W133          Finance                              Event P&L;
+
+  W134          Finance                              Branch / Company P&L;
+
+  W135          Feedback & Reporting                 Feedback List
+
+  W136          Feedback & Reporting                 Complaint Case
+
+  W137          Feedback & Reporting                 Corrective Action
+
+  W138          Feedback & Reporting                 Vendor Recovery
+
+  W139          Feedback & Reporting                 Repeat Follow-up
+
+  W140          Feedback & Reporting                 Report Centre
+
+  W141          Feedback & Reporting                 Saved Filters / Report Schedules
+
+
+ Total frozen minimum web screens: 141. Modal/dialog components do not count as separate screens unless they have
+ independent workflow/state.
+
+
+ D3. Frozen Android / Mobile Operational Screens
+  ID                    Mobile Screen
+
+  M001                  Role Home / Today
+
+  M002                  My Alerts / Approvals
+
+  M003                  My Shift / Attendance
+
+  M004                  Event Manager Today
+
+  M005                  Event Session / BEO
+
+  M006                  Venue Checklist
+
+  M007                  Live Guest Count
+
+  M008                  Customer Extra Request
+
+  M009                  Incident / Photo Proof
+
+  M010                  Kitchen Production Today
+
+  M011                  Production Batch / Prep
+
+  M012                  Stock Request
+
+  M013                  Store Issue / Return
+
+  M014                  GRN Quick Receive
+
+  M015                  Physical Count
+
+  M016                  Wastage Entry
+
+  M017                  Packing / Loading Check
+
+  M018                  Driver Trip
+
+  M019                  Delivery Proof
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                    Page 21
+  ID                  Mobile Screen
+
+  M020                Equipment Return
+
+  M021                Temporary Staff Check-in/Settlement
+
+  M022                Owner Approval Detail
+
+  M023                Offline Queue / Sync Status
+
+  M024                Profile / Logout / Session
+
+
+
+ D4. UI Status Semantics
+  Visual Status                    Frozen Meaning
+
+  Green                            Approved, paid, complete, healthy/ready.
+
+  Amber                            Pending, due soon, attention required.
+
+  Red                              Overdue, rejected, blocked, missing, loss/critical.
+
+  Blue                             Active, confirmed, in progress/information.
+
+  Grey                             Draft, inactive, cancelled, archived.
+
+  Purple/Gold                      Owner/high-level approval or exceptional attention.
+
+  Teal                             Ready/confirmed operational state where useful.
+
+  Orange                           Procurement/preparation/dispatch pending.
+
+
+ Color is never the only indicator; text label and icon/status are required.
+
+
+ D5. Mandatory Record Detail Tabs
+  Record                        Frozen Tabs
+
+  Customer 360                  Summary | Contacts | Addresses | Preferences | Leads | Quotes | Bookings | Events | Finance |
+                                Complaints | Documents | Audit
+
+  Event                         Summary | Sessions | Menu | Demand | Purchase | Stock | Production | Outsource | Staff | Logistics |
+                                Live Ops | Finance | Close | Audit
+
+  Item                          Summary | Stock | Locations | Batches | Vendors | Price History | Purchases | Consumption | Wastage
+                                | Events | Audit
+
+  Product                       Summary | Recipe Versions | Cost | Menus | Production | Actual Usage | Sales/Events | Margin
+
+  Vendor                        Summary | Contacts | Items/Rates | POs | GRNs | Bills | Payments | Quality | Score | Documents
+
+  Employee                      Summary | Assignments | Attendance | Advances | Settlement/Payroll | Documents | Audit
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                               Page 22
+                                                  PART E - APIF
+                                                             API Contract Freeze
+
+ APIF STATUS: FROZEN LOGICAL CONTRACT
+
+
+ E1. API Architecture
+ 1. One versioned HTTPS JSON API serves web and Android clients.
+
+ 2. Business calculations, permissions and workflow transitions are server-authoritative.
+
+ 3. API version prefix is explicit, e.g. /api/v1/.
+
+ 4. Authentication/session/token implementation may follow chosen stack, but every private request is authenticated.
+
+ 5. Authorization checks role + action + data scope + approval limit on every protected endpoint.
+
+ 6. Write requests that can create money/stock/booking effects support idempotency keys.
+
+ 7. Concurrent edit protection uses record version/updated timestamp or equivalent optimistic concurrency control.
+
+ 8. List endpoints support pagination, filtering, sorting and server-side search.
+
+ 9. Errors use stable machine-readable error codes plus human-readable messages.
+
+ 10. File uploads are separate controlled multipart/upload flow with type/size validation.
+
+
+ E2. Standard API Response Envelope
+ { "data": ..., "meta": { ... }, "errors": [] }
+
+   - Successful single-resource responses return data object.
+   - List responses return data array plus pagination meta.
+   - Validation/business errors return field/source references where possible.
+   - Server never exposes stack traces or secrets to client.
+
+ E3. HTTP / Error Semantics
+  Status                 Frozen Meaning
+
+  200                    Successful read/update/action.
+
+  201                    Resource created.
+
+  202                    Accepted async operation where used.
+
+  400                    Malformed request / invalid syntax.
+
+  401                    Not authenticated.
+
+  403                    Authenticated but not authorized.
+
+  404                    Resource not found or not visible in scope.
+
+  409                    Conflict: duplicate, stale version, double booking, invalid state transition.
+
+  422                    Business/field validation failed.
+
+  429                    Rate limit.
+
+  500                    Unexpected server error with trace/reference ID only.
+
+
+
+ E4. Frozen Resource Endpoint Families
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                               Page 23
+  Resource                                     Base Endpoint
+
+  companies                                    /api/v1/companies
+
+  brands                                       /api/v1/brands
+
+  branches                                     /api/v1/branches
+
+  kitchens                                     /api/v1/kitchens
+
+  stores                                       /api/v1/stores
+
+  stock-locations                              /api/v1/stock-locations
+
+  customers                                    /api/v1/customers
+
+  customer-contacts                            /api/v1/customer-contacts
+
+  venues                                       /api/v1/venues
+
+  items                                        /api/v1/items
+
+  uoms                                         /api/v1/uoms
+
+  products                                     /api/v1/products
+
+  recipes                                      /api/v1/recipes
+
+  menus                                        /api/v1/menus
+
+  vendors                                      /api/v1/vendors
+
+  leads                                        /api/v1/leads
+
+  quotations                                   /api/v1/quotations
+
+  bookings                                     /api/v1/bookings
+
+  events                                       /api/v1/events
+
+  sessions                                     /api/v1/sessions
+
+  demand-runs                                  /api/v1/demand-runs
+
+  inventory-reservations                       /api/v1/inventory-reservations
+
+  purchase-requests                            /api/v1/purchase-requests
+
+  vendor-quotes                                /api/v1/vendor-quotes
+
+  purchase-orders                              /api/v1/purchase-orders
+
+  goods-receipts                               /api/v1/goods-receipts
+
+  vendor-bills                                 /api/v1/vendor-bills
+
+  stock-movements                              /api/v1/stock-movements
+
+  physical-counts                              /api/v1/physical-counts
+
+  wastage-records                              /api/v1/wastage-records
+
+  production-plans                             /api/v1/production-plans
+
+  production-batches                           /api/v1/production-batches
+
+  packing-batches                              /api/v1/packing-batches
+
+  dispatches                                   /api/v1/dispatches
+
+  outsource-orders                             /api/v1/outsource-orders
+
+  guest-counts                                 /api/v1/guest-counts
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                        Page 24
+  Resource                                      Base Endpoint
+
+  service-counters                              /api/v1/service-counters
+
+  customer-extras                               /api/v1/customer-extras
+
+  incidents                                     /api/v1/incidents
+
+  employees                                     /api/v1/employees
+
+  rosters                                       /api/v1/rosters
+
+  attendance                                    /api/v1/attendance
+
+  temporary-staff                               /api/v1/temporary-staff
+
+  staff-settlements                             /api/v1/staff-settlements
+
+  vehicles                                      /api/v1/vehicles
+
+  trips                                         /api/v1/trips
+
+  equipment                                     /api/v1/equipment
+
+  equipment-issues                              /api/v1/equipment-issues
+
+  invoices                                      /api/v1/invoices
+
+  receipts                                      /api/v1/receipts
+
+  credit-notes                                  /api/v1/credit-notes
+
+  refunds                                       /api/v1/refunds
+
+  vendor-payments                               /api/v1/vendor-payments
+
+  expenses                                      /api/v1/expenses
+
+  bank-transactions                             /api/v1/bank-transactions
+
+  reconciliations                               /api/v1/reconciliations
+
+  journal-entries                               /api/v1/journal-entries
+
+  complaints                                    /api/v1/complaints
+
+  feedback                                      /api/v1/feedback
+
+  approvals                                     /api/v1/approvals
+
+  reminders                                     /api/v1/reminders
+
+  audit-logs                                    /api/v1/audit-logs
+
+  reports                                       /api/v1/reports
+
+
+
+ E5. Frozen Workflow Action Endpoints
+  Resource                          Frozen Action Pattern
+
+  Quotation                         /{id}/submit, /approve, /send, /accept, /supersede
+
+  Booking                           /{id}/confirm, /postpone, /cancel
+
+  Event                             /{id}/change-requests, /operational-close, /financial-close, /reopen
+
+  Demand                            /{id}/recalculate, /reserve, /release
+
+  PO                                /{id}/submit, /approve, /revise, /cancel
+
+  GRN                               /{id}/submit, /accept, /reject-lines
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                   Page 25
+  Resource                           Frozen Action Pattern
+
+  Stock                              /issues, /returns, /transfers, /adjustments
+
+  Production                         /{id}/start, /complete, /quality-check, /pack, /dispatch
+
+  Outsource                          /{id}/approve, /deliveries, /accept, /settle
+
+  Live Event                         /guest-counts, /counter-activities, /customer-extras/{id}/approve
+
+  Attendance                         /{id}/adjust, /verify
+
+  Trip                               /{id}/start, /deliver, /return, /reconcile
+
+  Invoice                            /{id}/finalize, /void-or-reverse-by-policy
+
+  Receipt                            /{id}/allocate, /reverse
+
+  Refund                             /{id}/submit, /approve, /pay
+
+  Approval                           /{id}/approve, /reject, /return
+
+  Reminder                           /{id}/acknowledge, /snooze, /complete
+
+
+
+ E6. Idempotency & Concurrency
+   - Idempotency key mandatory for payment, receipt, stock movement, GRN posting, invoice finalization, event close/reopen
+     and other configured critical writes.
+
+   - Reusing the same idempotency key with a different payload is rejected.
+   - Stale record version on update returns conflict; client reloads current record before retry.
+   - Resource reservation/confirmation executes atomically to prevent double booking of stock/equipment/vehicle/capacity.
+   - API retries must never duplicate journal lines, receipts, stock movements or external payment effects.
+
+ E7. Validation & Security Contract
+   - Backend validates required fields, numeric bounds, status transitions, UOM compatibility, ownership scope and duplicate
+     rules.
+
+   - Client-submitted calculated totals are treated as display hints at most; server recalculates authoritative totals.
+   - Uploads validate extension, MIME/content, size and access scope.
+   - Exports require explicit permission and are audited.
+   - Private responses containing sensitive data use no-store/no-cache policy as appropriate.
+   - Every API error logs server trace/reference without exposing secrets to user.
+ OWNER CONFIGURATION REQUIRED - NOT INVENTED
+
+   - Exact authentication technology and session lifetime.
+   - Exact API pagination size defaults/maxima.
+   - Exact upload limits and allowed file types.
+   - Rate limits by endpoint/user.
+   - External integrations/payment gateways/WhatsApp provider.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                  Page 26
+                                               PART F - RRF
+                                                    Report & Analytics Freeze
+
+ RRF STATUS: FROZEN REPORT CATALOG
+
+
+ F1. Global Report Rules
+ 1. Every report has date range, company/brand/branch scope and permission-based visibility where relevant.
+
+ 2. Every summarized metric drills down to source transactions.
+
+ 3. Filters and definitions are shown with the report so users know what is included.
+
+ 4. Reports distinguish standard/estimated/actual and provisional/final values.
+
+ 5. Exports preserve applied filters and generation timestamp.
+
+ 6. Sensitive reports and exports are audited.
+
+  ID            Group                                      Frozen Report
+
+  R001          Sales & Customer                           Lead Funnel & Conversion
+
+  R002          Sales & Customer                           Lead Source Performance
+
+  R003          Sales & Customer                           Salesperson Pipeline
+
+  R004          Sales & Customer                           Lost Lead Reasons
+
+  R005          Sales & Customer                           Quotation Value / Acceptance
+
+  R006          Sales & Customer                           Booking Forecast
+
+  R007          Sales & Customer                           Customer Lifetime Revenue
+
+  R008          Sales & Customer                           Repeat Customer Report
+
+  R009          Sales & Customer                           Customer Outstanding Aging
+
+  R010          Sales & Customer                           Customer Credit/Risk
+
+  R011          Sales & Customer                           Referral Performance
+
+  R012          Event & Session                            Upcoming Event Calendar
+
+  R013          Event & Session                            Event Capacity Load
+
+  R014          Event & Session                            Event Change History
+
+  R015          Event & Session                            Guest Count Variance
+
+  R016          Event & Session                            Session Performance
+
+  R017          Event & Session                            Event Close Pending
+
+  R018          Event & Session                            Cancellation/Postponement
+
+  R019          Event & Session                            Customer Extras
+
+  R020          Event & Session                            Event Incident Trend
+
+  R021          Product & Menu                             Product Popularity
+
+  R022          Product & Menu                             Product Standard vs Actual Cost
+
+  R023          Product & Menu                             Product Margin
+
+  R024          Product & Menu                             Menu Cost & Margin
+
+  R025          Product & Menu                             Recipe Price Impact
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                      Page 27
+  ID            Group                                      Frozen Report
+
+  R026          Product & Menu                             Low-Margin Products
+
+  R027          Product & Menu                             Product Yield Variance
+
+  R028          Item & Inventory                           Item Stock 360
+
+  R029          Item & Inventory                           Stock by Location
+
+  R030          Item & Inventory                           Reserved vs Available
+
+  R031          Item & Inventory                           Stock Movement Ledger
+
+  R032          Item & Inventory                           Batch/Expiry
+
+  R033          Item & Inventory                           Low Stock/Reorder
+
+  R034          Item & Inventory                           Physical Count Variance
+
+  R035          Item & Inventory                           Wastage by Reason
+
+  R036          Item & Inventory                           Item Consumption by Event
+
+  R037          Item & Inventory                           Item Price History
+
+  R038          Item & Inventory                           Inventory Valuation
+
+  R039          Purchase & Vendor                          Purchase Spend by Item
+
+  R040          Purchase & Vendor                          Purchase Spend by Vendor
+
+  R041          Purchase & Vendor                          PO Pending/Partial
+
+  R042          Purchase & Vendor                          GRN Rejection/Shortage
+
+  R043          Purchase & Vendor                          Three-Way Match Exceptions
+
+  R044          Purchase & Vendor                          Vendor Rate Comparison
+
+  R045          Purchase & Vendor                          Vendor Delivery Performance
+
+  R046          Purchase & Vendor                          Vendor Quality Issues
+
+  R047          Purchase & Vendor                          Vendor Payable Aging
+
+  R048          Kitchen & Production                       Production Plan vs Actual
+
+  R049          Kitchen & Production                       Batch Yield
+
+  R050          Kitchen & Production                       Recipe Ideal vs Actual Consumption
+
+  R051          Kitchen & Production                       Production Shortage/Excess
+
+  R052          Kitchen & Production                       Quality Check Exceptions
+
+  R053          Kitchen & Production                       Packing/Dispatch Completeness
+
+  R054          Outsource & Live Operations                Outsource Order Status
+
+  R055          Outsource & Live Operations                Outsource Vendor Performance
+
+  R056          Outsource & Live Operations                Outside Food Cost by Event
+
+  R057          Outsource & Live Operations                Live Guest Count Timeline
+
+  R058          Outsource & Live Operations                Counter Consumption/Replenishment
+
+  R059          Outsource & Live Operations                Counter Shortage/Waste
+
+  R060          People                                     Staff Roster Coverage
+
+  R061          People                                     Attendance & No-show
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                        Page 28
+  ID            Group                                      Frozen Report
+
+  R062          People                                     OT Report
+
+  R063          People                                     Temporary Staff Cost by Event
+
+  R064          People                                     Staff Advance Outstanding
+
+  R065          People                                     Payroll Summary
+
+  R066          People                                     Labour Cost per Event
+
+  R067          Logistics & Equipment                      Trip Cost by Event
+
+  R068          Logistics & Equipment                      Vehicle Utilization
+
+  R069          Logistics & Equipment                      Fuel/Toll/Parking
+
+  R070          Logistics & Equipment                      Equipment Availability
+
+  R071          Logistics & Equipment                      Equipment Outstanding Return
+
+  R072          Logistics & Equipment                      Damage/Missing Recovery
+
+  R073          Finance & Profit                           Daily Cash/Bank/UPI
+
+  R074          Finance & Profit                           Receivable Aging
+
+  R075          Finance & Profit                           Payable Aging
+
+  R076          Finance & Profit                           Customer Advance Liability
+
+  R077          Finance & Profit                           Vendor Advance
+
+  R078          Finance & Profit                           Expense by Cost Centre
+
+  R079          Finance & Profit                           Event Contribution
+
+  R080          Finance & Profit                           Event Net Profit
+
+  R081          Finance & Profit                           Branch P&L;
+
+  R082          Finance & Profit                           Brand P&L;
+
+  R083          Finance & Profit                           Company P&L;
+
+  R084          Finance & Profit                           Cash Flow
+
+  R085          Finance & Profit                           Reconciliation Exceptions
+
+  R086          Finance & Profit                           Ledger Detail
+
+  R087          Control                                    Approval Turnaround
+
+  R088          Control                                    Overdue Reminders
+
+  R089          Control                                    Audit Activity
+
+  R090          Control                                    User Access/Role Review
+
+  R091          Control                                    Closed Event Reopen History
+
+  R092          Control                                    Data Export Audit
+
+
+ Total frozen core reports: 92. Additional views may be built, but these core definitions cannot be omitted without an
+ approved scope change.
+
+
+ F2. Required Filters / Dimensions
+   - Company
+   - Brand
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                           Page 29
+   - Branch
+   - Kitchen
+   - Store/Location
+   - Customer
+   - Vendor
+   - Event
+   - Meal Session
+   - Product
+   - Item
+   - Category
+   - Date range
+   - Status
+   - Owner/employee
+   - Payment status
+   - Cost centre
+   - Provisional vs final where applicable
+
+ F3. Product-wise / Item-wise Drilldown - FROZEN
+ Product -> Recipe Version -> Ingredient Lines -> Demand -> Purchase/Stock -> Actual Consumption ->
+ Wastage -> Actual Cost -> Event/Session -> Revenue -> Contribution
+
+ Item -> Opening/Receipts -> Reservations -> Issues -> Consumption -> Returns -> Wastage -> Closing ->
+ Cost -> Vendor/Price History -> Events Used
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                              Page 30
+                                                 PART G - TAF
+                                                    Testing & Acceptance Freeze
+
+ TAF STATUS: FROZEN
+
+
+ G1. Test Layers
+  Test Layer                       Frozen Coverage
+
+  Unit                             Calculations, validation, state transitions, permission helpers.
+
+  Integration                      DB + service + API + accounting/stock posting.
+
+  Workflow/E2E                     Lead through event financial close and repeat follow-up.
+
+  Permission                       Every role/action/scope, including direct API attempts.
+
+  Security                         Auth, session, upload, injection, rate limit, secrets, export controls.
+
+  Concurrency                      Double booking, duplicate payment, simultaneous stock/GRN/approval writes.
+
+  Mobile                           Offline queue, sync, camera/proof, back navigation, reconnect.
+
+  Performance                      Large customers/items/events/movements/reports and peak event-day usage.
+
+  Recovery                         Backup restore, migration rollback/repair, failed integration.
+
+  User Acceptance                  Real business scenarios with owner/department sign-off.
+
+
+
+ G2. Mandatory Business Test Scenarios
+ 1. Existing customer creates new enquiry without duplicate customer record.
+
+ 2. Quotation revision preserves old version and accepted version snapshot.
+
+ 3. High discount is blocked until required approval.
+
+ 4. Tentative booking cannot permanently consume resources beyond hold policy.
+
+ 5. Two users cannot confirm the same unavailable equipment/vehicle/capacity concurrently.
+
+ 6. Event with multiple sessions maintains separate guest count/menu/cost while rolling to booking totals.
+
+ 7. Demand excludes stock already committed to other events.
+
+ 8. PO -> partial GRN -> vendor bill mismatch holds payment as configured.
+
+ 9. Emergency purchase allocates to correct event/overhead and creates evidence/audit.
+
+ 10. Stock issue/return/wastage reconciles to movement ledger and balance.
+
+ 11. Expired/quarantine stock cannot be normally issued.
+
+ 12. Recipe plan and actual consumption remain separate and variance calculates correctly.
+
+ 13. Outsource ordered/delivered/accepted/returned quantities do not collapse into one field.
+
+ 14. Live count corrections retain history and do not overwrite prior entries.
+
+ 15. Customer extra follows approval and reaches final invoice.
+
+ 16. Temporary staff advance reduces settlement payable correctly.
+
+ 17. Equipment missing at return remains outstanding and links to incident/recovery.
+
+ 18. Customer advance increases cash but not earned event revenue automatically.
+
+ 19. Vendor advance does not become expense automatically.
+
+ 20. Receipt allocation updates outstanding without manually editing customer balance.
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                        Page 31
+ 21. Financial close is blocked while required closing blockers remain.
+
+ 22. Authorized reopen preserves prior close history.
+
+ 23. Late vendor bill follows configured post-close/reopen policy.
+
+ 24. Event P&L; reconciles to food, labour, logistics, outsource, expenses and revenue.
+
+ 25. Unauthorized user calling API directly receives denial even if UI button is hidden.
+
+ 26. Duplicate idempotency key cannot create second receipt/payment/stock movement.
+
+ 27. Offline mobile entries sync once and resolve/flag conflicts without duplication.
+
+ 28. Restore from backup reproduces critical master, transaction, audit and finance integrity.
+
+
+ G3. Definition of Done - Release Gate
+ 1. All frozen CMF/TWF/DSRF relationships implemented or explicitly approved as deferred.
+
+ 2. Critical calculations pass automated tests with agreed test fixtures.
+
+ 3. Role/permission matrix passes UI and direct API tests.
+
+ 4. No critical/high security issue remains open.
+
+ 5. No unreconciled duplicate posting bug in finance/stock workflows.
+
+ 6. Android/web critical workflows pass on representative real devices/browsers.
+
+ 7. Backup and restore drill succeeds on non-production environment.
+
+ 8. Migrations are repeatable and preserve data.
+
+ 9. Owner configuration values required for go-live are supplied and documented.
+
+ 10. UAT sign-off exists for Sales, Operations, Store/Purchase, Kitchen, Finance and Owner flows.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                            Page 32
+                                               PART H - SRF
+                                        Security, Offline, Backup & Reliability Freeze
+
+ SRF STATUS: FROZEN TECHNICAL CONTROL REQUIREMENTS
+
+
+ H1. Authentication & Authorization
+   - Every private API requires authenticated session/token.
+   - Privileged accounts support/require MFA according to owner configuration.
+   - Server authorization is mandatory on read, write, approve, pay, reopen, export and admin actions.
+   - Session expiry/revocation is enforced server-side.
+   - Password/API/signing secrets are never stored in source code or client logs.
+
+ H2. Data & Application Security
+   - HTTPS only in production.
+   - Input/schema validation on every write.
+   - Parameterized ORM/query practices; no string-built SQL from user input.
+   - Upload validation by type, size and content where feasible.
+   - Sensitive logs are redacted.
+   - Private customer/finance responses are not indexed/cached publicly.
+   - Critical exports are permissioned, watermarked/logged if configured and audited.
+   - Audit log records sensitive view/change/export/payment/approval actions according to policy.
+
+ H3. Mobile Offline Freeze
+ 1. Offline read cache is encrypted/protected according to platform capability and contains only role-scoped data.
+
+ 2. Only explicitly allowed actions can be queued offline.
+
+ 3. Queued actions carry client-generated request ID/idempotency key.
+
+ 4. User can see Pending Sync, Synced, Conflict and Failed states.
+
+ 5. Conflict does not silently overwrite newer server data.
+
+ 6. Financial close, sensitive approval and configured high-risk actions may require online connection.
+
+ 7. Logout/session revocation clears or invalidates protected local data according to security policy.
+
+
+ H4. Backup & Recovery Freeze
+   - Automated encrypted backups with documented retention.
+   - Pre-migration backup before production schema change.
+   - Restore procedure tested regularly on non-production environment.
+   - Backup includes database and required file/object attachments or references.
+   - Recovery objectives are explicitly configured before go-live.
+   - Backup success/failure is monitored and alerted.
+
+ H5. Monitoring & Reliability
+   - Health checks for API/database/background jobs/storage.
+   - Error/crash monitoring with trace/reference IDs.
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                             Page 33
+   - Queue/integration failure monitoring.
+   - Critical alerting for backup failure, payment/stock posting errors, sync backlog and security anomalies.
+   - Database migrations are versioned and reviewable.
+   - No destructive automated testing against production.
+ OWNER CONFIGURATION REQUIRED - NOT INVENTED
+
+   - MFA policy.
+   - Session timeout.
+   - Backup frequency/retention.
+   - RPO and RTO values.
+   - Production hosting/provider.
+   - External logging/monitoring provider.
+   - Exact data-retention/privacy policy.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                        Page 34
+                            PART I - FINAL REGISTER
+                                        Owner Configuration Required + Freeze Status
+
+ I1. Master Owner Configuration Register - Not Invented
+  Area                             Owner Configuration Required
+
+  Commercial                       Quotation validity, advance %, discount thresholds, credit days/limits,
+                                   cancellation/postponement/refund rules.
+
+  Event                            Tentative hold duration, guest/menu freeze deadline, capacity override rules, extra-plate
+                                   commercial rule.
+
+  Food                             Recipe buffers, yield standards, safety stock, approved costing/valuation method.
+
+  Purchase                         Approval limits, quote-count rule, price variance tolerance, emergency purchase limits.
+
+  Inventory                        Negative-stock exception, count frequency, variance/wastage approval thresholds.
+
+  Staff                            Salary, temporary rates, OT, grace time, allowances, check-in method.
+
+  Logistics                        Fuel/mileage method, driver allowance, damage recovery, vehicle cost policy.
+
+  Finance                          Chart of Accounts, GST/tax setup, invoice series, rounding, overhead allocation, payment limits,
+                                   cash close.
+
+  Approval                         Role limits, backup/delegated approvers, reopen limits.
+
+  Notifications                    Reminder/escalation timings and channels.
+
+  Security                         MFA, session timeout, export policy, backup/RPO/RTO, retention.
+
+  Integrations                     Payment gateway, WhatsApp/SMS/email, bank feeds, domain/storage if used.
+
+
+
+ I2. Final Freeze Status
+  Freeze                   Scope                                                                       Status
+
+  CMF #01-#20              Master Data Freeze                                                          ALREADY FROZEN
+
+  TWF #01-#15              Transaction Workflow Freeze                                                 ALREADY FROZEN
+
+  DSRF                     Database Schema & Relationships                                             FROZEN IN THIS PACK
+
+  PRF                      Permissions & Roles                                                         FROZEN IN THIS PACK
+
+  CRF                      Calculation Rules                                                           FROZEN IN THIS PACK
+
+  UIF                      Screen / UI Inventory & Behavior                                            FROZEN IN THIS PACK
+
+  APIF                     API Contract                                                                FROZEN IN THIS PACK
+
+  RRF                      Reports & Analytics                                                         FROZEN IN THIS PACK
+
+  TAF                      Testing & Acceptance                                                        FROZEN IN THIS PACK
+
+  SRF                      Security / Offline / Backup / Reliability                                   FROZEN IN THIS PACK
+
+
+
+ I3. Final Implementation Order - FROZEN
+ 1. Create physical database migrations from DSRF logical schema.
+
+ 2. Implement authentication, roles, scopes, approval engine and audit foundation.
+
+ 3. Implement master data modules with duplicate/version/status rules.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                                                              Page 35
+ 4. Implement CRM -> Quotation -> Booking -> Event/Session.
+
+ 5. Implement Item/UOM/Product/Recipe/Menu and demand planning.
+
+ 6. Implement Purchase/GRN/Vendor Bill and Inventory movement engine.
+
+ 7. Implement Kitchen production, outsourcing, live event operations.
+
+ 8. Implement Staff, Logistics and Equipment.
+
+ 9. Implement Finance/ledger, allocations, Event P&L; and Financial Close.
+
+ 10. Implement reports, Android/offline, reminders and reliability controls.
+
+ 11. Execute migrations, automated tests, security tests, restore drill and UAT.
+
+ 12. Populate OWNER CONFIGURATION REQUIRED values before production go-live.
+ ARCHITECTURE + MASTER DATA + WORKFLOWS + DATABASE + PERMISSIONS + CALCULATIONS + UI + API +
+ REPORTS + TESTING + SECURITY ARE NOW FROZEN AS A COMPLETE IMPLEMENTATION BLUEPRINT.
+ Business-specific configuration values remain intentionally open until the owner supplies them.
+
+
+
+
+Catering CRM + ERP - Complete Implementation Freeze Pack                                       Page 36
+

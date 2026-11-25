@@ -1,0 +1,428 @@
+                                      CATERING CRM + ERP
+
+   MASTER BUILD + CODE MODULARITY
+ + APP COMPANY HANDOVER STANDARD
+    Consolidated project plan, code-location discipline, stack compatibility and transferable handover
+
+
+
+Purpose              One document that tells the builder/development company what must exist in the Catering CRM,
+                     how the code must be organised, how every feature's code must be located quickly, and how the
+                     complete project must be handed over to another app/software company without vendor lock-in.
+
+
+
+
+Core Rule            No giant single-file application. Every major feature must have a clear module/file location and
+                     must be listed in a Feature-to-Code Map. Small future changes should be possible by editing the
+                     relevant module instead of searching or rewriting the whole application.
+
+
+
+
+Stack Rule           The actual code must be handed over in the language/framework it really uses. If the receiving
+                     company wants a different language/stack, create a compatibility and migration plan; do not
+                     silently rewrite the whole system just because the target company's preferred stack is different.
+
+
+
+
+                      Catering CRM + ERP | Master Build + Code Modularity + App Company Handover
+1. What This Master PDF Covers
+• The frozen Catering CRM + ERP business architecture and implementation requirements.
+• The later additional UI/UX layer: targets, analytics, diagrams, calendar, purchase navigation/search and menu PDF.
+• Source-code modularity and exact code-location documentation.
+• Actual technology-stack documentation and receiving-company compatibility/migration planning.
+• Frontend, backend, database, API, environment, deployment, credentials and testing handover.
+• A final replacement-developer test so another company can continue the project without depending on the original
+  Lovable workspace.
+
+Final Success            A new development company should be able to open START-HERE.md, understand the stack,
+Condition                run the project, find the exact code for any major feature, make a targeted change, test it and
+                         deploy it without calling the old developer.
+
+
+
+2. Complete Project Functional Plan
+2.1 Core Organisation & Master Data
+• Company / Legal Entity -> Brand -> Branch -> Kitchen -> Store / Warehouse hierarchy.
+• Customer, Venue, Item, Category, UOM & Conversion, Product/Dish, Recipe/BOM, Menu, Vendor, Outsource, Staff,
+   Vehicle, Equipment/Asset, Booking, Event, Meal Session, Expense, Finance/Ledger and Role/Approval masters.
+• One real item = one Item ID. Aliases and alternate spellings must not create duplicate master records.
+• Item and Product/Dish remain separate. Recipe/BOM connects Products to Items.
+• Standard Cost, Estimated Cost and Actual Cost remain separate.
+
+2.2 CRM, Sales & Event Flow
+• Lead -> Contacted -> Requirement Captured -> Quotation -> Negotiation -> Advance Pending -> Confirmed -> Event
+   Planning -> Event Completed -> Payment Pending -> Closed.
+• Customer -> Booking -> Event -> Sub-Event where applicable -> Meal Session.
+• Quotation/version history, customer requirements, event/venue/session linkage and controlled status transitions.
+• Event close includes operational close, returns, staff/vendor cost completion, customer/finance checks, provisional P&L
+   and final financial close.
+
+2.3 Food, Menu, Recipe & Production
+• Menu -> Product/Dish -> Recipe/BOM -> Item/Ingredient.
+• Recipes are versioned; approved versions are traceable to production and costing.
+• Production, preparation, packing, dispatch and actual consumption must link back to Event/Meal Session where
+  applicable.
+• Actual consumption and stock are transaction-derived; no free manual stock balance edits.
+
+2.4 Purchase, Inventory & Outsource
+• Demand -> Purchase Requirement -> PR -> Vendor Quote/Comparison -> PO -> Delivery -> GRN -> QC -> Vendor Bill
+   -> Payment.
+• Stock changes only through Stock Movements.
+• Inventory supports on-hand, committed/reserved, available, incoming, low-stock, expiry/wastage and location-based
+   stock.
+• Universal outsourced food/service engine for Pulka, Chapathi, Rumali Roti, Bobbatlu, Ice Cream, Pan/Paan and other
+   outside services; do not build separate CRMs/databases for each.
+• Purchase categories include Kirana, Vegetables, Disposables, Fruits, Non-Veg, Gas/Fuel, Water/Ice, Outside Purchases
+   and Other Items.
+
+2.5 Staff, Logistics, Expense & Finance
+• Staff assignments, temporary staff, advances, cleaning, transport, vehicles, equipment and live-counter costs.
+                          Catering CRM + ERP | Master Build + Code Modularity + App Company Handover
+• Event-linked direct costs must flow to Event Actual Cost/P&L; Rent, Current Bill, WiFi and other general overheads
+  remain overhead unless an approved allocation rule exists.
+• Finance/Ledger remains authoritative for payments, collections, outstanding and settlement status.
+• Advance is not automatically revenue; payment is not automatically expense.
+• Revenue - Direct Cost = Contribution; Contribution - Allocated Overhead = Net Profit, using the frozen financial rules.
+
+3. Additional UI / Analytics Layer
+Additional Feature                                              Required Outcome
+
+Target Board                                                    Large Monthly Target, Achieved, Balance, %, Daily
+                                                                Required, Today Achieved, Remaining Days; yearly/YTD
+                                                                target and run-rate.
+
+Dynamic Targets                                                 Achievement increases/decreases from authoritative
+                                                                qualifying transactions, including approved
+                                                                reversals/cancellations.
+
+Workload                                                        Workload by Status donut/pie with source-record drill-down.
+
+Lead Analytics                                                  Leads by Source, Bookings/Deals by Stage, CRM
+                                                                funnel/pipeline and conversion.
+
+Performance                                                     3/6/12-month performance: leads, quotes, bookings,
+                                                                events, revenue, collections, purchases, direct cost,
+                                                                contribution and outstanding.
+
+Purchase Analytics                                              Spend by category, monthly trend, top items, supplier
+                                                                spend, paid vs pending, outside-purchase trend.
+
+Inventory Visuals                                               On Hand, Reserved, Committed, Available, Incoming, Low
+                                                                Stock, Expiring and Wastage.
+
+Event P&L                                                       Cost breakdown and Revenue -> Direct Cost ->
+                                                                Contribution -> Allocated Overhead -> Net Profit.
+
+Calendar                                                        Month/Week/Day/Agenda; Events, Sessions, Work,
+                                                                Deliveries, Reminders, Payments, Vehicle/Equipment and
+                                                                Festivals.
+
+Person Work                                                     Person-wise schedule, pending/completed/overdue,
+                                                                completion date/time, notes/proof where required.
+
+Menu PDF                                                        Reusable brand template,
+                                                                preview/generate/share/download, version history and
+                                                                auto-fill from CRM Event/Menu data.
+
+
+3.1 Calendar Clarity Rule
+• Month-view date cell shows only 3-4 short chips; additional items show '+N more'.
+• Clicking a date opens a grouped Day Details drawer for Festival, Events, Sessions, Work, Deliveries, Reminders,
+  Payments and Vehicle/Equipment.
+• Festival dates must not hide operational Events on the same date.
+• Calendar is a visual/scheduling layer over source records, not a duplicate transaction database.
+
+3.2 Purchase Search & Maintainability
+• Every purchase category gets sticky live search, partial-word search, alias search, category/subcategory filtering and
+  vertical scrolling.
+• Universal Purchase Search queries all authoritative Item Master records without creating duplicates.
+• Add Item is controlled by permission and duplicate detection.
+• Never aggregate incompatible quantity units such as KG + Litre + Piece into one quantity total.
+                          Catering CRM + ERP | Master Build + Code Modularity + App Company Handover
+4. Mandatory Code Architecture - No Giant Files
+Non-Negotiable         Do not place the whole application inside one App.tsx, main.tsx, index.tsx or other giant
+                       generated page. Working AI-generated code must be refactored safely into identifiable modules
+                       before final handover.
+
+
+Area                                                          Required Separation
+
+Pages / Screens                                               Each major screen has an identifiable file.
+
+Features / Domains                                            Each major business feature has its own identifiable
+                                                              module/folder.
+
+Reusable UI                                                   Buttons, cards, tables, forms, dialogs and layouts are
+                                                              shared, not copied.
+
+Business Logic                                                Rules/calculations live in domain/service logic, not buried
+                                                              inside visual components.
+
+API / Integrations                                            Centralised by domain; do not duplicate API calls across
+                                                              unrelated pages.
+
+Types / Models                                                Shared source of truth; no repeated incompatible
+                                                              definitions.
+
+Validation                                                    Reusable and testable.
+
+State / Queries                                               Clear ownership and predictable data flow.
+
+Database                                                      Schema/migrations/indexes/policies are reproducible and
+                                                              documented.
+
+Tests                                                         Mapped to the feature they verify.
+
+
+4.1 Change Isolation Rule
+• A small change should normally touch only the relevant feature/page/component/service and its tests/docs.
+• Do not regenerate a large working screen to add one field, one button or one validation rule.
+• Before creating new code, search for reusable components, services, types, functions, tables and APIs.
+• Refactor when responsibilities become mixed or navigation becomes risky - not only at final handover.
+• After every meaningful change, update the Feature-to-Code Map so the next developer knows where the change
+  belongs.
+
+
+
+
+                        Catering CRM + ERP | Master Build + Code Modularity + App Company Handover
+5. Mandatory Feature-to-Code Location Map
+Why                      The receiving company must not search blindly through the repository. For every major feature,
+                         documentation must show the exact frontend, backend, database, API, permission and test
+                         locations.
+
+
+Feature         Frontend          Logic /            Backend / API      DB                 Permissions       Tests
+                                  Service
+
+Leads           <path>            <path>             <path>             <tables>           <roles>           <tests>
+
+Bookings /      <path>            <path>             <path>             <tables>           <roles>           <tests>
+Events
+
+Purchase /      <path>            <path>             <path>             <tables>           <roles>           <tests>
+GRN
+
+Inventory       <path>            <path>             <path>             <tables>           <roles>           <tests>
+
+Outsource       <path>            <path>             <path>             <tables>           <roles>           <tests>
+
+Finance / P&L   <path>            <path>             <path>             <tables>           <roles>           <tests>
+
+Calendar        <path>            <path>             <path>             <tables/views>     <roles>           <tests>
+
+Menu PDF        <path>            <path>             <path>             <tables/files>     <roles>           <tests>
+
+
+5.1 Required Documentation Files
+Document                                                       Purpose
+
+START-HERE.md                                                  Single entry point for a new developer/company.
+
+TECHNOLOGY-STACK.md                                            Actual languages, frameworks, versions, runtime, package
+                                                               manager, build tools.
+
+PROJECT-MAP.md / REPO-MAP.md                                   Repository/folder map and purpose.
+
+FEATURE-CODE-MAP.md                                            Feature -> exact code paths -> DB/API/permissions/tests.
+
+STACK-COMPATIBILITY.md                                         Current stack vs receiving company's preferred/target
+                                                               stack.
+
+PROJECT-STATUS.md                                              Complete / Partial / UI Only / Missing / Bug / Owner Config
+                                                               status.
+
+KNOWN-ISSUES.md                                                Open bugs, technical debt and workarounds.
+
+ENVIRONMENT-GUIDE.md                                           .env variables, purpose and secure value ownership.
+
+THIRD-PARTY-SERVICES.md                                        Supabase/Firebase/SMS/storage/hosting/domain/
+                                                               analytics/etc.
+
+DATABASE-GUIDE.md                                              Schema, migrations, indexes, relationships,
+                                                               backup/restore.
+
+API-DOCUMENTATION.md                                           Endpoints/contracts/auth/permissions/errors.
+
+DEPLOYMENT-GUIDE.md                                            Fresh setup, build, deploy, release and rollback.
+
+CREDENTIAL-HANDOVER-CHECKLIST.md                               Secure transfer checklist; no raw production secrets
+                                                               committed.
+
+HANDOVER-SIGNOFF.md                                            Receiver acceptance checklist and PASS/FAIL.
+
+                         Catering CRM + ERP | Master Build + Code Modularity + App Company Handover
+6. Code Language / Receiving Company Stack Rule
+Important                 Source-code handover means delivering the complete editable source in the
+                          language/framework the project actually uses. The receiving company's preferred language is a
+                          migration decision, not a reason to hide, convert or rewrite the existing source without control.
+
+• Document the actual current stack for Web, Mobile, Admin, Backend/API, Database, Auth, Realtime, Storage,
+   Notifications and Hosting.
+• Lock exact important versions and package/dependency files.
+• If the receiving company uses a different language/framework, create a Stack Compatibility / Migration Matrix.
+• For every mismatch record: current stack, target stack, compatible YES/NO, migration required YES/NO, affected
+   modules/files and recommended continuation approach.
+• Prefer incremental module-by-module migration when needed; do not blindly rewrite the entire application.
+• The receiving company must receive enough source, documentation and test evidence to either continue in the current
+   stack or plan a controlled migration.
+Layer                     Current Actual Stack     Target Stack               Migration?                Notes
+
+Web                       Actual                   Receiving target           YES/NO                    Affected modules +
+                          language/framework/v                                                          migration note
+                          ersion
+
+Mobile                    Actual                   Receiving target           YES/NO                    Affected modules +
+                          language/framework/v                                                          migration note
+                          ersion
+
+Backend/API               Actual                Receiving target              YES/NO                    Affected services +
+                          language/runtime/fram                                                         API contracts
+                          ework
+
+Database                  Actual DB + migration    Receiving target           YES/NO                    Schema/data
+                          layer                                                                         migration plan
+
+
+
+7. Complete App Company Handover Package
+Handover Area                                                    Required Deliverable
+
+Source Code                                                      Complete editable source, repository access,
+                                                                 branches/tags and production commit.
+
+Frontend                                                         All pages/screens, reusable components, forms, validation,
+                                                                 state/query code, styles/assets.
+
+Backend/API                                                      Routes/controllers/services/models/middleware/jobs,
+                                                                 auth/authorization, uploads, notifications, webhooks.
+
+Database                                                         Schema, migrations, seed/reference data,
+                                                                 indexes/constraints/views/functions/policies,
+                                                                 backup/restore.
+
+Admin                                                            Admin source, routes, role/permission matrix, CRUD/report
+                                                                 logic and audit/event logging.
+
+Mobile where applicable                                          Editable Android/iOS source, package/bundle IDs,
+                                                                 signing/keystore/cert transfer procedure, build instructions.
+
+Environment                                                      Complete .env.example and environment-variable
+                                                                 documentation without committing production secrets.
+
+Third Party                                                      Client-owned access/transfer plan for hosting, database,
+                                                                 storage, SMS, email, analytics, domains and other
+                           Catering CRM + ERP | Master Build + Code Modularity + App Company Handover
+                                                                services.
+
+Deployment                                                      Build/deploy commands, hosting config, current production
+                                                                release and rollback steps.
+
+Testing                                                         Functional tests, permission tests, calculation/reconciliation
+                                                                tests and critical regression evidence.
+
+Design / Assets                                                 Editable project-owned logos/assets/content and licence
+                                                                register where applicable.
+
+
+
+8. Functional and Handover Acceptance
+• A page/button is not completion. Save must persist, refresh must retain, correct permission must apply, backend
+   transaction must be correct, calculations/reports must update and audit must be written where applicable.
+• Double-click/idempotency protection must prevent duplicate critical transactions such as GRN, payment and stock
+   movement.
+• Cancellation/reversal must preserve history and reverse effects safely instead of deleting posted business history.
+• Dashboard and report totals must reconcile to source transactions.
+• Fresh-machine / replacement-developer test: clone -> configure -> run -> test core workflows -> build production.
+• If hidden setup knowledge or the old developer's explanation is required, handover is NOT ready.
+
+8.1 Final PASS Conditions
+Gate                                                            PASS Requirement
+
+Functional coverage                                             All frozen + approved additional requirements complete or
+                                                                explicitly documented.
+
+Code modularity                                                 No giant mixed-responsibility handover; feature locations
+                                                                are identifiable.
+
+Feature Code Map                                                Every major feature has code/DB/API/permission/test
+                                                                mapping.
+
+Stack manifest                                                  Actual stack and versions documented.
+
+Compatibility                                                   Receiving-company target stack differences documented.
+
+Source ownership                                                Editable source and repository access transferred.
+
+Database/API                                                    Reproducible database and documented API.
+
+Environment/credentials                                         Secure handover path documented.
+
+Deployment                                                      Fresh build/deploy/rollback instructions verified.
+
+Fresh developer test                                            PASS without old-developer dependency.
+
+
+
+
+                          Catering CRM + ERP | Master Build + Code Modularity + App Company Handover
+9. How To Use This PDF in the Current Catering CRM Project
+1. Keep the existing six frozen Catering CRM PDFs as the business/functional source of truth.
+2. Use the approved additional UI/analytics/target/calendar/purchase/menu-PDF requirements as the additional layer.
+3. Use this Master Build + Code Modularity + Handover PDF during finalisation to ensure code is organised and
+   transferable.
+4. Do not restart or rebuild correct working modules only to satisfy documentation; refactor only where needed and test
+   after each change.
+5. Create/update the mandatory documentation while finalising the application, not after the source has already become
+   difficult to understand.
+6. At handover, give the receiving company source + docs + database/API + environment/deployment instructions + test
+   evidence.
+
+10. One-Line Execution Command for Lovable / Current Developer
+Execution Command        Continue inside the existing Catering CRM + ERP project. Preserve all frozen and correct
+                         working functionality. Complete approved missing/partial requirements, refactor only where
+                         necessary into clear modules, create START-HERE.md, TECHNOLOGY-STACK.md,
+                         PROJECT-MAP.md, FEATURE-CODE-MAP.md, STACK-COMPATIBILITY.md and the full
+                         handover documentation, then run the fresh-developer acceptance test. Do not create a new
+                         project, duplicate databases/workflows, or rewrite working modules without need.
+
+
+
+11. Founder Summary - Simple Rule
+Simple Rule              Future lo oka small change cheyyali ante, aa feature ekkada undo FEATURE-CODE-MAP lo
+                         chusi direct ga aa module/file ki vellali. Entire app code search cheyyalsina avasaram
+                         undakudadhu; entire page/app rewrite cheyyalsina avasaram undakudadhu.
+
+• App company ki only APK/build ivvadam saripodu - complete editable source code kavali.
+• Code language/framework actual ga edi use chesaro adi clear ga document cheyyali.
+• Vere company vere language/stack use chesthe, compatibility/migration map ivvali; uncontrolled full rewrite
+  cheyyakudadhu.
+• Frontend, backend, database, API, permissions, tests - feature-wise exact locations clear ga undali.
+• Current project handover-ready ayyaka new company independent ga continue cheyyagalali.
+
+12. Document Relationship
+Document / Layer                                                Role
+
+Frozen PDFs 01-06                                               Locked Catering CRM business architecture, masters,
+                                                                workflows and implementation rules.
+
+Additional UI Layer                                             Targets, analytics, diagrams, improved calendar, purchase
+                                                                UI/search and Menu PDF improvements.
+
+PDF 07                                                          Current Catering CRM final Lovable completion + app-
+                                                                company handover pack.
+
+Universal Project Standard                                      Use from Day 1 of future new projects to prevent giant files,
+                                                                duplicate code and handover problems.
+
+This Consolidated PDF                                           Founder-friendly single reference combining current build
+                                                                goals with modular-code and handover rules.
+
+
+
+
+                          Catering CRM + ERP | Master Build + Code Modularity + App Company Handover
+

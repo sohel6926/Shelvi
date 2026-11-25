@@ -1,0 +1,1323 @@
+                                                                      CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+
+
+
+
+                      CATERING CRM + ERP
+                       FROZEN MASTER BLUEPRINT
+                                                       Version 2.0
+   STATUS: FROZEN
+   This document is the current architecture source of truth for the Catering CRM + ERP. It supersedes previous blueprint
+   references for this project. Do not change frozen architecture decisions without explicit approval.
+
+
+
+
+                                                           Purpose
+               Run the catering business from lead to final profit using one connected system: sales,
+                  bookings, events, meal sessions, recipes, product-wise and item-wise inventory,
+                purchases, kitchen production, staff, logistics, finance, closing, and repeat business.
+Freeze Date                  14 August 2026
+
+
+
+Architecture Status          FROZEN
+
+
+
+Primary Rule                 One connected operational and financial source of truth
+
+
+
+Scope                        Web + Android + backend + database + business controls
+
+
+
+
+                         FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                       CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+
+Master Blueprint Map
+Group                             Sections                           Coverage
+
+                                                                     Business hierarchy, golden rules, CRM,
+A. FOUNDATION                     1-8                                customer, booking, events, sessions,
+                                                                     venue
+
+                                                                     Menus, products, items, UOM, batches,
+                                                                     locations, stock movements,
+B. FOOD & INVENTORY               9-24
+                                                                     reservations, recipes, yield, costing,
+                                                                     pricing, demand planning
+
+                                                                     Purchases, GRN, three-way match,
+                                                                     vendors, outsourced items, kitchen,
+C. PROCUREMENT & OPERATIONS       25-36
+                                                                     packing, dispatch, live counters, live
+                                                                     counts, extras
+
+                                                                     Staff, attendance, temporary staff,
+D. PEOPLE & LOGISTICS             37-44                              payroll, vehicles, equipment,
+                                                                     wastage/leftovers, food safety
+
+                                                                     Expenses, finance, ledger, allocations,
+                                                                     profitability, closing, complaints,
+E. FINANCE & CONTROL              45-56
+                                                                     reminders, approvals, roles, audit,
+                                                                     master governance
+
+                                                                     Mobile, offline operations, owner
+F. MOBILE, OWNER & REPORTING      57-62                              dashboard, reports, final flow,
+                                                                     architecture decisions
+
+
+
+
+                  FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                                       CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+
+1. Core Business Hierarchy - FROZEN
+The permanent business relationship is:
+     Legal Entity / Company -> Brand -> Branch -> Kitchen -> Store / Warehouse
+     Customer -> Booking -> Event -> Sub-Event -> Meal Session
+     Menu -> Product / Dish -> Recipe / BOM -> Item / Ingredient
+     Purchase / Inventory / Production -> Staff / Vendor / Vehicle / Equipment
+     Billing / Collection -> Event P&L -> Financial Close
+    Example
+    A single Wedding Booking can contain Mehendi Dinner, Wedding Breakfast, Wedding Lunch, Reception Snacks and
+    Reception Dinner. Each session can independently track guests, menu, production, inventory, outside items, staff, vehicles,
+    equipment, live counts, expenses, revenue and profit.
+
+
+
+
+2. Golden System Rules - FROZEN
+     One backend and one central database.
+     Web and Android use the same business logic and source data.
+     Every business record has a unique ID.
+     Every event-related cost links to Booking, Event and Session where applicable.
+     General expenses use an approved Overhead Cost Centre.
+     No direct stock editing; stock changes only through stock movements.
+     No silent payment editing, recipe editing or financially closed event editing.
+     Important changes require audit history; sensitive changes require approval.
+     Backend calculates money, tax, balances and profit.
+     UI cannot bypass permissions.
+     Actual data never overwrites historical quotation or event snapshots.
+
+
+3. Sales CRM
+     Leads
+     Enquiries
+     Customers
+     Follow-ups
+     Lead Sources
+     Sales Pipeline
+     Quotations
+     Quotation Versions
+     Negotiations
+     Discounts
+     Booking Confirmation
+     Advance Collection
+     Lost Leads
+     Repeat Customers
+     Referrals
+     Customer Outstanding
+     Customer History
+    Sales Pipeline
+    New Lead -> Contacted -> Requirement Captured -> Quotation -> Negotiation -> Advance Pending -> Confirmed -> Event
+    Planning -> Event Completed -> Payment Pending -> Closed -> Repeat Customer
+
+
+                          FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                                     CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+
+
+
+
+4. Customer 360
+     Customer details and multiple phone numbers
+     WhatsApp, email, address and communication preference
+     All bookings and events
+     Quotations, payments, pending amount and refunds
+     Complaints and feedback
+     Favourite menus and referral details
+     Lifetime revenue
+     Credit status and risk/blacklist status
+
+
+5. Booking Management
+Booking is the commercial parent record. One booking may contain one or multiple events, dates and
+sessions.
+     Customer
+     Booking value
+     Advance
+     Payment schedule
+     Contract
+     Discount
+     Overall package
+     Cancellation rules
+     Overall customer outstanding
+
+
+6. Event Management
+     Event ID
+     Booking ID
+     Date
+     Venue
+     Event type
+     Event manager
+     Overall guests
+     Overall status
+     Sub-events
+     Sessions
+     Operations
+     Costs
+     Revenue
+     Closing status
+    Event Statuses
+    Enquiry -> Tentative -> Advance Pending -> Confirmed -> Planning -> Preparation -> Dispatched -> In Progress ->
+    Operational Completed -> Cost Pending -> Closing -> Financially Closed. Also: Cancelled / Postponed.
+
+
+
+
+7. Sub-Event / Meal Session Engine
+Every meal or service session is independently manageable.
+                         FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                              CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+   Date and start/end time
+   Venue/area
+   Expected, guaranteed, final and live guests
+   Menu
+   Staff
+   Production
+   Dispatch
+   Outside vendors
+   Equipment
+   Session-level cost
+   Session-level revenue
+
+
+8. Venue Master + Site Survey
+   Venue name, contact and location
+   Distance from kitchen
+   Entry restrictions and loading area
+   Parking and lift
+   Kitchen availability
+   Cooking and LPG permission
+   Power and generator requirement
+   Water and washing area
+   Waste disposal
+   Buffet space and dining capacity
+   Live-counter permission
+   Safety restrictions
+   Photos and previous-event notes
+
+
+9. Menu Master
+Menu is a commercial/operational collection of sellable products; it is not inventory.
+   Veg
+   Non-Veg
+   Mixed
+   Custom Menu
+   Package Menu
+   Session-wise Menu
+   Seasonal Menu
+   Customer-specific Menu
+   Version history
+
+
+10. Product / Dish Master
+Product is a finished or sellable output, such as Chicken Biryani, Sambar, Paneer Curry, Bobbatlu, Pulka or
+Ice Cream Service.
+   Recipe/BOM link
+   Standard portions
+   Standard cost
+   Estimated cost
+   Actual cost
+   Selling price
+   Production unit
+                     FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                                     CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+     Packaging type
+     Plates/units sold
+     Revenue
+     Ingredient usage
+     Wastage
+     Profit
+
+
+11. Item Master - Central Inventory Master
+Anything that can be purchased, stored, consumed, issued, returned, wasted, sold or rented becomes an
+Item.
+     Grocery
+     Rice
+     Pulses
+     Flours
+     Oils
+     Spices
+     Vegetables
+     Fruits
+     Dairy
+     Chicken
+     Mutton
+     Fish
+     Eggs
+     Beverages
+     Water
+     Gas
+     Fuel
+     Cleaning
+     Disposables
+     Packing
+     Semi-finished
+     Finished stock
+     Outside food
+     Equipment
+     Rental items
+    Key Rule
+    Every item receives a unique Item Code / SKU. Product and Item are never treated as the same object.
+
+
+
+
+12. Product-Wise Inventory
+Drill from a product into recipe and actual inventory/cost usage.
+     Product -> Recipe -> Ingredients
+     Ingredient requirement
+     Stock available
+     Purchased
+     Issued
+     Consumed
+     Returned
+     Wasted
+                          FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                               CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+     Actual cost
+
+
+13. Item-Wise Inventory
+     Opening stock
+     Purchases
+     Incoming
+     Reserved
+     Committed
+     Issued
+     Returned
+     Consumed
+     Wasted
+     Adjusted
+     Current stock
+     Available stock
+     Reorder level
+     Batch
+     Expiry
+     Location
+     Cost
+     Vendor
+     Events used
+     Price history
+    Frozen Formula
+    Available Stock = On Hand - Committed Stock
+
+
+
+
+14. UOM / Conversion Engine
+Purchase unit, stock unit and recipe unit are separately controlled.
+     1 Bag = 25 KG
+     1 Tin = 15 Litres
+     1 Case = 24 Bottles
+     1 Box = 12 Cups
+     Centralized UOM conversions; no repeated manual calculations
+
+
+15. Batch / Lot / Expiry
+     Batch and lot
+     Receive/purchase date
+     Manufacture date
+     Expiry date
+     Vendor
+     Quantity and remaining quantity
+     Location
+    Stock Issue Policy
+    Use FEFO - First Expiry First Out - where applicable.
+
+
+
+
+                          FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                                      CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+
+16. Inventory Locations
+     Supplier Transit
+     Main Store
+     Cold Store
+     Freezer
+     Kitchen
+     Prep Section
+     Production
+     Packing
+     Vehicle / Transit
+     Event Venue
+     Return Area
+     Quarantine
+     Scrap / Waste
+
+
+17. Stock Movement Engine
+No inventory quantity changes without a movement record.
+     Purchase Receipt
+     Transfer
+     Kitchen Issue
+     Event Issue
+     Production Consumption
+     Production Output
+     Event Return
+     Vendor Return
+     Wastage
+     Damage
+     Expiry
+     Staff Meal
+     Complimentary Usage
+     Donation
+     Stock Adjustment
+    Movement Evidence
+    Every movement records From + To + Item + Qty + User + Date/Time + Event/Session + Reason + Proof.
+
+
+
+
+18. Inventory Reservation Engine
+     Confirmed future events reserve stock
+     On Hand
+     Reserved
+     Available
+     Incoming
+     Shortage
+    Purpose
+    Prevents the same stock from being promised to multiple events.
+
+
+
+
+                          FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                                    CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+
+19. Recipe / BOM Engine
+     Ingredient
+     Quantity
+     Unit
+     Yield
+     Sub-recipe
+     Batch size
+     Standard portions
+     Production buffer
+     Version
+     Effective date
+    Frozen Quantity Rule
+    Standard Quantity, Planned Quantity and Actual Quantity are always separate and never merged.
+
+
+
+
+20. Sub-Recipe Engine
+     Gravy Base
+     Ginger Garlic Paste
+     Masala Mix
+     Dough
+     Chutney
+     Sweet Base
+     Sub-recipes can be produced first and consumed by multiple finished products
+
+
+21. Yield Management
+Track food through physical transformation stages.
+     Purchased Qty
+     Rejected Qty
+     Cleaned Qty
+     Usable Qty
+     Cooked Qty
+     Dispatched Qty
+     Served Qty
+     Leftover/Waste
+
+
+22. Costing Engine
+Three costs are permanently separate:
+     Standard Cost - master recipe based
+     Estimated Event Cost - booking/quotation planning cost
+     Actual Event Cost - real consumed operational cost
+     Historical values are never overwritten
+
+
+23. Pricing Engine
+     Per plate
+     Per person
+                         FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                         CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+   Package
+   Minimum guarantee
+   Fixed event amount
+   Session price
+   Product price
+   Live-counter price
+   Transport
+   Rental
+   Service charge
+   Extras
+   Discount
+   Tax
+   Low-margin quotation warning/approval
+
+
+24. Demand Planning
+Requirements are consolidated across upcoming confirmed events.
+   Total Event Requirement
+   Less: Available Stock
+   Less: Confirmed Incoming Stock
+   Add: Safety Stock Requirement
+   Result: Purchase Requirement
+   Demand views: 1, 3, 7, 15 and 30 days
+
+
+25. Purchase Management
+Frozen workflow:
+   Requirement
+   Purchase Request
+   Vendor Quotations
+   Vendor Comparison
+   PO
+   Approval
+   Delivery
+   GRN
+   Quality Check
+   Vendor Bill
+   Three-Way Match
+   Payment
+
+
+26. Receiving / GRN
+   PO quantity
+   Delivered quantity
+   Actual measured quantity
+   Accepted quantity
+   Rejected quantity
+   Short quantity
+   Damage
+   Quality
+   Temperature where required
+   Batch
+                    FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                          CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+   Expiry
+   Photo
+   Receiver
+   Date/time
+
+
+27. Three-Way Match
+Payment verification compares PO vs Accepted GRN vs Vendor Bill.
+   Quantity mismatch
+   Rate mismatch
+   Tax mismatch
+   Freight mismatch
+   Bill mismatch
+   Payment may be placed on HOLD until mismatch is resolved
+
+
+28. Vendor Master
+   Vendor and contact person
+   Phone and WhatsApp
+   Address
+   Categories and items
+   Price history
+   Rate cards
+   MOQ
+   Lead time
+   Delivery SLA
+   Payment terms
+   Advance and pending amount
+   Quality score
+   Rejections
+   Late deliveries
+   Complaints
+   Documents
+   Active/blocked status
+
+
+29. Outside Food / Outsourced Service Engine
+One universal engine handles all outside products and services; do not build separate hard-coded CRMs.
+   Pulka / Small Pulka / Big Pulka
+   Rumali Roti
+   Bobbatlu
+   Ice Cream
+   Paan
+   Ghee
+   Water
+   Sweet
+   Live Counter
+   Outside Chef
+   Cleaning Crew
+   Temporary Service
+
+
+                     FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                                    CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+
+    Required Fields
+    Vendor + Phone + Event + Session + Item/Variant + Ordered Qty + Delivered Qty + Accepted Qty + Returned Qty + Rate +
+    Transport + Advance + Balance + Delivery Time + Responsible Person + Proof + Paid/Pending
+
+
+
+
+30. Kitchen Production
+Production flow:
+     Production Plan
+     Prep
+     Batch Start
+     Quality Check
+     Ready
+     Packing
+     Dispatch
+     Dashboard: today events, products, batch, quantity, start/end, chef, shortages, delays, yield and wastage
+
+
+31. Multi-Kitchen / Section Support
+     Central Kitchen
+     Veg Kitchen
+     Non-Veg Kitchen
+     Sweet Section
+     Bakery
+     Prep
+     Packing
+     Production transfers between kitchens/sections are tracked
+
+
+32. Packing Engine
+     Event
+     Session
+     Product
+     Quantity
+     Container
+     Container ID
+     Pack time
+     Packed by
+     QC
+     Seal
+     Vehicle
+     Loaded by
+
+
+33. Dispatch
+Frozen dispatch workflow:
+     Packing Complete
+     Load Check
+     Vehicle Assignment
+     Dispatch
+
+                         FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                                      CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+     Venue Receipt
+     Return
+     Reconcile
+
+
+34. Live Service / Counter Management
+     Buffet counters
+     Biryani
+     Pulka
+     Rumali
+     Dosa
+     Chaat
+     Ice Cream
+     Paan
+     Tea
+     Juice
+     Each counter records product, staff/vendor, opening qty, replenishment, served qty, closing qty, shortage,
+      waste and status
+
+
+35. Live Guest / Plate Count
+     Expected guests
+     Guaranteed guests
+     Final confirmed guests
+     Live served
+     Extra guests
+     Complimentary
+     Staff meals
+     Vendor meals
+     Every live entry captures Count + Date/Time + Person + Event + Session + correction reason where
+      applicable
+
+
+36. Customer Extras
+During-event commercial changes are controlled transactions.
+     Extra plates
+     Additional dish
+     Tea
+     Water
+     Extra counter
+     Extra staff
+     Extra chairs
+     Transport
+     Extended service
+    Frozen Extra Workflow
+    Request -> Price Impact -> Customer Approval -> Operations Approval -> Team Notification -> Execution -> Final Billing
+
+
+
+
+37. Staff Master
+     Permanent and temporary staff
+                          FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                           CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+   Monthly
+   Daily
+   Hourly
+   Per-event
+   Contract
+   Roles: Cook, Chef, Helper, Waiter, Captain, Cleaner, Supervisor, Driver, Counter Staff
+
+
+38. Roster & Attendance
+   Branch assignment
+   Kitchen assignment
+   Event assignment
+   Session assignment
+   Shift
+   Check-in
+   Check-out
+   Break
+   Late
+   No-show
+   OT
+   Replacement
+   Leave
+
+
+39. Temporary Event Staff Settlement
+   Name
+   Phone
+   Role
+   Event/session
+   Rate
+   Hours
+   OT
+   Allowance
+   Transport
+   Advance
+   Total
+   Paid
+   Pending
+   Payment proof
+
+
+40. Payroll
+   Approved attendance
+   Approved OT
+   Salary structure
+   Allowances
+   Reimbursements
+   Advances
+   Deductions
+   Payroll lock after approval
+
+
+
+                     FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                                   CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+
+41. Vehicle & Logistics
+     Vehicle
+     Driver
+     Event
+     Trip
+     Route
+     Load
+     Departure
+     Arrival
+     KM
+     Fuel
+     Toll
+     Parking
+     Charges
+     Delivery proof
+     Return
+     Incident
+
+
+42. Equipment & Asset Control
+     Vessels
+     Burners
+     Hot boxes
+     Tables
+     Counters
+     Linen
+     Chairs
+     Electrical equipment
+     Rental equipment
+    Asset Flow
+    Available -> Reserved -> Issued -> Loaded -> Venue Received -> Returned -> Damage/Missing -> Recovery
+
+
+
+
+43. Leftover / Wastage Engine
+     Cleaning loss
+     Preparation loss
+     Cooking loss
+     Spoilage
+     Over-production
+     Plate waste
+     Event leftover
+     Staff meal
+     Complimentary
+     Donation
+     Returned usable
+     Expired
+     Damaged
+     Missing/variance
+
+
+                         FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                                     CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+
+    Key Rule
+    Do not combine all non-standard usage into one generic wastage bucket.
+
+
+
+
+44. Food Safety
+     Allergen matrix
+     Veg/non-veg separation
+     Storage conditions
+     Temperature
+     Tasting approval
+     Hygiene checklist
+     Cleaning checklist
+     Batch traceability
+     Food incident
+     Recall trace
+
+
+45. Expense Management
+Expenses are divided into Event Expense and General Overhead.
+     Event Expense links to Event + Session where applicable
+     General Overhead examples: Rent, Current Bill, Wi-Fi, Office, Repairs, Maintenance, Software,
+      Marketing, General Fuel, Salaries, Other Overhead
+
+
+46. Finance Engine
+     Customer advance
+     Customer receipt
+     Customer outstanding
+     Customer refund
+     Credit note
+     Vendor advance
+     Vendor bill
+     Vendor payment
+     Vendor outstanding
+     Staff advance
+     Staff settlement
+     Petty cash
+     Cash
+     Bank
+     UPI
+     Card
+     Gateway
+     Expenses
+
+
+47. Accounting / Ledger Layer
+     Chart of Accounts
+     Ledger
+     Journal
+     Receivable
+                         FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                                  CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+     Payable
+     Cash/Bank
+     Cost Centre
+     Event allocation
+     Overhead allocation
+    Accounting Rule
+    Advance does not automatically become revenue. Payment does not automatically become expense.
+
+
+
+
+48. Cost Allocation Engine
+One bill or purchase may be distributed across events and overheads.
+     One Event
+     Multiple Events
+     Event + Overhead
+     Multiple Branches
+     Use allocation lines with controlled percentages/amounts
+    Example
+    ₹10,000 expense -> EVT-1001 40% + EVT-1002 35% + General Overhead 25%
+
+
+
+
+49. Event Profitability
+     Revenue = final approved event revenue
+     Direct Costs: actual food, outside food, temporary labour, permanent event labour allocation, transport,
+      fuel, rental, packing, disposables, wastage and other direct event expenses
+     Event Contribution = Revenue - Direct Cost
+     Net Event Profit = Event Contribution - Allocated Overhead
+     Display both contribution profit and net profit
+
+
+50. Event Close
+Frozen closing stages:
+     Stage 1 - Operational Close
+     Stage 2 - Return Close
+     Stage 3 - Staff Close
+     Stage 4 - Vendor Cost Close
+     Stage 5 - Customer Close
+     Stage 6 - Provisional P&L
+     Stage 7 - Financial Close
+     Reopening requires approval + reason
+
+
+51. Complaint / Incident Management
+     Customer
+     Event
+     Session
+     Product
+     Vendor
+                        FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                                    CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+     Staff
+     Vehicle
+    Frozen Complaint Workflow
+    Complaint -> Investigation -> Root Cause -> Corrective Action -> Customer Resolution -> Compensation/Refund -> Vendor
+    Recovery if applicable -> Close
+
+
+
+
+52. Reminder & Escalation Engine
+     Lead
+     Follow-up
+     Quotation
+     Advance
+     Event
+     Menu freeze
+     Guest freeze
+     Purchase
+     Vendor delivery
+     Stock
+     Expiry
+     Production
+     Staff
+     Vehicle
+     Payment
+     Equipment return
+     Compliance
+     Closing
+    Escalation
+    Responsible Person -> Manager -> Operations Head -> Owner
+
+
+
+
+53. Approval Engine
+     Discount
+     Purchase
+     Emergency purchase
+     Payment
+     Refund
+     Stock adjustment
+     Wastage
+     Event change
+     Event reopening
+     Salary
+     Vendor block
+     Customer credit
+     Approval limits are configurable
+     Backup/delegated approver supported
+
+
+
+
+                         FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                                          CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+
+54. Role-Based Access
+     Owner
+     COO
+     Finance
+     Accounts
+     Sales
+     Marketing
+     HR
+     Purchase
+     Store
+     Kitchen Head
+     Cook
+     Event Manager
+     Logistics
+     Staff
+     Driver
+     System Admin
+     Auditor
+    Permission Actions
+    View | Create | Edit | Submit | Verify | Approve | Reject | Pay | Export | Reopen
+
+
+
+
+55. Audit System
+     Actor
+     Role
+     Date/time
+     Device
+     Old value
+     New value
+     Reason
+     Approval
+     Evidence
+     No silent critical changes
+
+
+56. Master Data Governance
+     Customer
+     Vendor
+     Item
+     Product
+     Recipe
+     Venue
+     Staff
+     Vehicle
+     Equipment
+     UOM
+     Categories
+     Duplicate warning
+     Merge
+                           FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                         CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+   Inactive
+   Version
+   Approval
+
+
+57. Mobile Operations
+   Staff: attendance/tasks
+   Event Manager: BEO/checklists/live count/extras
+   Kitchen: production/stock request/wastage
+   Store: issue/return/GRN/count
+   Driver: trip/loading/delivery proof
+   Owner: alerts/approvals
+
+
+58. Offline / Low-Network Operations
+   Safe local cache
+   Offline view
+   Offline action queue where allowed
+   Retry
+   Sync status
+   Conflict handling
+   Stale-data warning
+   No duplicate submission
+
+
+59. Owner Command Dashboard
+   Today's Events
+   Upcoming Events
+   Leads
+   Booking Value
+   Advance Pending
+   Customer Outstanding
+   Vendor Outstanding
+   Staff Pending
+   Purchase Pending
+   Purchase Variance
+   Stock Value
+   Low Stock
+   Expiry
+   Wastage
+   Production Shortage
+   Outside Order Pending
+   Live Event Status
+   Vehicle Status
+   Equipment Missing
+   Event Closing Pending
+   Cash
+   Bank
+   UPI
+   Revenue
+   Event Contribution
+   Net Profit
+
+                    FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                                      CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+     Approvals
+     Critical Alerts
+    Dashboard Rule
+    Every KPI must drill into source evidence. No untraceable dashboard number is allowed.
+
+
+
+
+60. Core Management Reports
+Sales
+     Lead conversion
+     Source
+     Salesperson
+     Lost reasons
+     Booking forecast
+
+Customer
+     Revenue
+     Repeat customers
+     Outstanding
+     Customer profitability
+
+Product
+     Product sales
+     Product food cost
+     Product actual cost
+     Product margin
+     Product popularity
+
+Item
+     Stock
+     Consumption
+     Purchase
+     Price history
+     Wastage
+     Event usage
+
+Purchase
+     Vendor spend
+     Price variance
+     Rejections
+     PO pending
+
+Inventory
+     On hand
+     Available
+     Reserved
+     Expiry
+     Movement
+     Variance
+
+                         FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                            CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+Production
+   Planned vs actual
+   Yield
+   Delay
+   Shortage
+   Wastage
+
+Staff
+   Attendance
+   Event labour cost
+   OT
+   Productivity
+
+Logistics
+   Trip cost
+   Vehicle usage
+   Fuel
+   Damage
+
+Event
+   Revenue
+   Food cost
+   Staff cost
+   Outside food
+   Transport
+   Waste
+   Profit
+
+Finance
+   Cash flow
+   Receivable
+   Payable
+   P&L
+   Event P&L
+   Branch P&L
+   Company P&L
+
+
+61. Final End-to-End Flow - FROZEN
+                   1                                  ->                  Marketing / Referral
+
+                   2                                  ->                  Lead
+
+                   3                                  ->                  Customer
+
+                   4                                  ->                  Quotation
+
+                   5                                  ->                  Booking
+
+                   6                                  ->                  Advance
+
+                   7                                  ->                  Event
+
+                       FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                               CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+                  8                                   ->                       Sub-Event / Meal Session
+
+                  9                                   ->                       Venue Survey
+
+                  10                                  ->                       Menu
+
+                  11                                  ->                       Products
+
+                  12                                  ->                       Recipes / BOM
+
+                  13                                  ->                       Demand Planning
+
+                  14                                  ->                       Inventory Reservation
+
+                  15                                  ->                       Purchase Requirement
+
+                  16                                  ->                       PO / GRN / Quality
+
+                  17                                  ->                       Stock
+
+                  18                                  ->                       Production
+
+                  19                                  ->                       Yield
+
+                  20                                  ->                       Packing
+
+                  21                                  ->                       Dispatch
+
+                  22                                  ->                       Live Service
+
+                  23                                  ->                       Live Guest Count
+
+                  24                                  ->                       Customer Extras
+
+                  25                                  ->                       Returns / Wastage
+
+                  26                                  ->                       Staff / Vendor / Vehicle Settlement
+
+                  27                                  ->                       Final Invoice
+
+                  28                                  ->                       Collections
+
+                  29                                  ->                       Event P&L
+
+                  30                                  ->                       Financial Close
+
+                  31                                  ->                       Feedback / Complaint
+
+                  32                                                           Repeat Customer
+
+
+
+62. Architecture Decisions - DO NOT CHANGE WITHOUT APPROVAL
+Frozen Decision                                            Rule
+
+DECISION 01                                                Booking, Event and Meal Session are separate objects.
+
+                                                           Item and Product are separate. Item = inventory/resource.
+DECISION 02
+                                                           Product = dish/sellable output.
+
+
+
+                       FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                       CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+Frozen Decision                                    Rule
+
+DECISION 03                                        Recipe connects Product to Items.
+
+                                                   Standard Cost, Estimated Cost and Actual Cost remain
+DECISION 04
+                                                   separate.
+
+                                                   Outside foods/services use one universal outsourced-order
+DECISION 05
+                                                   engine; no separate Pulka/Ice Cream/Bobbatlu CRM.
+
+DECISION 06                                        Stock can only change through Stock Movements.
+
+DECISION 07                                        Inventory reservation is compulsory for confirmed events.
+
+DECISION 08                                        Event/session drives operational costing.
+
+DECISION 09                                        Event and General Overhead costs are kept separate.
+
+DECISION 10                                        Financial close is the final lock.
+
+                                                   No important business transaction can bypass audit and
+DECISION 11
+                                                   permissions.
+
+                                                   Every dashboard number must be traceable to source
+DECISION 12
+                                                   transactions.
+
+
+
+
+                  FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+                                                                  CATERING CRM + ERP | FROZEN MASTER BLUEPRINT v2.0
+
+NEXT LAYER AFTER ARCHITECTURE FREEZE
+NEXT: MASTER DATA FREEZE
+Only after these masters are frozen should database tables and transaction UI screens be locked.
+
+
+
+                             1                                Company / Brand / Branch Master
+
+                             2                                Customer Master
+
+                             3                                Venue Master
+
+                             4                                Item Master
+
+                             5                                Category Master
+
+                             6                                UOM Master
+
+                             7                                Product Master
+
+                             8                                Recipe / BOM Master
+
+                             9                                Menu Master
+
+                            10                                Vendor Master
+
+                            11                                Outsource Master
+
+                            12                                Staff Master
+
+                            13                                Vehicle Master
+
+                            14                                Equipment Master
+
+                            15                                Booking Master
+
+                            16                                Event Master
+
+                            17                                Meal Session Master
+
+                            18                                Expense Master
+
+                            19                                Finance / Ledger Masters
+
+                            20                                Roles / Approval Masters
+
+
+
+                         ARCHITECTURE FREEZE COMPLETE
+This document is now the controlled blueprint for further field-level master design, database design, workflow
+                               implementation, UI design and development.
+
+
+
+
+                      FROZEN SOURCE OF TRUTH | 14 AUGUST 2026 | CONTROLLED ARCHITECTURE
+

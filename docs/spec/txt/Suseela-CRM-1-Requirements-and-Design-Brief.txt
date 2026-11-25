@@ -1,0 +1,872 @@
+   Suseela CRM — Requirements &
+   Design Brief
+   For: the development team · From: Sahu Sainadh, Suseela Technologies · Version 1.2 · 10 Nov 2026
+   Companion document: Suseela CRM — Code Review (what is wrong in the current code, file by file).
+
+
+
+  Before anything else: the Supabase secret (service-role) key is in the source code and in the
+  live site's JavaScript. Rotate it in Supabase today and remove it from the code. Details: Code
+  Review, item C-1.
+
+
+This brief says what the CRM must do, how every number is calculated, and how it must look.
+Keep your current folder structure ( src/calc , src/data , src/modules , src/i18n , supabase/ ). Priorities:
+ MUST next release, SHOULD after that, LATER when we sell to other businesses.
+
+
+
+1. Who uses it and what it covers
+
+ Business               What it sells                                       What the CRM must handle
+
+ Suseela Caterings      Prasadams; pure-veg Brahmin catering (plate         Event catering, pre-orders,
+                        ₹280–360, price depends on menu); Ayyappa mala      subscriptions, counter sales
+                        catering; Sunday biryani pre-orders (₹189); lunch
+                        boxes (from Jan 2027); planned roadside snacks
+
+ Rambabu Kitchen        Low-budget veg/non-veg; Amalapuram biryani;         Prepaid meal cards,
+                        hostel supply; monthly meal card                    hostel/hotel supply billing
+
+ Daiva Sankalp (group   Meals for poojas come from the Suseela kitchen      A pooja booking creates a
+ poojas)                                                                    catering order
+
+
+Scope: food and menu only (not hostel room management). Later: other multi-brand food/event
+businesses must be able to use it (see §8).
+
+Roles: Admin (owner) — everything. Manager — leads, bookings, quotes, payments; no profit, salaries
+or settings. Staff (kitchen, driver) — own tasks, day plan, leftovers entry. Accountant (new, read-only)
+— invoices, payments, expenses, exports. Roles must be enforced in the database (RLS / server
+functions), not only in the UI. Full role matrix: §13.1.
+
+
+2. Golden rules (apply to every screen)
+1. One number, one source. Every money/target/guest figure is calculated once on the server
+   (Postgres function or Edge Function) and every screen reads that result. No money maths in React
+   components.
+2. Auto / Manual on every calculated value. Auto = CRM calculates; Manual = a user types it.
+   Show which one is used and who set it, e.g. "Manual · Sainadh · 10 Nov".
+3. Actual vs estimate. Numbers from real bills are shown plainly. Estimates are labelled "Estimate"
+   in a different colour. Never show a made-up number as real.
+4. No placeholder data in production. Hard-coded demo values (fixed biryani plan, fixed
+   suggested price, fixed P&L series) must be removed; show "No data yet — add X" instead.
+5. Audit log for every change to money, rates, targets, roles: who, when, old value, new value.
+6. Three languages: Telugu, English, Hindi — UI and customer messages (see §7).
+7. Refresh button on every page plus "Refreshed x min ago".
+8. Works on a cheap Android phone and keeps working offline for kitchen entries (sync later).
+    SHOULD
+
+
+
+3. Calculations (exact rules)
+
+3.1 Targets      MUST
+
+ Month target = Year target × month season weight ÷ sum of 12 weights (largest-remainder
+ split; parts add up exactly)
+
+ Needed per day = max(0, Month target − Month booked so far) ÷ days left including today
+
+   Year target is set per business on the Year target page and stored in one column. Suseela
+   Caterings: ₹1,50,00,000, profit 25%.
+   "All businesses" view = sum of each business's own target, never a default. No hidden defaults (₹1
+   crore, ₹2.5 crore).
+   Dashboard, Target board, Year target and Reports must all show the same target for the same
+   business and month.
+   Example: ₹1.5 crore with equal weights → ₹12,50,000 per month. Booked ₹9,70,000 on 10 Nov with
+   21 days left → ₹13,334 per day.
+
+3.2 Revenue — three separate numbers                    MUST
+
+
+Name        Counts                                                                        Shown where
+
+Booked      Bookings with status Confirmed, In preparation, Completed (not Inquiry, not   Target progress
+            Cancelled), by event date
+
+Billed      Invoices issued, by invoice date                                              Invoices, P&L
+                                                                                          income
+
+Collected   Sum of payment receipts, by receipt date                                      Cash, dues
+
+Pipeline    Inquiry + Quoted bookings — shown separately, never added to revenue          Pipeline card
+
+
+Every rupee received is a payment record (receipt) linked to the booking and invoice.
+advance_paid and balance_due on a booking are derived from receipts, not typed.
+
+Auto-confirm: when receipts reach 30% of the quote (setting), the booking moves Inquiry →
+Confirmed. Below 30%, only the owner can confirm (reason logged). Events whose date has passed
+move to "Completed — settle" automatically.
+
+3.3 Plate cost and profit          MUST
+
+ Dish cost per 100 guests = Σ (ingredient qty per 100 × ingredient rate)
+
+ Plate cost = Σ dish cost ÷ 100 + gas + disposables + (event wages ÷ guests) + (transport ÷
+ guests) + waste %
+
+ Margin % = (Plate price − Plate cost) ÷ Plate price × 100
+
+ Minimum price for target margin = Plate cost ÷ (1 − target margin)
+
+   Ingredient rate: Auto = average of last 3 purchase bills; Manual allowed.
+   For "/" choice groups use the chosen option; before the choice, use the costliest and say so.
+   Colours on the quote: ≥30% green, 25–30% amber, <25% red (red needs owner approval). This is
+   event (gross) margin; yearly net profit also subtracts rent, salaries and ads.
+   Show fixed costs (transport, minimum staff) separately so small events are not misjudged.
+   When a new purchase rate is saved: re-cost all dishes and menus that use it; list menus/quotes
+   whose margin fell below target.
+Example: veg wedding menu, 500 guests, ingredients ₹90 + gas ₹4 + disposables ₹8 + wages ₹40 + transport ₹10
++ waste ₹4.50 = ₹156.50; at ₹250 margin = 37.4%; minimum price at 25% = ₹208.67.
+
+
+3.4 Waste and learning           SHOULD
+
+ Eaten per 100 = (cooked kg − leftover kg) ÷ guests × 100 ; next plan per 100 (Auto) =
+ average of last 5 events × 1.05
+
+Leftovers entered by one tap per dish: None / Little / Half / Lot (converted to an estimated kg, labelled
+estimate). Alert when waste > 8%.
+
+3.5 Stock     SHOULD
+
+ Expected = opening + purchased − planned use ; Variance = expected − counted ; alert if
+ variance > 3% of use
+
+ Re-order when stock ≤ average daily use × (vendor lead days + 2)
+
+Physical count monthly for the 15 costliest items only. Call it "variance", not theft.
+
+3.6 Hotel / hostel supply and meal cards                MUST
+
+   Contract per customer: meal types and rate, weekly menu, minimum plates, billing day, credit
+   days.
+   Daily entry by exception: "All delivered ✓ except …". Warden/hotel confirms the count by WhatsApp
+   yes/no.
+   Monthly bill = Σ (accepted plates × rate) + extras − advance. Customer profit = bill − Σ (plates ×
+   that day's plate cost) − transport.
+   Meal card / subscription: prepaid balance, pause / skip / holiday, part-month billing, low-balance
+   alert.
+   Receivable ageing per customer: 0–30, 31–60, 61–90, 90+ days.
+
+3.7 Payment reminders            MUST
+
+Events: balance due 2 days before the event; reminders 7 days before, 2 days before, the day after,
+then every 7 days. Hotel/hostel: due = bill date + credit days; reminders on due day, +3, +7. Stop
+automatically when paid. Per-customer pause switch.
+4. Automation — everything automatic, everything switchable
+Every automation has an on/off switch in Settings → Automations, and an activity log.
+
+ When this happens              CRM does automatically                                            Default
+
+ Enquiry from website / QR /    Create a lead, assign follow-up date, send welcome message        On
+ Zuno card / WhatsApp
+
+ Quote saved                    Plate cost, margin colour, minimum price; send quote PDF on       On
+                                WhatsApp with approve link
+
+ Receipts reach 30%             Booking → Confirmed; confirmation message to customer             On
+
+ Booking confirmed              Cooking plan, grocery list (needed − stock), staff duty, vessel   On
+                                list, invoice draft, Day plan entry; double-booking check for
+                                staff/vessels
+
+ Purchase bill photo uploaded   Read items, qty, rate (OCR) for one-tap approval; update rates;   On
+                                re-cost menus
+
+ Stock below re-order level     Add to purchase list; one-tap WhatsApp order to the cheapest      On
+                                vendor
+
+ Balance due                    Reminders per §3.7                                                On
+
+ Event date passed              Move to "Completed — settle"; ask leftovers; send feedback        On
+                                request (1–5)
+
+ Rating 1–2                     Create complaint, alert manager                                   On
+
+ Month end                      Hostel/hotel/meal-card bills; P&L; CA export (Excel)              On
+
+ Every night                    Backup export; alert owner if it fails                            On
+
+
+
+5. WhatsApp Business API (our own number)
+   Use both normal WhatsApp and the API on the same number ("Coexistence"): staff keep chatting
+   from the WhatsApp Business app on the phone, while the CRM sends automatic messages through
+   the Cloud API, with chats synced. The number must be registered on the WhatsApp Business app
+   (not personal WhatsApp) and connected through a provider that supports Coexistence onboarding.
+   Planned volume about 5,000 messages a day.
+   One WhatsApp number per brand (Suseela Caterings, Rambabu Kitchen, Daiva Sankalp, and
+   any later brand). Settings → WhatsApp: add/remove numbers and link each to a brand. Every
+   message goes out from the number of the brand that owns the booking, quote or invoice; replies
+   come back to that brand's inbox; templates, name and logo are per brand. Each number connects
+   separately (Coexistence per number).
+   No misuse between brands: each brand's number, inbox, customers' chats and templates are
+   separate; staff see only the brands assigned to them; only the owner can add, change or remove a
+   number; WhatsApp access tokens are stored only on the server (never in the app code — see Code
+   Review C-1); every message is logged with who sent it; bulk sends need owner approval and go
+   only to customers who agreed to receive messages, so the number is not blocked.
+   Message types as approved templates: enquiry reply, quote with approve link, booking
+   confirmation, payment receipt, payment reminder, invoice PDF, event-day details, feedback
+   request, delivery/headcount confirmation (yes/no), vendor purchase order.
+   Send in the customer's language (Telugu / English / Hindi). Use readable event names, never codes
+   (e.g. "Traditional ceremony", not traditional_ceremony ).
+   Incoming replies (yes/no, ratings, "pause tomorrow") update the CRM automatically.
+  Log every message (sent / delivered / read / failed) on the customer and booking.
+  Until API approval: show a "Copy & send" button (wa.me link) so nothing is blocked.
+  Respect opt-out; store consent.
+
+
+6. Modules — what to build
+
+Module                        Required                                                             Priority
+
+Security fix                  Rotate secret key; all privileged work in server functions; RLS on    MUST
+                              every table; role checks server-side
+
+Targets, revenue, dashboard   §3.1–3.2; same numbers everywhere                                     MUST
+
+Invoices & receipts           Sequential non-editable invoice numbers per business per year;        MUST
+                              receipts; credit note / refund; month lock after close; GST
+                              optional switch (business is not GST-registered today); FSSAI
+                              licence no. on invoices
+
+Recipes & plate cost          §3.3 with ingredients per 100 for every dish                          MUST
+
+Quick quote                   Guests × plate rate first; menu can be added later                    MUST
+
+Meal cards & supply           §3.6                                                                  MUST
+
+P&L                           Only real expenses/purchases/payroll; estimates only when             MUST
+                              switched on and labelled; any period
+
+Clean start                   Remove demo data; Excel import for customers, items, rates            MUST
+
+Kitchen plan / Day plan       Real plans from bookings (today these return fixed demo data)         MUST
+
+Waste, stock, vendors         §3.4–3.5; vendor reliability score and backup vendor                  SHOULD
+
+Delivery                      Route list, driver view, delivery photo, cash collected               SHOULD
+
+Event documents               Packing list, function sheet, customer e-approval of quote            SHOULD
+
+Offline mode                  Kitchen entries queue offline and sync                                SHOULD
+
+Multi-business engine         §8                                                                    LATER
+
+
+
+
+7. Languages and look
+  Language switch: తెలుగు / English /    हिन्दी
+                                         , saved per user. Replace two-argument L(te, en) with
+  keyed dictionaries t("dashboard.title") with te/en/hi files. Indian number format (₹1,50,000) in all
+  languages. Hindi and Telugu text reviewed by a native speaker before release.
+  Item, dish and menu names in three languages: every item, dish and menu stores an English,
+  Telugu and Hindi name. When a user changes the language, these names change too; search finds
+  any of the three; vendor orders on WhatsApp use the vendor's language. If a name is missing in
+  one language, show English. A "+ New item" button inside every recipe, bill and grocery form adds
+  a forgotten item on the spot, with a duplicate check on all three names. Starting list of items:
+  Suseela-CRM-Master-Checklist.xlsx, sheet Items_Units.
+  Must not look AI-made: no emojis in the UI (      🎉 🏢 🍽️ etc. today); short plain titles ("Dashboard",
+  "This month's target"), not "Multi-Business Executive Command Center" / "Sales Velocity Hub"; each
+  fact shown once; our real food photos and logo, brand colours dark green and gold.
+  Animations only with meaning, under 1 second: number counting up, progress bar filling, card
+  sliding between pipeline stages, small tick on save. Respect "reduce motion".
+  Buttons: one primary button per page; icon + word; large enough for thumbs; destructive actions
+  red and confirmed.
+8. Multi-business (for selling later)                   LATER
+
+
+One core (customers, orders, quotes, invoices, receipts, expenses, vendors, staff, targets, P&L,
+WhatsApp) + switchable modules: Food/catering, Events/decor, Products/gifts, Packed food (batch
+yield, cost per pack, expiry alert), Appointments (beauty/studio, artist commission as a setting),
+Manufacturing/supply. One cost engine for all: item cost = Σ(material × rate) + labour + other +
+waste% . Per-brand target and P&L, one combined dashboard, one invoice across brands with per-brand
+split. Setup wizard asks the business type and turns on only those modules. Each customer company's
+data fully separated.
+9. Design direction
+Keep our calculations and our structure; the look should follow the style of these three
+dashboards (reference only — do not copy their branding):
+
+
+
+
+Reference A — card grid; each card: icon, title, small grey period line ("THIS YEAR · WON"), one big number; pipeline
+bar chart with conversion % arrows between stages; "Period" and "User" filters at the top.
+
+
+
+
+Reference B — month-vs-month comparison table, donut chart with labelled shares, ranked list, "Add component",
+refresh icon.
+Reference C — "Edit mode" toggle to rearrange cards, "Refreshed 12 mins ago", "Auto refresh: On", filters, status pie
+with legend.
+
+
+Our dashboard (wireframe — layout and content, not final styling)
+
+   Dashboard                                                       Business: Suseela ▾       Period: Nov ▾        TE / EN / HI       ⟳ 2 min ago
+
+
+
+   THIS MONTH · BOOKED                    NEEDED PER DAY                             COLLECTED · DUE                        EVENT MARGIN (ACTUAL)
+
+
+   ₹9,70,000                              ₹13,334                                    ₹4,15,000                              31%
+   of ₹12,50,000 target                   21 days left · Auto                        Due ₹5,55,000 · 3 overdue              target 25% · from real bills
+
+
+
+
+   Order pipeline                                                                                            Booked by business
+   THIS MONTH · COUNT AND VALUE                                                                              THIS MONTH
+
+
+       5
+
+                            4                                                                                                            Suseela 70%
+                                            3                                                                                            Rambabu 20%
+                 80%
+                                                                   2                                                                     Pooja meals 10%
+                                   75%                                              2
+                                                      67%
+                                                                          100%
+
+
+    Inquiry               Quoted         Confirmed              In prep          Completed
+
+
+
+   Dues by age                                                                      Needs your action
+
+   0–30 days                                                                        • Quote Q-014 margin 22% — approve or re-price
+   31–60                                                                            • Oil price +20% — 3 menus below target
+   61–90+                                                                           • Hostel A: 62 days due ₹1,20,000
+
+
+
+
+Numbers in the wireframe are illustrative. Cards can be rearranged in an "Edit layout" mode; each card has the period
+filter and an info (i) showing how it is calculated and whether the value is Auto or Manual.
+Booking pipeline and automations
+
+
+        Inquiry                     Quoted                    Confirmed                In preparation            Completed                  Settled
+
+
+   lead + welcome msg           plate cost, margin          auto at 30% paid         day plan, packing list   auto after event date   final invoice, receipts
+      follow-up date         quote PDF on WhatsApp        plans, groceries, duty     double-booking check      leftovers, feedback    P&L, reminders stop
+
+
+
+ Cancelled can happen from any stage: refund / kept charge and cost already spent are recorded.
+
+
+
+
+10. How we will accept the work
+ 1. Secret key rotated; no secret key anywhere in the repository or the built site; privileged actions
+    done by server functions.
+ 2. Same business + same month shows the same target, booked, billed, collected and guests
+    on Dashboard, Target board, Year target, Reports and P&L.
+ 3. With today's data: inquiries are not counted in "Booked"; bookings whose receipts reach 30% move
+    to Confirmed automatically; events dated 4 and 8 Nov move out of "In preparation".
+ 4. No hard-coded demo numbers anywhere; empty states instead.
+ 5. Invoice numbers sequential and never reused; a payment cannot exceed the balance; payment and
+    invoice update together (one transaction).
+ 6. Every Auto value can be switched to Manual and back, and shows who/when.
+ 7. Telugu, English and Hindi complete for all pages and WhatsApp templates.
+ 8. Works on a low-end Android phone; Lighthouse performance check on the dashboard.
+ 9. Code map ( docs/CODE-MAP.md ) updated: where each feature and formula lives.
+10. All test cases in §13.5 pass on staging, shown in the weekly demo.
+
+Process: work on a staging site with test data (never the live database), weekly demo, one change list
+per release. Please reply with your estimate per module and any rule above you think is wrong — we
+will decide together before you build it.
+11. Examples inside every entry form                                   MUST
+
+
+Staff should be able to fill any form correctly the first time without training. The examples are built
+into the app itself, for every user, on web and mobile, in Telugu, English and Hindi —
+nobody needs a separate Excel sheet. Every form shows examples in place:
+
+   Grey example text in every empty field (e.g. "e.g. Kasuri methi"), in the user's language.
+   Category templates: choosing a category pre-fills the right unit and fields, with an example row
+   the user can copy.
+   "Fill example" button on each form (practice only) and an info (i) next to each calculated field
+   explaining the formula with one worked example.
+   Friendly validation that shows the correct format: "Enter quantity in kg — 500 g = 0.5".
+   Practice mode: a separate sample company with example data for training. Never mixed with real
+   data.
+
+ Form                   Field                     Example shown in the form
+
+ Item (raw material)    Category → unit           Grocery: Toor dal · kg · 30 kg bag · Rate auto = bag price ÷ 30
+                                                  Vegetable: Onion · kg · 50 kg bag
+                                                  Dry vegetable: Kasuri methi · kg · 500 g pack → enter 0.5 ·
+                                                  shelf life 365 days
+                                                  Powder: Turmeric powder · kg · 1 kg pack · shelf life 365 days
+                                                  Packing: Zip pouch 100 g · pcs · 100 pcs pack · Rate auto =
+                                                  pack price ÷ 100
+                                                  Disposable: Paper plate · pcs
+
+ Recipe (per 100        Ingredient + qty          Chicken biryani: Basmati rice 12 kg · Chicken 18 kg · Oil 3 L ·
+ guests)                                          Onion 8 kg · Chilli powder 0.3 kg · Turmeric 0.05 kg
+
+ Packed product         Raw qty, yield %,         Dehydrated carrot: 10 kg fresh · yield 10% → 1 kg · 100 g
+ batch                  pack size                 packs → 10 packs
+                                                  Moringa powder: 10 kg leaves · yield 20% → 2 kg · 100 g →
+                                                  20 packs
+                                                  Ragi malt: 10 kg ragi · yield 85% → 8.5 kg · 500 g → 17 packs
+                                                  Expiry auto = batch date + shelf life. (Yields are examples;
+                                                  user measures own batch.)
+
+ Purchase bill          Item, qty, rate           Rice traders · Basmati 50 kg × ₹100 = ₹5,000 · Paid ₹5,000 ·
+                                                  Due auto ₹0
+
+ Supply contract        Meal, rate, minimum       Hostel A · Lunch · ₹85 per plate · minimum 280 plates · bill on
+                                                  1st · 10 credit days
+
+ Daily delivery         Sent, rejected            300 sent · 5 rejected → 295 accepted × ₹85 · Warden
+                                                  confirmed: Yes
+
+ Meal card              Plan, meals               Lunch 26 meals × ₹70 = ₹1,820 · used 8 → 18 left · recharge
+                                                  alert at 3
+
+ Quick quote            Guests, plate rate        500 guests × ₹250 · menu can be chosen later · margin colour
+                                                  appears immediately
+
+An Excel file with all these examples (and working formulas) is attached: Suseela-CRM-Data-Entry-
+Template.xlsx. It is only the developer's source list for the in-app example texts, the practice company and the
+import format — users never need it.
+12. Additions to the 322-page Master Blueprint
+We compared this brief with Catering CRM + ERP Complete Master (PDF 01–07 plus additions). The
+Master already covers most areas (62 numbered blueprint sections — modules plus rules such as
+Golden System Rules and Architecture Decisions; 51 original additions grouped as A01–A16; 16
+extension topics X01–X16). The items below are not in the Master (or only mentioned) and are
+added by this brief:
+
+#      Addition                      What is required
+
+1      Three UI languages            Telugu, English, Hindi for every screen, PDF and message (Master only
+                                     covers Telugu spellings in search).
+
+2      WhatsApp in detail            Our own number, about 5,000 messages/day, approved templates (§5),
+                                     two-way replies that update records (warden yes/no, "pause tomorrow",
+                                     rating), message log. Master lists WhatsApp only as an integration to
+                                     configure.
+
+3      Meal cards / subscriptions    Prepaid balance, pause / skip / holiday, part-month billing, low-balance
+                                     alert (lunch boxes, Rambabu meal card). X11 covers institutional
+                                     contracts only.
+
+4      Packed food products          Dry vegetables, powders, malts: batch yield, cost per pack, pack-size
+                                     variants, MRP, FSSAI licence and nutrition/ingredient label, expiry alert,
+                                     courier/COD orders from Instagram/WhatsApp.
+
+5      FSSAI on documents            Licence number on invoices, quotes and labels.
+
+6      Margin alert at quote time    Plate cost, colour band and minimum price for target margin shown while
+                                     quoting; red needs owner approval (§3.3). Pricing Engine lists price
+                                     models but no margin floor.
+
+7      Learning quantities           Next event's per-100 quantity learns from leftovers of the last 5 events
+                                     (§3.4). Leftover Engine records waste but has no learning loop.
+
+8      Bill photo → purchase entry   OCR of vendor bills into a draft purchase for one-tap approval.
+
+9      Examples in forms +           §11.
+       practice mode
+
+10     Look and feel rules           No emojis or jargon titles, meaningful animations only, brand colours, real
+                                     photos (§7, §9).
+
+11     Lead capture from QR / NFC    Every enquiry form or card tap creates a lead with its source.
+       card / website
+
+12     Daiva Sankalp pooja meals     A group-pooja booking in the Daiva Sankalp app creates a catering order
+                                     (temple category exists in Master, cross-brand link does not).
+
+13     Google review request         After a rating of 4–5, send the review link.
+
+14     Tally / CA export             Monthly voucher export in a format our CA can import.
+
+15     Security verification         Master says "never commit secret keys"; the current code does (Code
+                                     Review C-1). Add an automatic check in the build that fails if a secret key
+                                     appears.
+
+
+
+    Scope advice: the Master is an ERP-size specification; the current code implements a small part
+    of it and some of that with placeholder data. Please deliver in phases — Phase 1 = Code Review
+    fixes + Brief §3 calculations + §6 MUST modules — before starting further Master modules.
+13. Completing the brief — 13 more items
+Items 13.1–13.7 were missing in version 1.1. Items 13.8–13.13 came from a final check of every side of
+the business (owner, staff, customer, money, law, technology, selling). Priorities follow the same tags.
+
+13.1 Who can see and do what                   MUST
+
+Every role is given per brand: one person can be Manager in Rambabu Kitchen and have no access to
+Suseela Caterings. Enforced by RLS and server functions; hiding a button is not enough.
+
+                                                                             Kitchen
+ Area                         Owner     Manager               Accountant                    Driver
+                                                                             staff
+
+ Leads, customers,            Full      Add, edit             View           —              Own deliveries only
+ bookings                                                                                   (name, address,
+                                                                                            phone)
+
+ Quotes and prices            Full      Add, edit; red        View           —              —
+                                        margin needs
+                                        owner
+
+ Plate cost, margin, profit   Full      Margin colour only    View           —              —
+
+ Invoices and receipts        Full      Create invoice,       View, export   —              Record cash collected
+                                        record receipt
+
+ Purchases, stock,            Full      Add, edit             View           Stock count,   —
+ vendors                                                                     leftovers
+
+ Kitchen and day plan         Full      Edit                  —              Own tasks      Own route
+
+ Targets, reports, P&L        Full      Targets only          View, export   —              —
+
+ Settings, users,             Full      —                     —              —              —
+ WhatsApp numbers,
+ automations
+
+ Delete a money record        Nobody. Money entries are reversed (credit note / reversal receipt), never deleted.
+
+
+13.2 Data model (core tables)                  MUST
+
+Every table has id (uuid), brand_id , created_by , created_at , updated_at . Money is stored as
+ numeric(12,2) , never floating point. Times are stored as timestamptz and shown in IST. Ordinary
+records are soft-deleted ( deleted_at ); money records are never deleted.
+
+ Group                         Tables                                    Key rules
+
+ Companies and access          companies , brands , users ,              Brand holds logo, colours, FSSAI no.,
+                               user_brand_roles                          invoice prefix. A company owns brands
+                                                                         (needed for selling, §13.7).
+
+ Customers and sales           customers , leads , bookings ,            Customer has language, type (person /
+                               booking_sessions , quotes ,               hostel / hotel / temple) and message
+                               quote_lines                               consent with date. Lead has source.
+
+ Food costing                  items , recipes , recipe_lines ,          Recipe lines are per 100 guests. Item
+                               menus , menu_lines                        rate has mode Auto/Manual.
+
+ Money                         invoices , invoice_lines , receipts ,     Invoice number unique per brand per
+                               credit_notes , expenses                   year. Receipt links booking and invoice;
+                                                                         UPI reference (UTR) unique.
+Buying and stock             vendors , purchases ,                        Stock is the sum of moves (in, use,
+                             purchase_lines , stock_moves                 count); never typed directly.
+
+Supply and meal cards        supply_contracts ,                           Pause / skip stored as usage rows with
+                             daily_deliveries , meal_cards ,              reason.
+                             meal_card_usage
+
+Staff                        staff , staff_duties ,                       Duty has event, role and wage (§13.11).
+                             staff_payments
+
+Targets and settings         targets , settings                           One target row per brand per year, with
+                                                                          12 weights. Setting row stores value,
+                                                                          mode Auto/Manual, set by, set at.
+
+WhatsApp                     whatsapp_numbers ,                           Number belongs to one brand. Access
+                             message_templates , messages                 token kept in the server secret store,
+                                                                          not in a table.
+
+Control                      automations , automation_log ,               Audit row: table, record, field, old, new,
+                             audit_log                                    who, when.
+
+
+13.3 Screens on desktop and mobile                    MUST
+
+
+Page                   What is at the top                                          On mobile
+
+Today (home on         Today's events and deliveries, money to collect today,      First screen after login
+mobile)                tasks
+
+Dashboard              KPI cards, pipeline, booked by business, dues by age        Cards stack in one column
+                       (§9)
+
+Bookings               Pipeline board with stage counts; search by name or         List grouped by date; swipe to
+                       phone                                                       change stage
+
+Booking detail         Customer, date, guests, quote, paid / due, WhatsApp         Call, WhatsApp, Pay link
+                       log                                                         buttons at the bottom
+
+Quote builder          Guests × plate rate, menu, live plate cost and margin       One step per screen
+                       colour
+
+Items and recipes      Item list with rate and Auto/Manual; recipe per 100         Search first; edit one item at a
+                                                                                   time
+
+Purchases and          "Add bill photo" button, low-stock list                     Camera opens directly
+stock
+
+Kitchen day plan       Dishes, quantities, staff, vessels for today and            Large text; tick each dish when
+                       tomorrow                                                    ready
+
+Supply and meal        Today's deliveries by customer; cards with low              "All delivered ✓ except …" in
+cards                  balance                                                     one tap
+
+Invoices and           Unpaid list, ageing, "Record payment"                       Share invoice PDF on
+receipts                                                                           WhatsApp
+
+Reports                Period filter, P&L, target, waste, vendor                   Summary numbers; full tables
+                                                                                   on desktop
+
+Settings               Brands, users and roles, WhatsApp numbers,                  Owner only
+                       automations, rules
+                                                    Mobile rules
+    Today · Tue 10 Nov               TE ▾                Works on a 360 px wide screen and a low-end Android
+                                                         phone; installable as an app icon (PWA).
+   TO COLLECT TODAY        GUESTS TODAY                  Bottom bar with 4 items: Today, Bookings, + Add (lead,
+   ₹85,000                 650                           booking, receipt, bill photo, leftover), More.
+                                                         Tables become cards; one primary button per screen, at
+  Events                                                 thumb height.
+                                                         Phone number fields open the number keypad; amount
+    Ravi wedding · 500
+                                      Ready              fields show ₹ and Indian commas while typing.
+    Kukatpally · food by 12:00
+                                                         Voice typing allowed in every text field (Telugu, English,
+                                                         Hindi) for staff who type slowly.
+    Pooja meals · 150
+                                    Cooking
+    Ameerpet · food by 13:00                             Kitchen and driver screens show only their own work, in
+                                                         large text.
+  Deliveries                                             Each page in this table gets a desktop and a mobile
+    Hostel A · lunch 300                                 design for approval before coding.
+    Warden confirmed: waiting
+
+
+
+             ✓ All delivered except…
+
+
+
+
+     Today     Bookings     +        More
+
+
+
+
+Mobile "Today" screen (wireframe, illustrative
+numbers).
+
+
+
+13.4 WhatsApp template texts                        MUST
+
+Every template is submitted in Telugu, English and Hindi; the owner approves the Telugu and Hindi
+wording before submission. {{1}} , {{2}} … are filled by the CRM. Meta puts every template in one
+category: Utility (updates about a booking, bill or delivery — no offers) or Marketing (offers). Adding
+an offer to a Utility message makes Meta treat it as Marketing, which costs more — keep them
+separate.
+
+ Template                 Category        English text
+
+ quote_sent               Utility         Namaste {{1}}, your quotation {{2}} for {{3}} ({{4}} guests) is ₹{{5}}.
+                                          View and approve: {{6}} — {{7}}
+
+ booking_confirmed        Utility         Namaste {{1}}, your booking for {{2}} on {{3}} ({{4}} guests) is
+                                          confirmed. Received ₹{{5}}. Balance ₹{{6}} due by {{7}}. — {{8}}
+
+ payment_received         Utility         Received ₹{{1}} on {{2}} for booking {{3}}. Balance ₹{{4}}. Thank you.
+                                          — {{5}}
+
+ payment_reminder         Utility         Reminder: ₹{{1}} is due on {{2}} for {{3}}. Pay by UPI: {{4}}. Already
+                                          paid? Please ignore this message.
+
+ event_tomorrow           Utility         Your event is tomorrow, {{1}}, at {{2}}. Food will arrive by {{3}}. Our
+                                          contact: {{4}}.
+
+ headcount_check          Utility         {{1}}: {{2}} {{3}} plates delivered today. Is this correct? [YES] [NO]
+
+ meal_card_low            Utility         Your meal card has {{1}} meals left. Recharge here: {{2}}
+
+ delivery_paused          Utility         Done. No {{1}} on {{2}}. It will not be charged. Meals left: {{3}}.
+ feedback_request     Meta         Thank you for choosing {{1}}. How was the food? Reply 1 to 5.
+                      decides
+
+ vendor_order         Utility      Order from {{1}}: {{2}}. Please deliver by {{3}} to {{4}}.
+
+ festival_offer       Marketing    {{1}} special from {{2}}: {{3}} at ₹{{4}}. Order before {{5}}. Reply
+                                   STOP to stop offers.
+
+
+13.5 Test cases — expected results                  MUST
+
+The developer writes these as automated tests (calculation tests run on every build) and shows them
+passing on staging.
+
+ #     Input                                               Expected result
+
+ T1    Year target ₹1,50,00,000, equal season weights      ₹12,50,000 per month; 12 months add up to
+                                                           exactly ₹1,50,00,000
+
+ T2    Month target ₹12,50,000, booked ₹9,70,000, 10       Needed per day ₹13,334 (rounded up to the rupee)
+       Nov, 21 days left
+
+ T3    New inquiry with quote ₹2,00,000, no receipt        Booked unchanged; Pipeline +₹2,00,000
+
+ T4    Quote ₹2,00,000; receipt ₹60,000 (30%)              Booking moves to Confirmed automatically; with
+                                                           ₹59,999 it stays Inquiry
+
+ T5    Quote ₹2,00,000, paid ₹1,90,000; new receipt        Rejected: "Balance is ₹10,000"
+       ₹20,000
+
+ T6    Plate cost example in §3.3, price ₹250              Plate cost ₹156.50; margin 37.4%; minimum price
+                                                           at 25% ₹208.67
+
+ T7    Manager saves a quote with margin 24%               Red; cannot be sent until the owner approves
+
+ T8    Oil rate changes from ₹150 to ₹180 per litre        Every dish using oil re-costed; menus below target
+                                                           margin listed
+
+ T9    Hostel lunch: 300 sent, 5 rejected, ₹85 per plate   Day amount ₹25,075 (295 × ₹85)
+
+ T10   Meal card 26 meals × ₹70, 8 used                    Paid ₹1,820; 18 left; low-balance alert sent once at
+                                                           3 left
+
+ T11   Customer replies "pause tomorrow"                   Tomorrow's delivery skipped, not billed, card not
+                                                           reduced; confirmation sent
+
+ T12   Two invoices saved in the same second               Consecutive numbers (e.g. SC-2026-0041, 0042);
+                                                           no duplicate, no gap
+
+ T13   Waste: cooked 50 kg, leftover 5 kg, 500 guests      Eaten per 100 = 9 kg; waste 10% → alert (above
+                                                           8%)
+
+ T14   Bill 1 Sep, 10 credit days, today 10 Nov (age       Due 11 Sep; 60 days overdue → bucket 31–60
+       counted from due date)
+
+ T15   Manager calls the database directly for profit or   Refused by RLS
+       settings
+
+ T16   Rambabu Kitchen staff opens the app                 Cannot see Suseela Caterings customers, bookings
+                                                           or WhatsApp inbox
+
+ T17   Kitchen enters leftovers with no internet           Saved on the phone; synced once when online; no
+                                                           duplicate
+
+ T18   Same UPI reference (UTR) entered twice              Second entry refused
+ T19   User switches to Hindi                                All labels, PDFs and messages in Hindi; amounts as
+                                                             ₹1,50,000
+
+ T20   A secret key is added to the code                     Build fails
+
+
+13.6 Backup, export and restore                 MUST
+
+   Automatic backup every night; a weekly copy to the owner's own storage (e.g. Google Drive),
+   encrypted. Keep 30 daily and 12 monthly copies.
+   Owner's "Download all my data" button: every table as Excel / CSV, any time.
+   Restore test once a month on staging; result shown to the owner. A backup is taken before every
+   release.
+   Import of old data from Excel (customers, items, rates, old dues) with a preview and an error list
+   before saving.
+
+13.7 Selling to other businesses — plans                    LATER
+
+
+                     Price
+ Plan (example)                         Includes
+                     (example)
+
+ Starter             ₹999 / month       1 brand, 3 users, 1 WhatsApp number, core + one module
+
+ Growth              ₹2,499 / month     3 brands, 10 users, 3 WhatsApp numbers, all modules
+
+ Business            ₹4,999 / month     Unlimited brands, 25 users, own logo and domain, priority support
+
+Plans and prices are examples; the owner sets the final ones. WhatsApp message charges are billed to the client at
+cost.
+
+   14-day free trial that starts in practice mode (§11); monthly or yearly billing; subscription invoice
+   sent automatically.
+   Limits enforced by the server. Unpaid: 7 days grace, then read-only; data kept 90 days, then
+   deleted after notice.
+   Each client's data separated by company_id with RLS. Our super-admin panel shows sign-ups, plan
+   and usage, but not a client's customers unless the client allows support access.
+   A client can export all its data and leave at any time.
+
+13.8 Ownership and handover                  MUST
+
+   Every account is in Suseela Technologies' name and the owner's email: code repository, Supabase,
+   Vercel, domain, Meta Business / WhatsApp, payment gateway. The developer gets team access,
+   which is removed when the work ends.
+   Code, designs and database belong to Suseela Technologies; this is written in the agreement.
+   Every release: code in our repository, a short release note, setup steps and the list of environment
+   variable names (never the values).
+   Passwords and keys are shared only through the owner's password manager — never on WhatsApp
+   or e-mail.
+
+13.9 Customer data and privacy                  MUST
+
+India's Digital Personal Data Protection Act, 2023 and the DPDP Rules, 2025 (notified November 2025;
+most duties apply from May 2027) cover customer names and phone numbers. Build it in now:
+
+   Collect only what is needed. Show a short notice in the customer's language wherever data is taken
+   (website form, QR, card).
+   Separate consent for service messages and for offers. Stopping must be as easy as agreeing
+   ("STOP").
+   A customer can ask to see, correct or delete their data. Bills are kept as long as tax law requires;
+   other data is deleted or anonymised after a set period (setting).
+  Only the owner can export the customer list; every export is logged. Kitchen staff see masked
+  phone numbers.
+  If data leaks: alert the owner at once and follow the Rules' reporting steps (Data Protection Board
+  and affected customers, within 72 hours).
+  Confirm the final wording with our CA / lawyer.
+
+
+13.10 Getting paid: payment links, advance, cancellation, refund                        MUST
+
+  Every quote, invoice and reminder carries a UPI QR and UPI pay link with the amount filled in.
+  With a payment gateway (optional switch) the receipt is recorded automatically; for direct UPI the
+  staff enters the UTR number (duplicates refused, T18).
+  Advance rule per brand (default 30%, §3.2); balance due 2 days before the event (§3.7).
+  Cancellation policy per brand as a setting, printed on the quote and the confirmation. Example:
+  more than 15 days before → advance refunded minus 10%; 7–15 days → 50% of advance kept; less
+  than 7 days → advance kept. Cost already spent is always recorded.
+  Refund = credit note plus refund receipt, owner approval needed.
+  Driver's cash: collected → handed to accounts → matched; mismatch alerts the owner.
+
+13.11 Staff and wages per event                 SHOULD
+
+  Staff list with skill (cook, helper, server, driver) and wage per day or per event.
+  Duty per event, attendance in one tap, overtime, advances, month-end wage sheet.
+  Actual event wages flow into the plate cost "actual" (§3.3), so profit uses real wages, not estimates.
+
+13.12 Owner's daily summary and alerts                    MUST
+
+  Morning (8 AM), per brand: today's events and guests, deliveries, purchases needed, money to
+  collect today, yesterday's collection against target.
+  Night (9 PM): today's collection, cash with staff, leftovers entered or missing, tomorrow's plan
+  ready or not.
+  Instant: red-margin quote, large payment received, ingredient rate up more than 10%, backup
+  failed, unusual delete or export, login from a new device.
+  In the app and on the owner's WhatsApp; each alert can be switched off; quiet hours setting.
+
+13.13 Launch, support and monitoring                     MUST
+
+  Go-live plan: 1 week of staff training in practice mode → enter master data → 2 weeks running in
+  parallel with the current method → switch on the 1st of a month → old app read-only.
+  After launch: bug-fix warranty period (e.g. 60 days, set in the agreement); app-stopping bugs
+  fixed within 24 hours.
+  Monitoring: error tracking and an uptime check that alert the owner and the developer; alert
+  when a page becomes slow.
+  Speed: dashboard opens in under 3 seconds on 4G on a low-end Android phone.
+  Monthly care: library updates, security check, restore test (§13.6).
+  Help: "Help" on every page with a 1-minute video in Telugu (English and Hindi later) and a
+  WhatsApp support number.
+

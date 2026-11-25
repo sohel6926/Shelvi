@@ -1,0 +1,3 @@
+# Private business CRM — not for search engines.
+User-agent: *
+Disallow: /

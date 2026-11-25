@@ -1,0 +1,1513 @@
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+
+                            CATERING CRM + ERP
+                  ALL CMF FROZEN MASTER PACK
+                                              CMF #01 to CMF #20
+          Architecture and master-data structure only. No unsupplied business value has been invented.
+
+
+
+
+ Field / Area                                            Frozen Rule / Content
+ Document Status                                         FROZEN MASTER STRUCTURE
+ Scope                                                   All 20 master-data freezes defined in the agreed
+                                                         Catering CRM architecture.
+ No-Hallucination Rule                                   Where a value depends on the owner/business and
+                                                         was not supplied, it is explicitly marked OWNER
+                                                         CONFIRMATION REQUIRED instead of being guessed.
+ Examples                                                Examples are used only to explain a field type; they
+                                                         are not configured business values.
+ Change Control                                          After freeze, structural changes should be versioned
+                                                         and approved rather than silently overwritten.
+
+
+
+CMF Index
+ Field / Area                                            Frozen Rule / Content
+ CMF #01                                                 Company / Brand / Branch / Kitchen / Store
+ CMF #02                                                 Customer Master
+ CMF #03                                                 Venue Master
+ CMF #04                                                 Item Master
+ CMF #05                                                 Category Master
+ CMF #06                                                 UOM & Conversion Master
+ CMF #07                                                 Product / Dish Master
+ CMF #08                                                 Recipe / BOM Master
+ CMF #09                                                 Menu Master
+ CMF #10                                                 Vendor Master
+ CMF #11                                                 Outsource / Outside Food & Service Master
+ CMF #12                                                 Staff Master
+ CMF #13                                                 Vehicle Master
+ CMF #14                                                 Equipment / Asset Master
+ CMF #15                                                 Booking Master
+ CMF #16                                                 Event Master
+ CMF #17                                                 Meal Session Master
+ CMF #18                                                 Expense Master
+ CMF #19                                                 Finance / Ledger Masters
+ CMF #20                                                 Roles / Approval Masters
+
+
+
+
+                                                                                                          Page 1
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                  CMF #01
+          COMPANY / BRAND / BRANCH / KITCHEN / STORE
+   Legal entity -> customer-facing brand -> operating branch -> production kitchen -> stock holding location
+
+ Status                                                       STRUCTURE FROZEN
+ Rule                                                         No business-specific value is assumed where the
+                                                              owner has not supplied it.
+
+
+
+Frozen Hierarchy
+Company / Legal Entity -> Brand -> Branch -> Kitchen -> Store / Warehouse -> optional Zone / Rack / Shelf / Bin
+
+
+
+Core Fields
+ Field / Area                                                 Frozen Rule / Content
+ Company                                                      Internal ID, legal name, display name, company code,
+                                                              company type, registration identifiers, registered
+                                                              address, contacts, tax/compliance references, financial
+                                                              settings, bank/cash/UPI master references, branding,
+                                                              status.
+ Brand                                                        Brand ID, company ID, brand name/code/type, public
+                                                              contacts, brand identity, commercial defaults,
+                                                              operational restrictions, status.
+ Branch                                                       Branch ID, company ID, supported brands, branch
+                                                              name/code/type, address/map, contacts, operating
+                                                              hours, capacity references, commercial controls,
+                                                              service area, status.
+ Kitchen                                                      Kitchen ID, branch ID, name/code/type, address,
+                                                              kitchen head, capacity references, shifts, kitchen
+                                                              sections, food-control settings, status.
+ Store / Warehouse                                            Store ID, branch ID, optional kitchen ID,
+                                                              name/code/type, location, store manager, capacity,
+                                                              temperature controls, allowed categories,
+                                                              batch/expiry/FEFO settings, physical-count settings,
+                                                              status.
+
+
+
+Frozen Rules
+1. Company is the legal/accounting parent.
+
+2. Brand is the customer-facing commercial identity.
+
+3. Branch is the operational business location.
+
+4. Kitchen is a production unit and is separate from Store.
+
+5. Store is the inventory holding unit.
+
+                                                                                                                 Page 2
+Catering CRM + ERP | All CMF Frozen Master Pack
+6. One Branch can contain multiple Kitchens and Stores.
+
+7. Architecture supports approved shared Branch/Kitchen use across multiple Brands.
+
+8. Every stock balance belongs to a valid physical or logical stock location.
+
+9. No transactional history is deleted when a master is inactivated or archived.
+
+10. Sensitive changes are audited and may require approval.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Actual legal entity details and registrations.
+     Actual Brand names/settings.
+     Actual Branch/Kitchen/Store list.
+     Tax registrations and invoice-series mapping.
+     Actual capacity values and service-radius rules.
+
+Freeze Decisions
+    Field / Area                                             Frozen Rule / Content
+    ORG-01                                                   Company, Brand, Branch, Kitchen and Store are
+                                                             separate masters.
+    ORG-02                                                   Brand-to-Branch relationship supports shared
+                                                             operations where approved.
+    ORG-03                                                   Kitchen and Store are never treated as the same
+                                                             object.
+    ORG-04                                                   Stock cannot exist outside a valid stock location.
+    ORG-05                                                   Historical master references are preserved.
+
+
+
+
+                                                                                                                  Page 3
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                   CMF #02
+                                        CUSTOMER MASTER
+  Customer account -> contacts -> communication channels -> addresses -> billing/tax profile -> preferences ->
+                                          consent -> credit/risk -> Customer 360
+
+ Status                                                       STRUCTURE FROZEN
+ Rule                                                         No business-specific value is assumed where the
+                                                              owner has not supplied it.
+
+
+
+Core Objects
+ Field / Area                                                 Frozen Rule / Content
+ Customer Account                                             Permanent customer identity; individual,
+                                                              family/household, corporate, institution,
+                                                              religious/trust/temple, public body or agency customer
+                                                              type.
+ Contact Person                                               Multiple people per customer with relationship/role,
+                                                              primary/decision-maker/billing/event-coordination
+                                                              flags.
+ Contact Channel                                              Multiple phone/email/WhatsApp records with type,
+                                                              primary flag, verified state and channel-specific do-
+                                                              not-contact controls.
+ Address                                                      Multiple customer addresses with type,
+                                                              billing/primary flags and optional map coordinates.
+ Billing / Tax Profile                                        Billing name/address, GST/tax identifiers where
+                                                              applicable, invoice email, PO-required flag, payment
+                                                              terms and credit days.
+ Preferences                                                  Structured food/service/communication preferences
+                                                              and restricted dietary/allergen notes.
+ Consent                                                      Marketing and transactional communication controls
+                                                              with source, date/time, proof and withdrawal history.
+ Credit / Risk                                                Credit allowed/limit/days, holds, blacklist/risk flags,
+                                                              reasons, evidence, review and approval.
+ Customer 360                                                 Derived history and metrics from enquiries,
+                                                              quotations, bookings, events, invoices, collections,
+                                                              complaints and feedback.
+
+
+
+Frozen Rules
+1. Customer Account is the permanent parent identity.
+
+2. Contacts, phones, emails and addresses are child records and may be multiple.
+
+3. One customer can transact across multiple Brands and Branches without duplicate customer creation.
+
+4. Original acquisition source remains on Customer; each enquiry keeps its own source/campaign.
+
+5. Outstanding balance is finance-derived and is not manually edited in Customer Master.
+                                                                                                                Page 4
+Catering CRM + ERP | All CMF Frozen Master Pack
+6. Historical quotations/contracts/invoices preserve customer snapshots.
+
+7. Duplicate merge preserves old IDs and full transaction history.
+
+8. Marketing consent and operational communication are separate controls.
+
+9. Sensitive dietary/risk data is access-controlled.
+
+10. Customer Master stays separate from Enquiry, Booking, Event and Finance transactions.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Actual customer segments/tags.
+     Actual credit limits/days by customer class.
+     Actual consent wording/channels.
+     Actual blacklist/risk approval policy.
+
+Freeze Decisions
+    Field / Area                                           Frozen Rule / Content
+    CUS-01                                                 Customer Account is permanent identity.
+    CUS-02                                                 Customer contacts/channels/addresses are separate
+                                                           child objects.
+    CUS-03                                                 Customer 360 values are derived.
+    CUS-04                                                 No hard-delete of transactional customer history.
+    CUS-05                                                 Cross-brand/cross-branch customer reuse is
+                                                           supported.
+
+
+
+
+                                                                                                           Page 5
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                  CMF #03
+                                             VENUE MASTER
+                         Reusable venue profile and site-survey controls for event execution
+
+ Status                                                    STRUCTURE FROZEN
+ Rule                                                      No business-specific value is assumed where the
+                                                           owner has not supplied it.
+
+
+
+Purpose
+Prevent repeated venue discovery and capture operational constraints before event execution.
+
+
+
+Core Fields
+ Field / Area                                              Frozen Rule / Content
+ Identity                                                  Venue ID, venue name, venue type, active/inactive
+                                                           status.
+ Location                                                  Address, area, city, district, state, PIN, map
+                                                           coordinates, distance reference from serving
+                                                           kitchen/branch where used.
+ Contacts                                                  Venue contact person(s), phone, alternate contact,
+                                                           emergency/security contact where relevant.
+ Access & Timing                                           Entry gate, loading route, loading/unloading window,
+                                                           lift/service lift, parking, vehicle restrictions, event
+                                                           access time.
+ Kitchen / Cooking                                         Kitchen available, cooking allowed, LPG/gas allowed,
+                                                           electrical load, induction/electric cooking suitability,
+                                                           prep/washing area.
+ Utilities                                                 Water source, water availability, drainage/washing,
+                                                           power points, generator need/availability.
+ Service Area                                              Dining capacity, buffet space, live-counter area,
+                                                           seating/service layout notes.
+ Waste & Cleaning                                          Waste-disposal point, cleaning area, venue
+                                                           restrictions.
+ Safety / Restrictions                                     Fire/safety restrictions, venue permissions, noise/time
+                                                           restrictions, restricted areas.
+ Evidence                                                  Site photos, layout files, documents, previous-event
+                                                           notes, survey date, surveyed by.
+
+
+
+Frozen Rules
+1. Venue Master is reusable across multiple events.
+
+2. Event stores a venue snapshot/reference so historical execution data remains stable.
+
+3. A site survey is versioned by date; the latest survey does not erase previous survey evidence.
+
+
+                                                                                                               Page 6
+Catering CRM + ERP | All CMF Frozen Master Pack
+4. Venue-specific event instructions belong to Event/BEO, not the permanent Venue Master.
+
+5. Venue address is not automatically treated as Customer Address.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Actual venue types.
+     Whether venue survey is mandatory for every new venue or only above a threshold.
+     Required survey checklist by event size/type.
+
+Freeze Decisions
+    Field / Area                                         Frozen Rule / Content
+    VEN-01                                               Venue is a reusable master.
+    VEN-02                                               Site survey is versioned.
+    VEN-03                                               Venue constraints remain separate from event-specific
+                                                         instructions.
+    VEN-04                                               Venue history is retained.
+
+
+
+
+                                                                                                         Page 7
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                   CMF #04
+                                                  ITEM MASTER
+Central inventory master for everything purchased, stored, consumed, issued, returned, wasted, sold or tracked
+                                                       as stock
+
+ Status                                                      STRUCTURE FROZEN
+ Rule                                                        No business-specific value is assumed where the
+                                                             owner has not supplied it.
+
+
+
+Item Identity & Classification
+ Field / Area                                                Frozen Rule / Content
+ Identity                                                    Item ID/SKU, item name, alternate/local-language
+                                                             name(s), item type, category/subcategory, active
+                                                             status.
+ Inventory Nature                                            Raw material, semi-finished, finished stock,
+                                                             disposable, cleaning, beverage, fuel/gas, outside-food
+                                                             stock item, equipment/rental stock item where
+                                                             applicable.
+ UOM                                                         Purchase UOM, stock UOM, recipe UOM, conversion
+                                                             reference.
+ Cost                                                        Latest price, valuation method reference,
+                                                             freight/landed-cost treatment, cost history reference.
+ Yield                                                       Cleaning loss %, edible yield %, cooking yield %,
+                                                             standard waste where applicable.
+ Stock Control                                               Reorder level, safety stock, batch/lot required, expiry
+                                                             required, FEFO/FIFO/weighted-average policy
+                                                             reference, negative-stock allowed = default NO.
+ Storage                                                     Allowed stores/locations, temperature/storage notes.
+ Food / Compliance                                           Veg/non-veg classification, allergen flags,
+                                                             food-safety/storage notes where applicable.
+ Vendor Link                                                 Preferred vendor(s) and approved vendor-item
+                                                             relationship reference.
+ Audit                                                       Created/updated by, timestamps, status history.
+
+
+
+Frozen Rules
+1. Each inventory-tracked thing has one controlled Item ID.
+
+2. Duplicate spellings/names do not create parallel items; use aliases/local names.
+
+3. Stock quantity cannot be typed directly into Item Master.
+
+4. Every stock change occurs through a Stock Movement transaction.
+
+5. Item master stores policies and defaults; actual stock is by location/batch.
+
+6. Product/Dish and Item are separate concepts.
+                                                                                                                 Page 8
+Catering CRM + ERP | All CMF Frozen Master Pack
+7. Historical transactions preserve the Item ID even if the item becomes inactive.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Complete catering item list.
+     Actual SKU coding convention if a preferred pattern exists.
+     Reorder/safety-stock values.
+     Valuation policy by category.
+     Actual yield percentages and storage rules.
+
+Freeze Decisions
+    Field / Area                                            Frozen Rule / Content
+    ITM-01                                                  Item is the central stock identity.
+    ITM-02                                                  Item and Product are separate.
+    ITM-03                                                  Stock is location-based, never a master field.
+    ITM-04                                                  UOM conversion is controlled centrally.
+    ITM-05                                                  No silent stock edits.
+
+
+
+
+                                                                                                             Page 9
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                   CMF #05
+                                         CATEGORY MASTER
+             Controlled classification for items, products, vendors, expenses and other configurable groups
+
+    Status                                                    STRUCTURE FROZEN
+    Rule                                                      No business-specific value is assumed where the
+                                                              owner has not supplied it.
+
+
+
+Scope
+    Field / Area                                              Frozen Rule / Content
+    Category ID                                               Permanent internal ID.
+    Domain                                                    Item / Product / Vendor / Expense / Equipment / other
+                                                              approved domain.
+    Parent Category                                           Optional parent for hierarchical categorization.
+    Name                                                      Display name and optional alternate-language name.
+    Code                                                      Optional controlled code.
+    Sort / Display                                            Sort order, active/inactive status.
+    Rules                                                     Domain-specific default settings or restrictions where
+                                                              explicitly configured.
+
+
+
+Frozen Rules
+1. Category structures are configurable and must not require code changes for normal additions.
+
+2. A category can have subcategories.
+
+3. Category deletion is not allowed when referenced; use inactive/archive.
+
+4. Category changes do not rewrite historical transaction classification snapshots where preserved.
+
+5. Item categories and Product categories are separate domains even if names look similar.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Final category tree for grocery, vegetables, fruits, dairy, non-veg, disposables, cleaning, fuel/gas, equipment,
+      products and expenses.
+
+Freeze Decisions
+    Field / Area                                              Frozen Rule / Content
+    CAT-01                                                    Categories are configurable masters.
+    CAT-02                                                    Parent-child hierarchy is supported.
+    CAT-03                                                    Domain separation prevents mixing
+                                                              Item/Product/Expense categories.
+
+
+
+
+                                                                                                                  Page 10
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                  CMF #06
+                               UOM & CONVERSION MASTER
+                        Purchase unit -> stock unit -> recipe unit with controlled conversions
+
+    Status                                                  STRUCTURE FROZEN
+    Rule                                                    No business-specific value is assumed where the
+                                                            owner has not supplied it.
+
+
+
+Core Fields
+    Field / Area                                            Frozen Rule / Content
+    UOM                                                     UOM ID, name, symbol, dimension/type such as
+                                                            weight, volume, count, pack.
+    Base Unit                                               Base unit for each dimension where applicable.
+    Conversion                                              From UOM, to UOM, multiplier/divisor, effective dates,
+                                                            status.
+    Item-Specific Conversion                                Supports pack/tin/bag/case conversions that vary by
+                                                            item.
+    Precision                                               Allowed decimal precision/rounding rule.
+    Audit                                                   Who changed the conversion, when, old/new value,
+                                                            reason/approval where required.
+
+
+
+Frozen Rules
+1. Global conversions are used only when universally valid.
+
+2. Item-specific pack conversions override generic pack assumptions.
+
+3. Purchase, stock and recipe UOMs remain separately identified.
+
+4. Historical recipe/purchase snapshots preserve the conversion used at that time.
+
+5. Conversion changes are audited because they can alter costing and stock.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Approved UOM list.
+     Actual bag/tin/case/box conversions per item.
+     Rounding precision by unit type.
+
+Freeze Decisions
+    Field / Area                                            Frozen Rule / Content
+    UOM-01                                                  UOM is a controlled master.
+    UOM-02                                                  Item-specific conversions are supported.
+    UOM-03                                                  Conversion history is preserved.
+    UOM-04                                                  No free-text unit entry in transactions once master is
+                                                            active.
+
+                                                                                                              Page 11
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                   CMF #07
+                                   PRODUCT / DISH MASTER
+                   Sellable or serviceable menu output linked to recipe/BOM or outsourced fulfillment
+
+    Status                                                   STRUCTURE FROZEN
+    Rule                                                     No business-specific value is assumed where the
+                                                             owner has not supplied it.
+
+
+
+Core Fields
+    Field / Area                                             Frozen Rule / Content
+    Identity                                                 Product ID/code, product/dish name, alternate name,
+                                                             category, veg/non-veg classification, active status.
+    Fulfilment Type                                          In-house prepared, outsourced, hybrid, service-only
+                                                             where approved.
+    Recipe Link                                              Approved Recipe/BOM version for in-house prepared
+                                                             product.
+    Serving Unit                                             Plate, portion, piece, tray, kg, litre or other controlled
+                                                             UOM.
+    Cost Views                                               Standard cost reference, estimated event cost, actual
+                                                             event cost are separate and derived/linked.
+    Pricing                                                  Selling-price list references; Product Master does not
+                                                             force one global selling price.
+    Production                                               Default batch/portion settings, preparation
+                                                             section/kitchen reference where configured.
+    Food Controls                                            Allergen/dietary labels and service notes where
+                                                             applicable.
+    Lifecycle                                                Draft/active/inactive/archived and versioned changes
+                                                             where needed.
+
+
+
+Frozen Rules
+1. Product is not stock unless explicitly modelled as a finished-stock Item.
+
+2. Product may link to one or more approved recipe versions over time.
+
+3. Standard, estimated and actual costs must never overwrite each other.
+
+4. Price may vary by Brand/Branch/Menu/Quotation and is not a single permanent value.
+
+5. Outsourced products may use the Outsource engine instead of in-house recipe production.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Final product/dish catalogue.
+     Brand-specific product availability.
+     Default serving units.
+
+                                                                                                                  Page 12
+Catering CRM + ERP | All CMF Frozen Master Pack
+     Default production buffers and price lists.
+
+Freeze Decisions
+    Field / Area                                    Frozen Rule / Content
+    PRD-01                                          Product and Item are separate.
+    PRD-02                                          Product can be in-house or outsourced.
+    PRD-03                                          Cost layers remain separate.
+    PRD-04                                          Historical product/recipe versions are preserved.
+
+
+
+
+                                                                                                        Page 13
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                   CMF #08
+                                       RECIPE / BOM MASTER
+                 Product -> ingredients/items/sub-recipes -> standard quantity/yield/batch/portion rules
+
+    Status                                                   STRUCTURE FROZEN
+    Rule                                                     No business-specific value is assumed where the
+                                                             owner has not supplied it.
+
+
+
+Core Fields
+    Field / Area                                             Frozen Rule / Content
+    Recipe Identity                                          Recipe ID, Product ID, version, status, effective date,
+                                                             approved by.
+    Batch Definition                                         Standard batch size, standard portions/output,
+                                                             production UOM.
+    Ingredient Lines                                         Item/sub-recipe, quantity, recipe UOM, yield/waste
+                                                             treatment, sequence/operation notes.
+    Sub-Recipe                                               Reusable gravy, masala, dough, chutney, sauce, sweet
+                                                             base or other intermediate production recipe.
+    Yield                                                    Expected edible/cooking/output yield and standard
+                                                             production loss where applicable.
+    Buffer                                                   Configurable production buffer reference; no
+                                                             unsupplied percentage assumed.
+    Cost                                                     Standard ingredient cost derived from item cost and
+                                                             usable quantity.
+    Approvals                                                Chef/Kitchen approval and controlled version release.
+    History                                                  Old recipe versions retained for historical event
+                                                             costing.
+
+
+
+Frozen Rules
+1. Standard Quantity, Planned Quantity and Actual Quantity are separate.
+
+2. Recipe version used for a confirmed quotation/event is preserved as a snapshot/reference.
+
+3. Changing a recipe creates a new version or controlled effective-date change; it does not rewrite history.
+
+4. Sub-recipes are reusable and independently versioned.
+
+5. Actual consumption comes from stock/production transactions, not from editing recipe lines after the event.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Actual recipes and quantities.
+     Actual yields.
+     Production buffer policy.
+     Chef approval hierarchy.
+
+                                                                                                               Page 14
+Catering CRM + ERP | All CMF Frozen Master Pack
+Freeze Decisions
+ Field / Area                                     Frozen Rule / Content
+ REC-01                                           Recipe is versioned.
+ REC-02                                           Recipe links Product to Items/Sub-recipes.
+ REC-03                                           Standard/planned/actual quantities remain separate.
+ REC-04                                           Actual consumption is transaction-derived.
+
+
+
+
+                                                                                                 Page 15
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                  CMF #09
+                                              MENU MASTER
+       Reusable menu catalogue/package composed of products/dishes; session and brand/branch applicability
+                                                      supported
+
+    Status                                                 STRUCTURE FROZEN
+    Rule                                                   No business-specific value is assumed where the
+                                                           owner has not supplied it.
+
+
+
+Core Fields
+    Field / Area                                           Frozen Rule / Content
+    Identity                                               Menu ID/code, menu name, menu type, Brand/Branch
+                                                           applicability, active status.
+    Menu Type                                              Veg, non-veg, mixed, custom, package, seasonal,
+                                                           religious/special-purpose or other configured type.
+    Product Lines                                          Product ID, section/course/category, optional
+                                                           quantity/serving rule, sort order, optional/mandatory
+                                                           flag.
+    Pricing Reference                                      Package/price-list reference; quotation may override
+                                                           through approved commercial workflow.
+    Validity                                               Effective dates/version where menus change over
+                                                           time.
+    Visibility                                             Internal, sales catalogue, customer/public catalogue as
+                                                           configured.
+    Notes                                                  Service notes, inclusions/exclusions, customer-facing
+                                                           description.
+
+
+
+Frozen Rules
+1. Menu is a commercial/service composition; it is not inventory.
+
+2. Menu lines reference Products, not raw Items.
+
+3. Custom event menus are stored as versioned event/quotation snapshots.
+
+4. Public menu data must not expose internal cost/margin/stock.
+
+5. Menu changes do not retroactively alter confirmed historical quotations/events.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+      Final menu catalogue and menu types.
+      Actual package pricing and inclusions/exclusions.
+      Public-vs-internal visibility rules.
+
+
+
+
+                                                                                                             Page 16
+Catering CRM + ERP | All CMF Frozen Master Pack
+Freeze Decisions
+ Field / Area                                     Frozen Rule / Content
+ MNU-01                                           Menu is separate from Product and Recipe.
+ MNU-02                                           Menu consists of Product lines.
+ MNU-03                                           Event/quotation menu snapshots are versioned.
+ MNU-04                                           Costs remain private.
+
+
+
+
+                                                                                                  Page 17
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                   CMF #10
+                                           VENDOR MASTER
+             Supplier account -> contacts -> categories/items -> rates -> terms -> performance -> risk/status
+
+    Status                                                    STRUCTURE FROZEN
+    Rule                                                      No business-specific value is assumed where the
+                                                              owner has not supplied it.
+
+
+
+Core Objects
+    Field / Area                                              Frozen Rule / Content
+    Vendor Account                                            Vendor ID/code, legal/display name, vendor
+                                                              type/category, status.
+    Contacts                                                  Multiple contact persons, phones, WhatsApp, email,
+                                                              roles.
+    Address / Tax                                             Address, billing details, GST/tax identifiers where
+                                                              applicable.
+    Supply Scope                                              Approved categories/items/services, Brand/Branch
+                                                              service scope.
+    Commercial                                                Payment terms, credit days, MOQ, lead time,
+                                                              freight/transport rule, rate-card references.
+    Bank / Payment                                            Approved payment destination reference controlled
+                                                              by Finance.
+    Documents                                                 Licences/certificates/agreements/expiry where
+                                                              applicable.
+    Performance                                               Price history, delivery timeliness, accepted/rejected
+                                                              quantity, quality issues, returns, disputes.
+    Risk                                                      Preferred/blocked/status, reason, approval and review
+                                                              history.
+    Outstanding                                               Derived from vendor bills/payments/credit notes;
+                                                              never manually maintained in master.
+
+
+
+Frozen Rules
+1. Vendor can supply multiple Brands/Branches and multiple Items/Services.
+
+2. Vendor rates belong to dated rate cards/quotes/POs; no single master rate is assumed as permanent truth.
+
+3. Vendor outstanding is finance-derived.
+
+4. Blocked/preferred status is permission-controlled and audited.
+
+5. Vendor duplicates are checked using tax ID, phone, bank reference and legal/display name.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Final vendor types/categories.
+     Actual payment terms and approval limits.
+                                                                                                                Page 18
+Catering CRM + ERP | All CMF Frozen Master Pack
+     Preferred/blocked vendor policy.
+     Required vendor documents by category.
+
+Freeze Decisions
+    Field / Area                                  Frozen Rule / Content
+    VND-01                                        Vendor is a reusable supplier master.
+    VND-02                                        Rates are historical/effective-dated.
+    VND-03                                        Outstanding is derived.
+    VND-04                                        Vendor risk/status is controlled and audited.
+
+
+
+
+                                                                                                  Page 19
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                  CMF #11
+       OUTSOURCE / OUTSIDE FOOD & SERVICE MASTER
+             Universal configurable catalogue for outside food, live counters and outsourced services
+
+ Status                                                    STRUCTURE FROZEN
+ Rule                                                      No business-specific value is assumed where the
+                                                           owner has not supplied it.
+
+
+
+Master vs Transaction
+The master defines outsource categories/items/services and default vendor relationships. Each actual event order
+is a transaction with quantity, rate, advance, delivery and settlement.
+
+
+
+Core Fields
+ Field / Area                                              Frozen Rule / Content
+ Outsource Item/Service                                    ID/code, name, category, variant, unit, food/service
+                                                           classification, active status.
+ Examples Supported                                        Pulka variants, Rumali Roti, Bobbatlu, Ice Cream,
+                                                           Paan, Ghee supply, Water, Sweet, Live Counter,
+                                                           Outside Chef, Cleaning Crew, temporary outside
+                                                           service.
+ Vendor Eligibility                                        Approved vendors and service area.
+ Default Controls                                          Lead-time reference, quality/acceptance checks,
+                                                           delivery proof requirement, return/count
+                                                           applicability.
+ Commercial Defaults                                       Default rate-card reference, transport-charge
+                                                           applicability, advance applicability - configurable, not
+                                                           assumed.
+ Event Order Fields                                        Event/session, vendor, contact,
+                                                           ordered/delivered/accepted/returned qty, rate,
+                                                           transport, advance, balance, delivery time, responsible
+                                                           person, proof, paid/pending status.
+
+
+
+Frozen Rules
+1. One universal outsource engine handles configurable categories; do not hard-code a separate module per
+   food/service.
+
+2. Variant is explicit where needed, such as Small/Big Pulka.
+
+3. Actual rate and payment belong to the event order, not only to the master.
+
+4. Delivered and accepted quantities are separate.
+
+5. Outsource order links to Event and Meal Session where applicable.
+
+
+                                                                                                             Page 20
+Catering CRM + ERP | All CMF Frozen Master Pack
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Final outsource categories/items/variants.
+     Which categories require live count, returns or quality proof.
+     Default advance/transport policies.
+
+Freeze Decisions
+    Field / Area                                             Frozen Rule / Content
+    OUT-01                                                   One universal outsource master/engine.
+    OUT-02                                                   Variant-aware.
+    OUT-03                                                   Event order contains actual commercial and
+                                                             fulfilment data.
+    OUT-04                                                   Delivered vs accepted is separate.
+
+
+
+
+                                                                                                          Page 21
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                   CMF #12
+                                              STAFF MASTER
+              Permanent, daily, hourly, per-event and contract workforce identity and employment structure
+
+    Status                                                   STRUCTURE FROZEN
+    Rule                                                     No business-specific value is assumed where the
+                                                             owner has not supplied it.
+
+
+
+Core Fields
+    Field / Area                                             Frozen Rule / Content
+    Identity                                                 Staff/Employee ID, name, phone, emergency contact,
+                                                             home Branch, department, role, joining date, status.
+    Employment Type                                          Monthly, daily, hourly, per-event, contract.
+    Skills                                                   Skills/section capability, training/document
+                                                             references.
+    Pay Structure Reference                                  Salary/rate structure reference; actual values are
+                                                             owner/HR configuration.
+    Payment Reference                                        Approved bank/payment details with restricted access.
+    Documents                                                Identity/employment/skill/safety documents and
+                                                             expiry where applicable.
+    Availability                                             Roster availability, leave/weekly-off references.
+    Performance / Discipline                                 Restricted performance/disciplinary history where
+                                                             business chooses to use it.
+    History                                                  Role/Branch/status history retained.
+
+
+
+Frozen Rules
+1. Staff Master stores identity and employment structure; attendance/roster/payroll are transactions.
+
+2. Temporary/event staff can still have a lightweight Staff identity to prevent duplicate payment/person records.
+
+3. Staff sees only own records unless assigned supervisory permission.
+
+4. Payroll rates and deductions are configurable and not invented.
+
+5. Sensitive bank/pay data is restricted and audited.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Actual roles/departments.
+     Actual salary/rate structures.
+     Required staff documents and training.
+     Attendance/check-in method.
+
+
+
+
+                                                                                                               Page 22
+Catering CRM + ERP | All CMF Frozen Master Pack
+Freeze Decisions
+ Field / Area                                     Frozen Rule / Content
+ STF-01                                           Staff identity is separate from
+                                                  roster/attendance/payroll.
+ STF-02                                           Employment type supports monthly/daily/hourly/per-
+                                                  event/contract.
+ STF-03                                           Sensitive data is restricted.
+ STF-04                                           Role/Branch history is retained.
+
+
+
+
+                                                                                                Page 23
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                   CMF #13
+                                           VEHICLE MASTER
+                     Owned/rented vehicle identity, capacity, documents and logistics readiness
+
+    Status                                                   STRUCTURE FROZEN
+    Rule                                                     No business-specific value is assumed where the
+                                                             owner has not supplied it.
+
+
+
+Core Fields
+    Field / Area                                             Frozen Rule / Content
+    Identity                                                 Vehicle ID, registration number, vehicle type,
+                                                             ownership type, status.
+    Capacity                                                 Capacity references for load/volume/weight where
+                                                             configured.
+    Assignment                                               Home Branch, default driver optional, availability
+                                                             status.
+    Documents                                                Insurance, permit, service/fitness/other applicable
+                                                             documents and expiry reminders.
+    Operating Data                                           Fuel type, odometer/km reference, service schedule
+                                                             reference.
+    Rental                                                   Rental vendor/reference and commercial terms where
+                                                             vehicle is rented.
+    History                                                  Trip history, incidents, maintenance and status history
+                                                             derived/linked.
+
+
+
+Frozen Rules
+1. Vehicle Master is separate from Trip transaction.
+
+2. Event/Trip assignment creates a reservation to prevent double booking.
+
+3. Trip records contain fuel, toll, parking, route, timings and proof.
+
+4. Vehicle document expiry can block assignment according to configured policy.
+
+5. Owned and rented vehicles use the same master structure with ownership type.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Actual vehicle types and capacity metrics.
+     Required document set.
+     Vehicle assignment/expiry-blocking policy.
+
+Freeze Decisions
+    Field / Area                                             Frozen Rule / Content
+    VEH-01                                                   Vehicle and Trip are separate.
+
+                                                                                                               Page 24
+Catering CRM + ERP | All CMF Frozen Master Pack
+ Field / Area                                     Frozen Rule / Content
+ VEH-02                                           Vehicle reservation prevents double booking.
+ VEH-03                                           Document expiry is tracked.
+ VEH-04                                           Owned/rented share one structure.
+
+
+
+
+                                                                                                 Page 25
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                   CMF #14
+                              EQUIPMENT / ASSET MASTER
+         Reusable vessels, burners, serving equipment, tables, chairs, linen, electrical items and rented assets
+
+    Status                                                   STRUCTURE FROZEN
+    Rule                                                     No business-specific value is assumed where the
+                                                             owner has not supplied it.
+
+
+
+Core Fields
+    Field / Area                                             Frozen Rule / Content
+    Asset Identity                                           Asset/Equipment ID, name, category, ownership type,
+                                                             quantity-tracked vs individually serialized, status.
+    Location                                                 Home Branch/Store/asset location.
+    Capacity/Specification                                   Size/capacity/specification where useful.
+    Tracking                                                 QR/barcode optional, serial number where applicable.
+    Condition                                                Available, reserved, issued, in-use, returned, damaged,
+                                                             missing, maintenance, retired.
+    Rental                                                   Rental vendor, rental period/rate reference where
+                                                             applicable.
+    Maintenance                                              Maintenance/service schedule and notes.
+    Recovery                                                 Damage/missing recovery reference to
+                                                             customer/vendor/staff where approved.
+    History                                                  Reservation, issue, load, venue receipt, return, damage
+                                                             and maintenance history.
+
+
+
+Frozen Rules
+1. Equipment availability is reservation-based for future events.
+
+2. Serialized and bulk-quantity assets are both supported.
+
+3. Issue/return is transactional and auditable.
+
+4. Damage/missing status does not silently reduce available quantity without evidence.
+
+5. Rented equipment is tracked through the same event-return workflow.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Final equipment categories and serialization policy.
+     Which assets require QR/barcode.
+     Maintenance intervals and recovery policy.
+
+Freeze Decisions
+    Field / Area                                             Frozen Rule / Content
+    EQP-01                                                   Equipment master supports serialized and bulk assets.
+
+                                                                                                               Page 26
+Catering CRM + ERP | All CMF Frozen Master Pack
+ Field / Area                                     Frozen Rule / Content
+ EQP-02                                           Reservation and return are mandatory operational
+                                                  states.
+ EQP-03                                           Damage/missing has evidence and recovery linkage.
+
+
+
+
+                                                                                                Page 27
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                   CMF #15
+                                          BOOKING MASTER
+     Commercial parent record connecting Customer, Brand, Branch, quotation acceptance, package, advance,
+                                            contract and one or more Events
+
+    Status                                                    STRUCTURE FROZEN
+    Rule                                                      No business-specific value is assumed where the
+                                                              owner has not supplied it.
+
+
+
+Core Fields
+    Field / Area                                              Frozen Rule / Content
+    Identity                                                  Booking ID, Customer ID, Brand, operating Branch,
+                                                              sales owner, booking status, created/confirmed
+                                                              timestamps.
+    Commercial Source                                         Accepted quotation/version reference, package/menu
+                                                              summary, approved discount reference.
+    Value                                                     Booking value, approved extras at booking stage, tax
+                                                              treatment reference, payment schedule.
+    Advance                                                   Required advance rule reference, received advance
+                                                              derived from Finance, advance pending status.
+    Contract                                                  Contract/version, terms, cancellation policy reference,
+                                                              customer acceptance/e-sign evidence where used.
+    Events                                                    One Booking can contain one or multiple Events/dates.
+    Credit/Risk                                               Customer credit/hold checks at confirmation.
+    Status                                                    Tentative, advance pending, confirmed, cancelled,
+                                                              postponed, completed/closed as defined by
+                                                              commercial workflow.
+    History                                                   Booking changes, approvals,
+                                                              cancellation/postponement/refund references.
+
+
+
+Frozen Rules
+1. Booking is the commercial parent; Event is the operational execution unit.
+
+2. One Booking may contain multiple Events and dates.
+
+3. Advance received is finance-derived; Booking does not maintain an independent cash balance.
+
+4. Accepted quotation and contract are versioned snapshots.
+
+5. Cancellation/postponement preserves history and associated vendor/staff/rental commitments.
+
+6. Tentative resource holds use explicit expiry; no unspecified default expiry is assumed.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Actual booking statuses if additional states are desired.
+                                                                                                                Page 28
+Catering CRM + ERP | All CMF Frozen Master Pack
+     Advance rules, payment schedule templates and hold-expiry policy.
+     Cancellation/refund policy.
+     Contract/e-sign method.
+
+Freeze Decisions
+    Field / Area                                          Frozen Rule / Content
+    BKG-01                                                Booking is commercial parent.
+    BKG-02                                                One booking can have multiple events.
+    BKG-03                                                Quotation/contract snapshots are preserved.
+    BKG-04                                                Advance is finance-derived.
+    BKG-05                                                Tentative hold requires explicit expiry policy.
+
+
+
+
+                                                                                                            Page 29
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                  CMF #16
+                                             EVENT MASTER
+   Operational event container linking Booking, Venue, resource planning, meal sessions, BEO, execution and
+                                                    event close
+
+ Status                                                    STRUCTURE FROZEN
+ Rule                                                      No business-specific value is assumed where the
+                                                           owner has not supplied it.
+
+
+
+Core Fields
+ Field / Area                                              Frozen Rule / Content
+ Identity                                                  Event ID, Booking ID, Customer reference, Brand,
+                                                           Branch, event type, date/time, status.
+ Venue                                                     Venue ID plus event-specific venue/access instructions
+                                                           and snapshot.
+ People                                                    Event Manager, sales owner, kitchen owner, key
+                                                           contacts.
+ Guest Counts                                              Expected, guaranteed/minimum where used, final
+                                                           confirmed and actual/live derived summary.
+ Sessions                                                  One Event can contain multiple Meal Sessions.
+ BEO                                                       Versioned operational job sheet: menu, timings,
+                                                           service sequence, venue access, instructions, contacts,
+                                                           staff/logistics references.
+ Capacity                                                  Kitchen, staff, vehicle, equipment and same-date
+                                                           conflict check with controlled override reason.
+ Changes                                                   Old/new value, commercial impact, operational
+                                                           impact, approvals and customer confirmation.
+ Close                                                     Operational close -> returns -> staff -> vendor cost ->
+                                                           customer extras -> provisional P&L -> financial close.
+ History                                                   Cancellation/postponement, incidents, approvals,
+                                                           reopen reason and audit.
+
+
+
+Frozen Rules
+1. Event belongs to one Booking and operating Branch.
+
+2. Event can contain multiple Meal Sessions.
+
+3. BEO is versioned.
+
+4. Resource conflicts are checked before confirmation and reservation is atomic where implemented.
+
+5. Financial close locks the event; reopening requires approval and reason.
+
+6. Final Event profit is derived from actual revenue/cost allocations, not manually typed.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+                                                                                                             Page 30
+Catering CRM + ERP | All CMF Frozen Master Pack
+     Actual event types.
+     Freeze/cutoff timings for menu/headcount changes.
+     Capacity override approval levels.
+     Event-close evidence requirements.
+
+Freeze Decisions
+    Field / Area                                          Frozen Rule / Content
+    EVT-01                                                Event is the operational execution unit.
+    EVT-02                                                Meal Sessions are children of Event.
+    EVT-03                                                BEO and changes are versioned.
+    EVT-04                                                Financial close is a controlled lock.
+    EVT-05                                                Event P&L is derived.
+
+
+
+
+                                                                                                     Page 31
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                   CMF #17
+                                    MEAL SESSION MASTER
+Breakfast/lunch/snacks/dinner/tea/live-counter/prasadam/annadanam or other service session under an Event
+
+    Status                                                    STRUCTURE FROZEN
+    Rule                                                      No business-specific value is assumed where the
+                                                              owner has not supplied it.
+
+
+
+Core Fields
+    Field / Area                                              Frozen Rule / Content
+    Identity                                                  Session ID, Event ID, session type/name, date, start/end
+                                                              time, status.
+    Location                                                  Venue/area/section within venue where relevant.
+    Guest Counts                                              Expected, guaranteed/minimum, final confirmed, live
+                                                              served, complimentary, staff/vendor meals as
+                                                              separately tracked counts.
+    Menu                                                      Session menu snapshot/version.
+    Production                                                Kitchen/product quantities, batches, production status
+                                                              references.
+    Inventory                                                 Reserved/issued/returned/wasted consumption
+                                                              linkage.
+    Outsource                                                 Outside food/live-counter/service orders for this
+                                                              session.
+    Staff                                                     Assigned staff/temporary staff roster.
+    Logistics                                                 Vehicle/equipment/dispatch references.
+    Commercial                                                Session-level revenue/pricing allocation when
+                                                              applicable.
+    Cost                                                      Session-level actual cost allocation and contribution
+                                                              reporting where applicable.
+
+
+
+Frozen Rules
+1. Meal Session is a separate child object, not just a text label on Event.
+
+2. Each session can have its own menu, guest count, production, staff, outsource and logistics.
+
+3. Live count logs are time-stamped and actor-attributed.
+
+4. Staff/vendor/complimentary meals are not silently mixed into customer served count.
+
+5. Session costs roll up to Event but remain drillable.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Final session type list.
+     Commercial billing rule for live/final/guaranteed counts.
+     Whether every session requires separate live count.
+                                                                                                                Page 32
+Catering CRM + ERP | All CMF Frozen Master Pack
+Freeze Decisions
+ Field / Area                                     Frozen Rule / Content
+ SES-01                                           Session is a first-class child of Event.
+ SES-02                                           Operational data can be session-specific.
+ SES-03                                           Live counts are auditable.
+ SES-04                                           Session cost/revenue rolls up to Event.
+
+
+
+
+                                                                                              Page 33
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                  CMF #18
+                                           EXPENSE MASTER
+          Controlled expense categories and transaction rules for Event expenses and General Overheads
+
+ Status                                                   STRUCTURE FROZEN
+ Rule                                                     No business-specific value is assumed where the
+                                                          owner has not supplied it.
+
+
+
+Master Structure
+ Field / Area                                             Frozen Rule / Content
+ Expense Category                                         Category ID, domain/group, parent category, name,
+                                                          code, active status.
+ Expense Type                                             Event Direct Expense or General Overhead; specific
+                                                          categories can be configured.
+ Default Ledger Mapping                                   Finance account/ledger reference where configured.
+ Tax Treatment                                            Tax profile reference where applicable; not hard-
+                                                          coded in category name.
+ Approval Rule                                            Approval-policy reference by amount/category where
+                                                          configured.
+ Evidence Rule                                            Bill/photo/receipt required flag where configured.
+ Allocation Rule                                          Single event, multiple events, event + overhead,
+                                                          branch/company allocation support.
+
+
+
+Expense Transaction Fields
+ Field / Area                                             Frozen Rule / Content
+ Identity                                                 Expense ID, date/time, payee/vendor/person,
+                                                          description, category.
+ Ownership                                                Company, Brand where applicable, Branch,
+                                                          Event/Session or General Overhead ID.
+ Amount                                                   Base amount, tax, total, payment method/account
+                                                          reference.
+ Allocation                                               One or multiple allocation lines with
+                                                          amount/percentage and target cost centres.
+ Evidence                                                 Bill/receipt/photo/reference.
+ Status                                                   Draft/submitted/verified/approved/paid/rejected/
+                                                          reversed as appropriate.
+ Audit                                                    Creator, verifier, approver, payment actor, timestamps
+                                                          and reasons.
+
+
+
+Frozen Rules
+1. Event cost and General Overhead are separate.
+
+2. No untagged expense is allowed: it must link to an Event/Session allocation or approved Overhead cost centre.
+
+                                                                                                            Page 34
+Catering CRM + ERP | All CMF Frozen Master Pack
+3. One expense can be allocated across multiple events/overhead lines.
+
+4. Payment status is separate from expense recognition/accounting posting.
+
+5. Expense deletion after approval/payment uses reversal/correction, not silent hard-delete.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Final expense category tree.
+     Evidence requirements by category/amount.
+     Approval thresholds.
+     Overhead allocation methodology.
+
+Freeze Decisions
+    Field / Area                                           Frozen Rule / Content
+    EXP-01                                                 Every expense has a cost-centre/allocation target.
+    EXP-02                                                 Split allocation is supported.
+    EXP-03                                                 Payment and expense recognition are separate.
+    EXP-04                                                 Approved expenses are corrected through audit-safe
+                                                           reversal.
+
+
+
+
+                                                                                                          Page 35
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                  CMF #19
+                              FINANCE / LEDGER MASTERS
+    Chart of Accounts, payment accounts, tax profiles, cost centres, invoice series and accounting mappings
+
+ Status                                                    STRUCTURE FROZEN
+ Rule                                                      No business-specific value is assumed where the
+                                                           owner has not supplied it.
+
+
+
+Core Masters
+ Field / Area                                              Frozen Rule / Content
+ Chart of Accounts                                         Account ID/code/name/type, parent account, active
+                                                           status.
+ Cash / Bank / UPI                                         Approved cash, bank, UPI, card/gateway accounts and
+                                                           ownership scope.
+ Customer Receivable                                       Customer subledger relationship.
+ Vendor Payable                                            Vendor subledger relationship.
+ Employee Advance / Settlement                             Staff advance/reimbursement/payable account
+                                                           relationships.
+ Tax Profile                                               Configurable tax registration/profile, rate/rule
+                                                           references, place-of-supply handling as verified by
+                                                           accountant.
+ Invoice Series                                            Legal entity/branch/brand scope, document type,
+                                                           numbering rule, effective period.
+ Cost Centres                                              Company, Brand reporting dimension, Branch,
+                                                           Kitchen optional, Event, Meal Session sub-dimension,
+                                                           General Overhead.
+ Payment Method                                            Cash, bank transfer, UPI, card, gateway and other
+                                                           approved methods.
+ Posting Rules                                             Mapping from business transactions to debit/credit
+                                                           ledger entries.
+ Periods / Locks                                           Financial period, close/lock status and reopen control.
+ Reconciliation                                            Bank/UPI import/reference and matching rules.
+
+
+
+Frozen Accounting Principles
+1. Customer advance is cash/liability until recognized according to the approved accounting policy; it is not
+   automatically revenue.
+
+2. Vendor/staff advance is not automatically an expense.
+
+3. Invoice, receipt, credit note, refund, vendor bill, payment and expense create ledger postings through controlled
+   rules.
+
+4. Outstanding receivable/payable is derived from posted transactions.
+
+
+
+
+                                                                                                                Page 36
+Catering CRM + ERP | All CMF Frozen Master Pack
+5. Event profitability is a management view derived from revenue/cost allocations; it does not replace the
+     accounting ledger.
+
+6. Posted/closed-period changes require controlled reversal/reopen, not direct edits.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Actual Chart of Accounts.
+     Actual GST/tax profiles and statutory configuration - accountant verification required.
+     Actual invoice series/numbering.
+     Bank/UPI/gateway accounts.
+     Posting-rule mapping and financial close policy.
+     Overhead allocation policy.
+
+Freeze Decisions
+    Field / Area                                             Frozen Rule / Content
+    FIN-01                                                   Double-entry ledger layer underlies finance totals.
+    FIN-02                                                   Advances are separate from revenue/expense.
+    FIN-03                                                   Receivable/payable is derived.
+    FIN-04                                                   Cost centres link operations to finance.
+    FIN-05                                                   Tax/statutory values are configurable and accountant-
+                                                             verified.
+
+
+
+
+                                                                                                             Page 37
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                  CMF #20
+                              ROLES / APPROVAL MASTERS
+             Role-based access, data scopes, action permissions, approval limits, delegation and audit
+
+ Status                                                   STRUCTURE FROZEN
+ Rule                                                     No business-specific value is assumed where the
+                                                          owner has not supplied it.
+
+
+
+Role Master
+ Field / Area                                             Frozen Rule / Content
+ Role Identity                                            Role ID, role name, description, active status.
+ Actions                                                  View, Create, Edit, Submit, Verify, Approve, Reject,
+                                                          Pay, Publish, Export, Soft Delete, Restore, Reopen.
+ Data Scope                                               All business, selected branches, one branch, assigned
+                                                          events, own records, read-only, no access.
+ Sensitive Fields                                         Separate visibility for salary, bank, profit, purchase
+                                                          price, customer personal data, ad spend and other
+                                                          restricted fields.
+ Module Access                                            Sales, Events, Food, Purchase, Inventory, People,
+                                                          Logistics, Finance, Marketing, Control.
+ Assignments                                              User-role assignments with company/branch/event
+                                                          scope and effective dates.
+ Delegation                                               Temporary delegated approver with start/end dates
+                                                          and allowed actions/limits.
+ Audit                                                    Role/permission changes, actor, before/after, reason,
+                                                          approval.
+
+
+
+Approval Master
+ Field / Area                                             Frozen Rule / Content
+ Approval Policy                                          Policy ID, process, trigger, amount/condition, scope,
+                                                          required approver role/user, sequence.
+ Limits                                                   Configurable limits by role, branch, category or
+                                                          process.
+ Separation of Duties                                     Requester/receiver/verifier/payer separation where
+                                                          applicable.
+ Escalation                                               SLA/due time and escalation chain reference.
+ Backup Approver                                          Delegation/fallback path for unavailable approver.
+ Evidence                                                 Required document/reason before approval.
+ Outcome                                                  Approve/reject/request-change with audit and source-
+                                                          record linkage.
+
+
+
+Frozen Rules
+1. Permissions are enforced by backend/API, not only hidden menus/buttons.
+
+                                                                                                            Page 38
+Catering CRM + ERP | All CMF Frozen Master Pack
+2. Action permissions and data visibility scopes are separate.
+
+3. One person must not request, receive, verify and pay the same purchase where segregation is required.
+
+4. Sensitive approvals use configurable limits; no amount thresholds are invented here.
+
+5. Delegation is time-bound and audited.
+
+6. System Admin technical power does not automatically grant business-payment approval.
+
+7. Every approval links back to the source record and retains actor/time/reason/evidence.
+
+OWNER CONFIRMATION REQUIRED - NOT INVENTED
+
+     Final role list and actual user assignments.
+     Approval amount thresholds and process-specific limits.
+     Escalation SLAs.
+     Delegation rules.
+     Sensitive-field visibility matrix.
+
+Freeze Decisions
+    Field / Area                                           Frozen Rule / Content
+    ROL-01                                                 Backend authorization is mandatory.
+    ROL-02                                                 Action and scope permissions are separate.
+    ROL-03                                                 Approval limits are configurable.
+    ROL-04                                                 Segregation of duties is enforced where required.
+    ROL-05                                                 Delegation and role changes are audited.
+
+
+
+
+                                                                                                               Page 39
+Catering CRM + ERP | All CMF Frozen Master Pack
+
+                                                     CMF #21
+     NO-ASSUMPTION / OWNER CONFIRMATION REGISTER
+       Items deliberately left as configurable because the owner has not yet supplied business-specific values
+
+    Status                                                    STRUCTURE FROZEN
+    Rule                                                      No business-specific value is assumed where the
+                                                              owner has not supplied it.
+
+
+
+Not Frozen as Values
+     Actual company/legal/tax registrations and invoice series.
+     Actual Brand, Branch, Kitchen, Store and Venue lists.
+     Final customer segment, credit-limit and blacklist policy values.
+     Complete Item, Product, Menu and Recipe catalogues.
+     Actual UOM pack conversions, yields and production-buffer percentages.
+     Actual reorder levels, safety stock, valuation policy and physical-count frequencies.
+     Actual vendor rate cards, payment terms, MOQ/lead times and required documents.
+     Actual outsource catalogue, default rates, advance/transport rules and proof requirements.
+     Actual staff roles, salary/rates, attendance rules, documents and payroll policy.
+     Actual vehicle/equipment lists, capacity values, maintenance intervals and recovery policy.
+     Actual booking advance schedule, tentative-hold expiry, cancellation/refund terms and contract method.
+     Actual event/menu/headcount freeze times and capacity-override thresholds.
+     Actual live-count billing rule and session type list.
+     Actual expense category tree, approval thresholds and evidence requirements.
+     Actual Chart of Accounts, tax configuration, bank/UPI/gateway details and posting mappings.
+     Actual role assignments, approval limits, delegation rules and escalation SLAs.
+
+
+
+Final Freeze Statement
+FROZEN: The structure, object boundaries, relationships, control principles, audit rules and separation between
+master data and transactions for CMF #01 to CMF #20.
+
+NOT INVENTED: Business-specific values that were not supplied by the owner. These remain configurable and
+must be filled only from owner/accountant/operations input.
+
+
+
+
+                                                                                                                Page 40
+

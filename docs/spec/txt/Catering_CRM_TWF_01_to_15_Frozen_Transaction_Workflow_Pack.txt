@@ -1,0 +1,1074 @@
+                                  CATERING CRM + ERP
+  TWF #01 TO #15 - FROZEN TRANSACTION WORKFLOW
+                        PACK
+  Lead -> Quote -> Booking -> Event -> Demand -> Purchase -> Inventory -> Production -> Outsourcing ->
+                     Live Event -> Staff -> Logistics -> Finance -> Close -> Feedback
+
+
+      Status                          FROZEN WORKFLOW PACK
+
+
+      Scope                           15 end-to-end transaction workflows for the frozen Catering CRM + ERP architecture.
+
+
+      No-Assumption Rule              Unknown business-specific values are not invented. They are marked OWNER
+                                      CONFIGURATION REQUIRED.
+
+
+      Purpose                         Lock transaction objects, statuses, hand-offs, validations, approvals, audit rules and closing
+                                      conditions before database/API/UI implementation.
+
+
+
+
+ GLOBAL TRANSACTION RULES - FROZEN
+ 1. Every transaction has a unique immutable internal ID.
+
+ 2. Every event-related transaction links to Event ID and Meal Session where applicable.
+
+ 3. General business transactions use an approved Overhead / Cost Centre instead of a fake Event ID.
+
+ 4. No direct stock edit, direct balance edit, silent payment edit or silent closed-event edit is allowed.
+
+ 5. Create, Submit, Verify, Approve, Reject, Pay, Reopen and Cancel are separate permission actions.
+
+ 6. All important calculations are backend-authoritative.
+
+ 7. Historical commercial and cost snapshots are preserved.
+
+ 8. Failed or duplicate submissions must be idempotent and must not create duplicate financial/stock effects.
+
+ 9. Every workflow supports attachments/evidence where the business process needs proof.
+
+ 10. Every exception requires reason, actor, timestamp and approval where configured.
+
+ 11. Unknown thresholds, limits, rates, SLAs and approval values remain configurable and are never invented in this freeze.
+
+
+ OWNER CONFIGURATION REQUIRED - GLOBAL
+   - Discount approval thresholds and approval hierarchy by amount/percentage.
+   - Advance percentage / minimum booking amount.
+   - Quotation validity period.
+   - Tentative booking hold duration.
+   - Cancellation / postponement / refund policy.
+   - Guest-count freeze deadline.
+   - Production buffer rules.
+   - Purchase approval limits and emergency-purchase limits.
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                                               Page 1
+   - Stock variance / wastage approval thresholds.
+   - Credit limits / credit days by customer class.
+   - Payroll / overtime rules and temporary-staff rate cards.
+   - Tax / GST / statutory configuration.
+   - Event closing SLA and materiality threshold for late bills.
+   - Notification channels and escalation timings.
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack           Page 2
+                  TWF #01 - LEAD / ENQUIRY FLOW
+    Capture every enquiry once, qualify it, follow it up, and convert it into a quotation or a documented loss.
+
+ STATUS: FROZEN TRANSACTION WORKFLOW
+
+
+ Transaction Objects
+   - Lead / Enquiry
+   - Follow-up Activity
+   - Lead Assignment
+   - Lead Source / Campaign Reference
+   - Lost Reason
+   - Customer Link / Customer Creation Decision
+
+
+ Required Core Data
+   - Enquiry ID
+   - Customer ID if existing
+   - Prospect contact details if new
+   - Brand
+   - Branch
+   - Event type
+   - Preferred date
+   - Venue/area
+   - Expected guests
+   - Food preference
+   - Budget range if provided
+   - Lead source
+   - Campaign/UTM if available
+   - Sales owner
+   - Priority
+   - Next follow-up
+   - Notes
+   - Attachments
+
+
+ Frozen Status Flow
+ New -> Assigned -> Contacted -> Requirement Captured -> Qualified -> Quotation Ready -> Converted
+
+ Alternate terminal statuses: Lost, Duplicate, Invalid/Spam.
+
+
+ Frozen Rules
+ 1. Duplicate customer/contact search runs before new Customer creation.
+
+ 2. Lead source is captured per enquiry even if the Customer already exists.
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                     Page 3
+ 3. Next follow-up is mandatory for active leads unless intentionally parked.
+
+ 4. Lost leads require a structured lost reason.
+
+ 5. Converted lead links to the created quotation/booking chain; it is not deleted.
+
+ 6. One enquiry can create multiple quotation versions but remains one enquiry.
+
+
+ Approvals / Exceptions
+   - Lead reassignment may follow Sales Manager permissions.
+   - Duplicate merge uses Customer Master merge rules.
+   - OWNER CONFIGURATION REQUIRED: lead inactivity SLA and escalation timing.
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                              Page 4
+                                 TWF #02 - QUOTATION
+   Create controlled, versioned commercial offers with menu, price, margin checks, extras, tax settings and
+                                           customer acceptance.
+
+ STATUS: FROZEN TRANSACTION WORKFLOW
+
+
+ Transaction Objects
+   - Quotation
+   - Quotation Version
+   - Quotation Line
+   - Menu/Package Snapshot
+   - Discount Request
+   - Customer Approval / Acceptance
+
+
+ Quotation Components
+   - Customer / Booking context
+   - Brand / Branch
+   - Event / session assumptions
+   - Guest count
+   - Menu/package
+   - Per plate / package / fixed pricing
+   - Live counters
+   - Transport
+   - Rentals
+   - Service staff
+   - Outside food/services
+   - Discount
+   - Tax profile
+   - Payment schedule
+   - Terms
+   - Validity
+   - Estimated cost snapshot
+   - Expected margin
+
+
+ Frozen Status Flow
+ Draft -> Internal Review -> Approval Required -> Approved -> Sent -> Viewed/Delivered -> Accepted
+
+ Alternate statuses: Rejected, Expired, Superseded, Cancelled.
+
+
+ Frozen Rules
+ 1. Every commercial change creates a new quotation version; prior versions remain readable.
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                Page 5
+ 2. Accepted quotation is snapshotted and cannot be silently overwritten.
+
+ 3. Estimated cost and margin snapshot at quote time are preserved.
+
+ 4. Low-margin or high-discount quotation triggers configured approval.
+
+ 5. Customer acceptance must preserve who accepted, when, which version and evidence/reference.
+
+ 6. Final invoice can differ only through approved extras/changes, not silent quote edits.
+
+
+ Owner Configuration Required
+   - Quotation validity days
+   - Discount thresholds
+   - Target margin rules
+   - Default advance rule
+   - Tax configuration
+   - E-sign/acceptance method
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                          Page 6
+                                    TWF #03 - BOOKING
+ Convert an accepted commercial offer into a controlled booking with advance, contract, schedule and event
+                                              commitments.
+
+ STATUS: FROZEN TRANSACTION WORKFLOW
+
+
+ Transaction Objects
+   - Booking
+   - Booking Payment Schedule
+   - Contract / Terms Snapshot
+   - Advance Receipt Link
+   - Booking Hold
+   - Cancellation / Postponement Record
+
+
+ Frozen Status Flow
+ Tentative -> Advance Pending -> Confirmed -> Planning -> Completed
+
+ Alternate statuses: Cancelled, Postponed, Expired Hold.
+
+
+ Frozen Rules
+ 1. Booking is the commercial parent and may contain one or more Events.
+
+ 2. Tentative booking can reserve capacity only under configured hold rules.
+
+ 3. Confirmation requires configured commercial conditions such as acceptance and/or advance.
+
+ 4. Confirmed booking reserves required operational capacity/resources through downstream modules.
+
+ 5. Cancellation and postponement never delete the original booking; they create auditable outcome records.
+
+ 6. Customer balance is finance-derived, not manually typed into Booking.
+
+
+ Owner Configuration Required
+   - Advance requirement
+   - Tentative hold duration
+   - Cancellation policy
+   - Postponement credit policy
+   - Payment schedule rules
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                      Page 7
+        TWF #04 - EVENT + SUB-EVENT + MEAL
+                      SESSION
+   Turn a confirmed booking into operational event units that can be planned, costed, produced and closed
+                                               independently.
+
+ STATUS: FROZEN TRANSACTION WORKFLOW
+
+
+ Hierarchy
+ Booking -> Event -> Sub-Event (optional) -> Meal Session -> Menu / Operations
+
+
+ Event / Session Core Data
+   - Event ID
+   - Booking ID
+   - Event type
+   - Date/time
+   - Venue
+   - Event Manager
+   - Expected guests
+   - Guaranteed guests
+   - Final confirmed guests
+   - Service style
+   - Meal Session type
+   - Session timing
+   - Menu version
+   - Kitchen assignment
+   - Operational branch
+   - Staff plan
+   - Vehicle plan
+   - Equipment plan
+   - Special instructions
+
+
+ Frozen Status Flow
+ Planning -> Menu Pending -> Menu Frozen -> Preparation -> Ready/Dispatched -> In Progress ->
+ Operational Complete -> Cost Pending -> Financially Closed
+
+
+ Frozen Rules
+ 1. Meal Session is a separate operational unit with its own guest count, menu, production, live count and cost.
+
+ 2. Menu/headcount changes after freeze require reason and impact workflow.
+
+ 3. Same booking can have multiple dates and sessions without duplicate customer/booking records.
+
+ 4. Event/session resources are checked for conflicts before confirmation/assignment.
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                           Page 8
+ 5. Operational completion does not mean financial close.
+
+
+ Owner Configuration Required
+   - Guest-count freeze deadline
+   - Change approval rules
+   - Session types used by the business
+   - Capacity override authority
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack    Page 9
+                     TWF #05 - DEMAND PLANNING
+        Convert confirmed event menus and guest counts into consolidated ingredient, consumable and
+                                      outside-service requirements.
+
+ STATUS: FROZEN TRANSACTION WORKFLOW
+
+
+ Transaction Objects
+   - Demand Run
+   - Demand Requirement Line
+   - Inventory Reservation
+   - Shortage Line
+   - Planner Override
+
+
+ Frozen Formula
+ Net Requirement = Planned Requirement + Safety/Buffer - Available Stock - Confirmed Incoming Stock
+
+
+ Frozen Rules
+ 1. Demand is generated from frozen recipe/menu versions and current confirmed guest counts.
+
+ 2. Demand can be viewed by Event, Session, Kitchen, Item, Product and consolidated date range.
+
+ 3. Existing committed stock is not treated as free stock.
+
+ 4. Planner may override generated quantity only with reason.
+
+ 5. Demand changes after event/menu/headcount change must re-evaluate reservations and purchase shortages.
+
+ 6. Demand planning can consolidate multiple events into one procurement requirement.
+
+
+ Owner Configuration Required
+   - Safety stock rules
+   - Production buffer rules
+   - Planning horizons
+   - Auto-reservation policy
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                     Page 10
+                                  TWF #06 - PURCHASE
+       Control procurement from requirement to approved vendor payment with quantity, quality and rate
+                                                verification.
+
+ STATUS: FROZEN TRANSACTION WORKFLOW
+
+
+ Transaction Objects
+   - Purchase Requirement
+   - Purchase Request
+   - Vendor RFQ / Quote
+   - Quote Comparison
+   - Purchase Order
+   - GRN
+   - Vendor Bill
+   - Payment Approval
+
+
+ Frozen Status Flow
+ Requirement -> PR Submitted -> Quote Comparison -> PO Approved -> Ordered -> Partially Received ->
+ Received -> Bill Verified -> Paid
+
+
+ Frozen Rules
+ 1. Purchase lines link to Event/Session or approved Overhead allocation where applicable.
+
+ 2. Requester, approver, receiver and payer permissions are separated.
+
+ 3. PO changes after vendor acceptance create revision history.
+
+ 4. GRN captures ordered, delivered, accepted, rejected and short quantity.
+
+ 5. Three-way match compares PO, accepted GRN and vendor bill.
+
+ 6. Rate/quantity/tax/freight mismatch can hold payment.
+
+ 7. Emergency purchase requires reason, buyer, evidence, event/overhead allocation and approval path.
+
+ 8. One purchase/bill may allocate to multiple Events or Overheads through allocation lines.
+
+
+ Owner Configuration Required
+   - Minimum quote count, if any
+   - PO approval limits
+   - Emergency purchase limits
+   - Price variance tolerance
+   - Payment approval limits
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                Page 11
+                                 TWF #07 - INVENTORY
+     Track every stock increase, decrease, transfer, reservation, issue, return and adjustment at item and
+                                                location level.
+
+ STATUS: FROZEN TRANSACTION WORKFLOW
+
+
+ Transaction Objects
+   - Stock Receipt
+   - Stock Movement
+   - Reservation
+   - Issue
+   - Return
+   - Transfer
+   - Wastage
+   - Physical Count
+   - Stock Adjustment
+
+
+ Frozen Stock States
+   - On Hand
+   - Committed/Reserved
+   - Available
+   - Incoming
+   - Quarantine
+   - Expired
+   - Waste/Scrap
+
+
+ Frozen Rules
+ 1. No stock balance is manually overwritten.
+
+ 2. Every quantity change creates a movement with source transaction and location.
+
+ 3. Event issue, kitchen issue, production consumption and event return are separate movement types.
+
+ 4. Batch/lot/expiry tracking applies where configured.
+
+ 5. FEFO applies where configured.
+
+ 6. Quarantine, expired and scrap stock cannot be normally issued.
+
+ 7. Physical count variance creates an adjustment workflow; it is not a silent correction.
+
+ 8. Item-wise and product-wise reports must trace back to stock movements.
+
+
+ Frozen Formula
+ Available Stock = On Hand - Reserved/Committed Stock
+
+
+ Owner Configuration Required
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                Page 12
+   - Negative stock exception policy
+   - Count frequency
+   - Variance threshold
+   - Wastage approval threshold
+   - Batch/expiry categories
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack   Page 13
+                 TWF #08 - KITCHEN PRODUCTION
+     Turn demand into controlled production batches with planned quantity, actual output, yield, wastage,
+                                           packing and dispatch.
+
+ STATUS: FROZEN TRANSACTION WORKFLOW
+
+
+ Transaction Objects
+   - Production Plan
+   - Production Batch
+   - Ingredient Issue
+   - Batch Consumption
+   - Production Output
+   - QC/Tasting
+   - Packing Record
+   - Dispatch Readiness
+
+
+ Frozen Status Flow
+ Planned -> Ingredients Ready -> Started -> In Preparation -> Quality Check -> Ready -> Packed ->
+ Dispatched -> Completed
+
+
+ Frozen Rules
+ 1. Production Batch belongs to Kitchen, Event and Meal Session where applicable.
+
+ 2. Standard, Planned and Actual quantities remain separate.
+
+ 3. Actual ingredient consumption comes from movements/approved direct purchases, not from planned recipe alone.
+
+ 4. Sub-recipes can be produced and consumed by other products.
+
+ 5. Yield stages can capture cleaned, usable, cooked and final output quantity.
+
+ 6. Production shortage, excess and wastage require reason.
+
+ 7. Packing/dispatch records preserve product, quantity, container and responsible person.
+
+
+ Owner Configuration Required
+   - Production buffers
+   - QC checkpoints
+   - Tasting approval role
+   - Temperature rules
+   - Batch sizing conventions
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                           Page 14
+   TWF #09 - OUTSIDE FOOD / OUTSOURCING
+  Use one universal workflow for Pulka, Rumali Roti, Bobbatlu, Ice Cream, Paan, outside counters, cleaning
+                                 crews and other outsourced items/services.
+
+ STATUS: FROZEN TRANSACTION WORKFLOW
+
+
+ Transaction Objects
+   - Outsource Order
+   - Outsource Order Line
+   - Vendor Delivery
+   - Acceptance
+   - Advance/Payment Link
+   - Return/Shortage
+   - Service Completion
+
+
+ Frozen Core Fields
+   - Event
+   - Session
+   - Category
+   - Item/Variant
+   - Vendor
+   - Vendor Contact
+   - Ordered quantity
+   - Unit
+   - Rate
+   - Transport charge
+   - Advance
+   - Delivery date/time
+   - Delivered quantity
+   - Accepted quantity
+   - Returned/short quantity
+   - Quality status
+   - Responsible person
+   - Bill/proof
+   - Paid/Pending
+   - Final settlement
+
+
+ Frozen Status Flow
+ Requested -> Approved -> Ordered -> Advance Paid/Not Required -> In Transit -> Delivered ->
+ Accepted -> Settled
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                             Page 15
+ Frozen Rules
+ 1. No separate hard-coded module per outsourced food/service.
+
+ 2. Variants such as Small Pulka and Big Pulka are item/variant records.
+
+ 3. Ordered, delivered, accepted and returned quantities remain separate.
+
+ 4. Transport is separately visible even if included in vendor total.
+
+ 5. Late/missing/short delivery creates an exception record.
+
+ 6. Payment status comes from Finance linkage; it is not a free-text status.
+
+
+ Owner Configuration Required
+   - Default categories/variants
+   - Advance rules
+   - Acceptance/QC rules
+   - Vendor penalties or SLA
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                       Page 16
+              TWF #10 - LIVE EVENT OPERATIONS
+       Control what actually happens at the venue: live guest counts, service counters, customer extras,
+                                         replenishment and incidents.
+
+ STATUS: FROZEN TRANSACTION WORKFLOW
+
+
+ Transaction Objects
+   - Live Guest Count Log
+   - Service Counter
+   - Counter Consumption/Replenishment
+   - Customer Extra Request
+   - Event Incident
+   - Venue Checklist
+
+
+ Live Count Rules
+ 1. Expected, guaranteed, final confirmed and actual served counts remain separate.
+
+ 2. Every count change stores Event, Session, person and timestamp.
+
+ 3. Corrections require reason; prior count history remains visible.
+
+ 4. Staff/vendor/complimentary meals are counted separately from customer-served plates where used.
+
+
+ Service Counter Rules
+   - Counter/Product
+   - Opening quantity
+   - Replenishment quantity
+   - Served/closing quantity
+   - Counter owner/vendor
+   - Start/end time
+   - Shortage/waste
+   - Status
+
+
+ Customer Extras Flow
+ Requested -> Price Impact Checked -> Customer Approved -> Operations Approved -> Executed ->
+ Billed
+
+
+ Frozen Rules
+ 1. Customer extras must not be executed silently when they change commercial value.
+
+ 2. Operational extras notify relevant kitchen/vendor/staff/logistics teams.
+
+ 3. Incident records can attach photos, responsible area, severity and resolution.
+
+ 4. Live venue records must support low-network/offline queueing where allowed.
+
+
+ Owner Configuration Required
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                   Page 17
+   - Count method
+   - Commercial rule for extra plates
+   - Who can approve extras
+   - Incident severity/SLA
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack   Page 18
+                                         TWF #11 - STAFF
+      Plan permanent and temporary event staff, capture attendance/OT, and settle event-specific labour
+                                                 accurately.
+
+ STATUS: FROZEN TRANSACTION WORKFLOW
+
+
+ Transaction Objects
+   - Roster
+   - Shift
+   - Attendance
+   - OT/Exception
+   - Temporary Staff Assignment
+   - Staff Advance
+   - Staff Settlement
+   - Payroll Link
+
+
+ Frozen Status Flow
+ Planned -> Assigned -> Confirmed -> Checked In -> Working -> Checked Out -> Supervisor Verified ->
+ Settled
+
+
+ Frozen Rules
+ 1. Staff can be assigned to Branch, Kitchen, Event and Meal Session.
+
+ 2. Permanent payroll and temporary event settlement remain distinct workflows but can share attendance evidence.
+
+ 3. Temporary staff record includes person, phone, role, rate basis, hours, OT, transport/allowance, advance, payable and
+ paid.
+
+ 4. Attendance corrections require supervisor approval and audit.
+
+ 5. No-show/replacement is recorded against the original assignment.
+
+ 6. Payroll cannot silently recalculate after lock without authorized reopen.
+
+
+ Owner Configuration Required
+   - Rate cards
+   - OT rules
+   - Grace time
+   - Allowances
+   - Approval chain
+   - Check-in method
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                              Page 19
+              TWF #12 - LOGISTICS / EQUIPMENT
+                 Control vehicle assignment, loading, delivery, equipment issue/return and trip costs.
+
+ STATUS: FROZEN TRANSACTION WORKFLOW
+
+
+ Transaction Objects
+   - Trip
+   - Vehicle Assignment
+   - Driver Assignment
+   - Load List
+   - Delivery Proof
+   - Equipment Issue
+   - Equipment Return
+   - Damage/Missing Record
+
+
+ Frozen Trip Flow
+ Planned -> Vehicle Assigned -> Loading -> Ready -> Dispatched -> Delivered -> Return Started ->
+ Returned -> Reconciled
+
+
+ Frozen Rules
+ 1. Each trip links to Event/Session and vehicle/driver.
+
+ 2. Load list can contain food, packing containers and equipment.
+
+ 3. Departure, arrival, delivery and return timestamps are captured.
+
+ 4. Fuel, toll, parking and extra trip charges are separately captured.
+
+ 5. Equipment issue/return records quantity or asset ID as applicable.
+
+ 6. Missing/damaged assets create recovery/incident workflow rather than silent stock reduction.
+
+ 7. Resource double-booking is prevented by reservation/assignment checks.
+
+
+ Owner Configuration Required
+   - Vehicle cost method
+   - Fuel reimbursement method
+   - Damage recovery rules
+   - Driver allowance
+   - Trip approval limits
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                 Page 20
+                                     TWF #13 - FINANCE
+     Provide one controlled money flow for customer advances, invoices, vendor bills, receipts, payments,
+                              overheads, reconciliation and accounting linkage.
+
+ STATUS: FROZEN TRANSACTION WORKFLOW
+
+
+ Transaction Objects
+   - Customer Advance
+   - Customer Invoice
+   - Receipt
+   - Credit Note
+   - Refund
+   - Vendor Bill
+   - Vendor Payment
+   - Staff Advance/Settlement
+   - Expense
+   - Cash/Bank/UPI Entry
+   - Reconciliation
+   - Journal/Ledger Posting
+
+
+ Frozen Finance Principles
+ 1. Customer advance is not automatically revenue.
+
+ 2. Vendor advance is not automatically expense.
+
+ 3. Outstanding receivable/payable is system-derived.
+
+ 4. Financial transactions create accounting/ledger impact through configured posting rules.
+
+ 5. Cash, Bank, UPI, Card and Gateway are separate accounts/channels.
+
+ 6. Event and Overhead allocations are preserved on cost transactions.
+
+ 7. Refund/credit note/payment reversal uses controlled reversal records; original transaction remains.
+
+ 8. Payment gateway or import duplicates must be idempotently prevented/reconciled.
+
+
+ Customer Flow
+ Advance -> Invoice -> Receipt -> Balance -> Paid/Overdue -> Credit Note/Refund if applicable
+
+
+ Vendor Flow
+ Bill -> Verification -> Approval -> Payment -> Reconciliation
+
+
+ Owner Configuration Required
+   - Chart of Accounts
+   - Tax/GST rules
+   - Invoice series
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                  Page 21
+   - Credit terms
+   - Payment approval limits
+   - Cash closing rules
+   - Reconciliation frequency
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack   Page 22
+                           TWF #14 - EVENT CLOSING
+     Prevent premature closure by reconciling stock, staff, vendor costs, customer extras, collections and
+                                                 profitability.
+
+ STATUS: FROZEN TRANSACTION WORKFLOW
+
+
+ Frozen Closing Stages
+ 1. Operational Close - service execution complete.
+
+ 2. Return Close - stock, containers and equipment reconciled.
+
+ 3. Staff Close - attendance, OT and temporary staff settlement verified.
+
+ 4. Vendor Cost Close - outside food, purchase, rental and logistics bills verified or marked expected.
+
+ 5. Customer Close - final guest count, approved extras and billing basis confirmed.
+
+ 6. Provisional P&L; - remaining expected/missing costs visible.
+
+ 7. Financial Close - material costs/revenue complete and event locked.
+
+
+ Frozen Closing Blockers
+   - Unresolved stock return/variance
+   - Missing critical vendor bills or expected-cost treatment
+   - Unverified staff hours/settlement
+   - Unbilled approved customer extras
+   - Unreturned equipment / unresolved damage
+   - Unresolved payment/reconciliation issue
+   - Required incident/complaint action still open
+
+
+ Frozen Rules
+ 1. Operational completion cannot directly mark Financially Closed.
+
+ 2. Late bill after close requires controlled reopen or approved post-close adjustment policy.
+
+ 3. Final Event P&L; uses actual cost where available and clearly marks provisional cost if not final.
+
+ 4. Reopening records reason, approver, old close state and new changes.
+
+ 5. Closed event source transactions remain auditable and cannot be silently edited.
+
+
+ Owner Configuration Required
+   - Closing SLA
+   - Late-bill materiality policy
+   - Who can reopen
+   - Allowed post-close adjustments
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                  Page 23
+          TWF #15 - COMPLAINTS / FEEDBACK /
+                  REPEAT BUSINESS
+       Turn post-event service history into controlled resolution, learning, vendor/staff accountability and
+                                           repeat-business follow-up.
+
+ STATUS: FROZEN TRANSACTION WORKFLOW
+
+
+ Transaction Objects
+   - Feedback
+   - Complaint
+   - Incident Link
+   - Root Cause
+   - Corrective Action
+   - Compensation/Refund Link
+   - Vendor Recovery
+   - Repeat Follow-up
+   - Referral
+
+
+ Complaint Status Flow
+ Open -> Assigned -> Investigating -> Action Pending -> Customer Resolution -> Closed
+
+
+ Frozen Rules
+ 1. Complaint links to Customer, Event, Session and Product/Service where applicable.
+
+ 2. Root cause is separate from customer-facing resolution.
+
+ 3. Compensation/refund uses Finance workflow; complaint cannot directly change balances.
+
+ 4. Vendor recovery links to responsible vendor bill/payment/claim where applicable.
+
+ 5. Repeated issues can feed vendor/staff/product quality reporting.
+
+ 6. Feedback and review request respect communication consent rules.
+
+ 7. Repeat-business reminder links back to the same Customer Account, not a duplicate record.
+
+
+ Owner Configuration Required
+   - Complaint severity
+   - Resolution SLA
+   - Compensation approval limits
+   - Repeat follow-up timing
+   - Referral benefit rules
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                       Page 24
+  CROSS-WORKFLOW INTEGRATION FREEZE
+                                        How the 15 frozen workflows must connect
+
+ MASTER FLOW
+ Lead -> Quotation -> Booking -> Event/Session -> Demand -> Purchase/Inventory -> Production ->
+ Outsourcing -> Live Event -> Staff/Logistics -> Finance -> Event Close -> Feedback/Repeat
+
+
+ MANDATORY LINKAGE MATRIX
+   Field                              Frozen Rule
+
+   Lead                               Customer / prospect identity, Brand, Branch, source.
+
+   Quotation                          Lead/Customer + Brand/Branch + event/session assumptions + cost snapshot.
+
+   Booking                            Customer + accepted quotation + commercial commitments.
+
+   Event/Session                      Booking + operational branch/kitchen/venue + guest/menu data.
+
+   Demand                             Event/Session + Recipe/Product + Item requirements.
+
+   Purchase                           Demand/Event/Overhead + Vendor + Store destination.
+
+   Inventory                          Item + Location + Event/Session/source transaction.
+
+   Production                         Kitchen + Event/Session + Product + ingredient movements.
+
+   Outsourcing                        Event/Session + Vendor + outsourced item/service.
+
+   Live Operations                    Event/Session + count/counter/extra/incident.
+
+   Staff                              Person + Branch/Kitchen/Event/Session + attendance/settlement.
+
+   Logistics                          Event/Session + Vehicle/Driver + Load/Equipment.
+
+   Finance                            Customer/Vendor/Staff + Event/Overhead allocation + ledger.
+
+   Event Close                        All required operational and financial source records.
+
+   Feedback                           Customer + Event/Session + resolution/finance links.
+
+
+
+ CALCULATION SEPARATION - FROZEN
+   - Standard Cost != Estimated Event Cost != Actual Event Cost.
+   - Expected Guests != Guaranteed Guests != Final Confirmed Guests != Actual Served.
+   - Ordered Qty != Delivered Qty != Accepted Qty != Returned/Short Qty.
+   - On Hand != Reserved != Available != Incoming.
+   - Invoice Value != Collected Cash != Outstanding.
+   - Operational Complete != Financially Closed.
+
+
+ AUDIT & APPROVAL - FROZEN
+   - Sensitive approval uses source record, actor, role, amount/impact, reason, evidence and timestamp.
+   - Rejection preserves request history.
+   - Reopen never erases prior closed state.
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                                          Page 25
+   - Before/after values are preserved for material changes.
+   - Exports of sensitive finance/customer data are permission-controlled and auditable.
+
+
+ NO-ASSUMPTION REGISTER
+ The following were intentionally NOT invented in this workflow freeze:
+
+   - Exact rupee approval limits
+   - Exact discount percentages
+   - Exact advance percentage
+   - Exact guest buffer percentage
+   - Exact quotation validity days
+   - Exact tentative-hold hours/days
+   - Exact cancellation/refund percentages
+   - Exact purchase quote count
+   - Exact price variance tolerance
+   - Exact stock variance tolerance
+   - Exact wastage tolerance
+   - Exact event close deadline
+   - Exact staff wage/OT rates
+   - Exact mileage/fuel reimbursement
+   - Exact GST/tax interpretation
+   - Exact reminder/escalation times
+   - Exact complaint compensation limits
+
+
+ FINAL FREEZE STATUS
+     TWF           Workflow                                                                Status
+
+     01            Lead / Enquiry                                                          FROZEN
+
+     02            Quotation                                                               FROZEN
+
+     03            Booking                                                                 FROZEN
+
+     04            Event + Sub-Event + Meal Session                                        FROZEN
+
+     05            Demand Planning                                                         FROZEN
+
+     06            Purchase                                                                FROZEN
+
+     07            Inventory                                                               FROZEN
+
+     08            Kitchen Production                                                      FROZEN
+
+     09            Outside Food / Outsourcing                                              FROZEN
+
+     10            Live Event Operations                                                   FROZEN
+
+     11            Staff                                                                   FROZEN
+
+     12            Logistics / Equipment                                                   FROZEN
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                            Page 26
+     TWF           Workflow                                                   Status
+
+     13            Finance                                                    FROZEN
+
+     14            Event Closing                                              FROZEN
+
+     15            Complaints / Feedback / Repeat Business                    FROZEN
+
+
+ NEXT IMPLEMENTATION FREEZE AFTER THIS PACK: Database Schema + Relationship Freeze, then Permission
+ Matrix, Calculation Rules, Screen/UI Freeze, API Contract, Reports and Test/Acceptance Rules.
+
+
+
+
+Catering CRM + ERP - TWF #01 to #15 Frozen Workflow Pack                                        Page 27
+

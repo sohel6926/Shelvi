@@ -1,0 +1,8 @@
+/*
+ * Global styles come from the MUI theme (src/theme/tokens.ts, applied through CssBaseline).
+ * This file stays almost empty on purpose: the old Vite starter rules (dark scheme, purple accent,
+ * fixed 1126px centred #root) were removed. A copy is in _backup_2026-11-05/web-index.css.starter.
+ */
+html, body, #root {
+  min-height: 100%;
+}

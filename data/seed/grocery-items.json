@@ -1,0 +1,6021 @@
+{
+ "_note": "Grocery master (Nov 2026). Built from app PurchaseCatalog.kt (7 modules) + v15 operations.tsx purchaseSuggestions/teluguItemNames, duplicates merged (other spellings kept in aliases). per100 = quantity for 100 guests, set ONLY for known staples; everything else null until the owner fills it. unit = calculation unit (kg/L/pcs); purchaseUnits = units offered when buying.",
+ "version": 1,
+ "modules": [
+  {
+   "id": "Kirana",
+   "te": "కిరాణా",
+   "en": "Kirana / Grocery"
+  },
+  {
+   "id": "Kayagoralu",
+   "te": "కాయగూరలు",
+   "en": "Vegetables"
+  },
+  {
+   "id": "Disposables",
+   "te": "డిస్పోజబుల్స్ & శుభ్రత",
+   "en": "Disposables & cleaning"
+  },
+  {
+   "id": "Fruits",
+   "te": "పండ్లు",
+   "en": "Fruits"
+  },
+  {
+   "id": "Non-Veg",
+   "te": "మాంసాహారం",
+   "en": "Non-veg"
+  },
+  {
+   "id": "Gas / Fuel",
+   "te": "గ్యాస్ / ఇంధనం",
+   "en": "Gas / Fuel"
+  },
+  {
+   "id": "Water / Ice",
+   "te": "నీళ్లు / ఐస్",
+   "en": "Water / Ice"
+  }
+ ],
+ "items": [
+  {
+   "id": "kandi-pappu",
+   "nameTe": "కందిపప్పు",
+   "nameEn": "Toor Dal",
+   "nameRoman": "Kandi Pappu",
+   "module": "Kirana",
+   "group": "Pappulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": 10,
+   "aliases": [
+    "Toor Dal",
+    "Arhar Dal"
+   ]
+  },
+  {
+   "id": "pesara-pappu",
+   "nameTe": "పెసరపప్పు",
+   "nameEn": "Moong Dal",
+   "nameRoman": "Pesara Pappu",
+   "module": "Kirana",
+   "group": "Pappulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Moong Dal"
+   ]
+  },
+  {
+   "id": "minapa-pappu",
+   "nameTe": "మినపప్పు",
+   "nameEn": "Urad Dal",
+   "nameRoman": "Minapa Pappu",
+   "module": "Kirana",
+   "group": "Pappulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Urad Dal"
+   ]
+  },
+  {
+   "id": "senaga-pappu",
+   "nameTe": "శనగపప్పు",
+   "nameEn": "Chana Dal",
+   "nameRoman": "Senaga Pappu",
+   "module": "Kirana",
+   "group": "Pappulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Chana Dal"
+   ]
+  },
+  {
+   "id": "putnala-pappu",
+   "nameTe": "పుట్నాల పప్పు",
+   "nameEn": "Roasted Gram (Putnalu)",
+   "nameRoman": "Putnala Pappu",
+   "module": "Kirana",
+   "group": "Pappulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "pesalu",
+   "nameTe": "పెసలు",
+   "nameEn": "Green Gram (whole moong)",
+   "nameRoman": "Pesalu",
+   "module": "Kirana",
+   "group": "Pappulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "minumulu",
+   "nameTe": "మినుములు",
+   "nameEn": "Black Gram (whole urad)",
+   "nameRoman": "Minumulu",
+   "module": "Kirana",
+   "group": "Pappulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "senagalu",
+   "nameTe": "శనగలు",
+   "nameEn": "Bengal Gram (black chana)",
+   "nameRoman": "Senagalu",
+   "module": "Kirana",
+   "group": "Pappulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "tella-senagalu-kabuli-senagalu",
+   "nameTe": "తెల్ల శనగలు / కాబూలీ శనగలు",
+   "nameEn": "Kabuli Chana (chickpeas)",
+   "nameRoman": "Tella Senagalu / Kabuli Senagalu",
+   "module": "Kirana",
+   "group": "Pappulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "alasandalu",
+   "nameTe": "అలసందలు",
+   "nameEn": "Black-eyed Peas (lobia)",
+   "nameRoman": "Alasandalu",
+   "module": "Kirana",
+   "group": "Pappulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "ulavalu",
+   "nameTe": "ఉలవలు",
+   "nameEn": "Horse Gram",
+   "nameRoman": "Ulavalu",
+   "module": "Kirana",
+   "group": "Pappulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "rajma",
+   "nameTe": "రాజ్మా",
+   "nameEn": "Rajma (kidney beans)",
+   "nameRoman": "Rajma",
+   "module": "Kirana",
+   "group": "Pappulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "bataneelu",
+   "nameTe": "బఠాణీలు",
+   "nameEn": "Dried Peas",
+   "nameRoman": "Bataneelu",
+   "module": "Kirana",
+   "group": "Pappulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "tella-bataneelu",
+   "nameTe": "తెల్ల బఠాణీలు",
+   "nameEn": "White Peas",
+   "nameRoman": "Tella Bataneelu",
+   "module": "Kirana",
+   "group": "Pappulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "masoor-pappu",
+   "nameTe": "మసూర్ పప్పు",
+   "nameEn": "Masoor Dal",
+   "nameRoman": "Masoor Pappu",
+   "module": "Kirana",
+   "group": "Pappulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Masoor Dal"
+   ]
+  },
+  {
+   "id": "sona-masoori-biyyam",
+   "nameTe": "సోనా మసూరి బియ్యం",
+   "nameEn": "Sona Masoori Rice (raw rice)",
+   "nameRoman": "Sona Masoori Biyyam",
+   "module": "Kirana",
+   "group": "Biyyam / Rice",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": 18,
+   "aliases": [
+    "Sona Masoori Rice",
+    "Raw Rice",
+    "పచ్చి బియ్యం",
+    "Rice",
+    "బియ్యం"
+   ]
+  },
+  {
+   "id": "hmt-biyyam",
+   "nameTe": "హెచ్‌ఎంటీ బియ్యం",
+   "nameEn": "HMT Rice",
+   "nameRoman": "HMT Biyyam",
+   "module": "Kirana",
+   "group": "Biyyam / Rice",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "basmati-biyyam",
+   "nameTe": "బాస్మతి బియ్యం",
+   "nameEn": "Basmati Rice",
+   "nameRoman": "Basmati Biyyam",
+   "module": "Kirana",
+   "group": "Biyyam / Rice",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Basmati Rice"
+   ]
+  },
+  {
+   "id": "idly-biyyam",
+   "nameTe": "ఇడ్లీ బియ్యం",
+   "nameEn": "Idli Rice",
+   "nameRoman": "Idly Biyyam",
+   "module": "Kirana",
+   "group": "Biyyam / Rice",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Idli Rice"
+   ]
+  },
+  {
+   "id": "biyyam-ravva",
+   "nameTe": "బియ్యం రవ్వ",
+   "nameEn": "Rice Rava",
+   "nameRoman": "Biyyam Ravva",
+   "module": "Kirana",
+   "group": "Biyyam / Rice",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "idly-ravva",
+   "nameTe": "ఇడ్లీ రవ్వ",
+   "nameEn": "Idli Rava",
+   "nameRoman": "Idly Ravva",
+   "module": "Kirana",
+   "group": "Biyyam / Rice",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "atukulu",
+   "nameTe": "అటుకులు",
+   "nameEn": "Poha (flattened rice)",
+   "nameRoman": "Atukulu",
+   "module": "Kirana",
+   "group": "Biyyam / Rice",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "godhuma-pindi",
+   "nameTe": "గోధుమ పిండి",
+   "nameEn": "Wheat Flour (atta)",
+   "nameRoman": "Godhuma Pindi",
+   "module": "Kirana",
+   "group": "Pindi / Ravvalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Wheat Flour",
+    "Atta"
+   ]
+  },
+  {
+   "id": "maida",
+   "nameTe": "మైదా",
+   "nameEn": "Maida",
+   "nameRoman": "Maida",
+   "module": "Kirana",
+   "group": "Pindi / Ravvalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "senaga-pindi",
+   "nameTe": "శనగపిండి",
+   "nameEn": "Besan (gram flour)",
+   "nameRoman": "Senaga Pindi",
+   "module": "Kirana",
+   "group": "Pindi / Ravvalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Besan"
+   ]
+  },
+  {
+   "id": "biyyam-pindi",
+   "nameTe": "బియ్యం పిండి",
+   "nameEn": "Rice Flour",
+   "nameRoman": "Biyyam Pindi",
+   "module": "Kirana",
+   "group": "Pindi / Ravvalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "corn-flour",
+   "nameTe": "కార్న్ ఫ్లోర్",
+   "nameEn": "Corn Flour",
+   "nameRoman": "Corn Flour",
+   "module": "Kirana",
+   "group": "Pindi / Ravvalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "bombay-ravva",
+   "nameTe": "బొంబాయి రవ్వ",
+   "nameEn": "Bombay Rava (sooji)",
+   "nameRoman": "Bombay Ravva",
+   "module": "Kirana",
+   "group": "Pindi / Ravvalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Sooji / Rava",
+    "Sooji",
+    "Rava",
+    "రవ్వ"
+   ]
+  },
+  {
+   "id": "sanna-ravva",
+   "nameTe": "సన్న రవ్వ",
+   "nameEn": "Fine Rava",
+   "nameRoman": "Sanna Ravva",
+   "module": "Kirana",
+   "group": "Pindi / Ravvalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "ragi-pindi",
+   "nameTe": "రాగి పిండి",
+   "nameEn": "Ragi Flour",
+   "nameRoman": "Ragi Pindi",
+   "module": "Kirana",
+   "group": "Pindi / Ravvalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "sunflower-noone",
+   "nameTe": "సన్‌ఫ్లవర్ నూనె (వంట నూనె)",
+   "nameEn": "Sunflower Oil (cooking oil)",
+   "nameRoman": "Sunflower Noone",
+   "module": "Kirana",
+   "group": "Noonelu / Neyyi",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle"
+   ],
+   "per100": 4,
+   "aliases": [
+    "Sunflower Oil",
+    "Cooking Oil",
+    "వంట నూనె",
+    "Oil",
+    "నూనె"
+   ]
+  },
+  {
+   "id": "palm-oil",
+   "nameTe": "పామాయిల్",
+   "nameEn": "Palm Oil",
+   "nameRoman": "Palm Oil",
+   "module": "Kirana",
+   "group": "Noonelu / Neyyi",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "nuvvula-noone",
+   "nameTe": "నువ్వుల నూనె",
+   "nameEn": "Sesame (gingelly) Oil",
+   "nameRoman": "Nuvvula Noone",
+   "module": "Kirana",
+   "group": "Noonelu / Neyyi",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "kobbari-noone",
+   "nameTe": "కొబ్బరి నూనె",
+   "nameEn": "Coconut Oil",
+   "nameRoman": "Kobbari Noone",
+   "module": "Kirana",
+   "group": "Noonelu / Neyyi",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "aava-noone",
+   "nameTe": "ఆవ నూనె",
+   "nameEn": "Mustard Oil",
+   "nameRoman": "Aava Noone",
+   "module": "Kirana",
+   "group": "Noonelu / Neyyi",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "verusenaga-noone",
+   "nameTe": "వేరుశెనగ నూనె",
+   "nameEn": "Groundnut Oil",
+   "nameRoman": "Verusenaga Noone",
+   "module": "Kirana",
+   "group": "Noonelu / Neyyi",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": [
+    "Groundnut Oil"
+   ]
+  },
+  {
+   "id": "dalda",
+   "nameTe": "డాల్డా",
+   "nameEn": "Dalda (vanaspati)",
+   "nameRoman": "Dalda",
+   "module": "Kirana",
+   "group": "Noonelu / Neyyi",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "neyyi",
+   "nameTe": "నెయ్యి",
+   "nameEn": "Ghee",
+   "nameRoman": "Neyyi",
+   "module": "Kirana",
+   "group": "Noonelu / Neyyi",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": [
+    "Ghee"
+   ]
+  },
+  {
+   "id": "uppu",
+   "nameTe": "ఉప్పు",
+   "nameEn": "Salt",
+   "nameRoman": "Uppu",
+   "module": "Kirana",
+   "group": "Uppu / Panchadara / Bellam",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Salt"
+   ]
+  },
+  {
+   "id": "ralla-uppu",
+   "nameTe": "రాళ్ల ఉప్పు",
+   "nameEn": "Rock Salt (crystal salt)",
+   "nameRoman": "Ralla Uppu",
+   "module": "Kirana",
+   "group": "Uppu / Panchadara / Bellam",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "panchadara",
+   "nameTe": "పంచదార (చక్కెర)",
+   "nameEn": "Sugar",
+   "nameRoman": "Panchadara",
+   "module": "Kirana",
+   "group": "Uppu / Panchadara / Bellam",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": 3,
+   "aliases": [
+    "Sugar",
+    "చక్కెర"
+   ]
+  },
+  {
+   "id": "bellam",
+   "nameTe": "బెల్లం",
+   "nameEn": "Jaggery",
+   "nameRoman": "Bellam",
+   "module": "Kirana",
+   "group": "Uppu / Panchadara / Bellam",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Jaggery"
+   ]
+  },
+  {
+   "id": "bellam-podi",
+   "nameTe": "బెల్లం పొడి",
+   "nameEn": "Jaggery Powder",
+   "nameRoman": "Bellam Podi",
+   "module": "Kirana",
+   "group": "Uppu / Panchadara / Bellam",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "thaati-bellam",
+   "nameTe": "తాటి బెల్లం",
+   "nameEn": "Palm Jaggery",
+   "nameRoman": "Thaati Bellam",
+   "module": "Kirana",
+   "group": "Uppu / Panchadara / Bellam",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "aavalu",
+   "nameTe": "ఆవాలు",
+   "nameEn": "Mustard Seeds",
+   "nameRoman": "Aavalu",
+   "module": "Kirana",
+   "group": "Popu Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Mustard"
+   ]
+  },
+  {
+   "id": "jeelakarra",
+   "nameTe": "జీలకర్ర",
+   "nameEn": "Cumin Seeds",
+   "nameRoman": "Jeelakarra",
+   "module": "Kirana",
+   "group": "Popu Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Cumin"
+   ]
+  },
+  {
+   "id": "menthulu",
+   "nameTe": "మెంతులు",
+   "nameEn": "Fenugreek Seeds",
+   "nameRoman": "Menthulu",
+   "module": "Kirana",
+   "group": "Popu Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "dhaniyalu",
+   "nameTe": "ధనియాలు",
+   "nameEn": "Coriander Seeds",
+   "nameRoman": "Dhaniyalu",
+   "module": "Kirana",
+   "group": "Popu Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "vaamu",
+   "nameTe": "వాము",
+   "nameEn": "Ajwain (carom seeds)",
+   "nameRoman": "Vaamu",
+   "module": "Kirana",
+   "group": "Popu Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "sompu",
+   "nameTe": "సోంపు",
+   "nameEn": "Fennel Seeds",
+   "nameRoman": "Sompu",
+   "module": "Kirana",
+   "group": "Popu Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "miriyalu",
+   "nameTe": "మిరియాలు",
+   "nameEn": "Black Pepper",
+   "nameRoman": "Miriyalu",
+   "module": "Kirana",
+   "group": "Popu Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Pepper"
+   ]
+  },
+  {
+   "id": "nuvvulu",
+   "nameTe": "నువ్వులు",
+   "nameEn": "Sesame Seeds",
+   "nameRoman": "Nuvvulu",
+   "module": "Kirana",
+   "group": "Popu Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "gasagasalu",
+   "nameTe": "గసగసాలు",
+   "nameEn": "Poppy Seeds",
+   "nameRoman": "Gasagasalu",
+   "module": "Kirana",
+   "group": "Popu Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "lavangalu",
+   "nameTe": "లవంగాలు",
+   "nameEn": "Cloves",
+   "nameRoman": "Lavangalu",
+   "module": "Kirana",
+   "group": "Masala Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Cloves"
+   ]
+  },
+  {
+   "id": "dalchina-chekka",
+   "nameTe": "దాల్చిన చెక్క",
+   "nameEn": "Cinnamon",
+   "nameRoman": "Dalchina Chekka",
+   "module": "Kirana",
+   "group": "Masala Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Cinnamon"
+   ]
+  },
+  {
+   "id": "yelakulu",
+   "nameTe": "యాలకులు",
+   "nameEn": "Cardamom",
+   "nameRoman": "Yelakulu",
+   "module": "Kirana",
+   "group": "Masala Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Cardamom"
+   ]
+  },
+  {
+   "id": "pedda-yelakulu",
+   "nameTe": "పెద్ద యాలకులు",
+   "nameEn": "Black Cardamom",
+   "nameRoman": "Pedda Yelakulu",
+   "module": "Kirana",
+   "group": "Masala Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "biryani-aaku",
+   "nameTe": "బిర్యానీ ఆకు",
+   "nameEn": "Bay Leaf",
+   "nameRoman": "Biryani Aaku",
+   "module": "Kirana",
+   "group": "Masala Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Bay Leaf"
+   ]
+  },
+  {
+   "id": "anasa-puvvu",
+   "nameTe": "అనాస పువ్వు",
+   "nameEn": "Star Anise",
+   "nameRoman": "Anasa Puvvu",
+   "module": "Kirana",
+   "group": "Masala Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "japatri",
+   "nameTe": "జాపత్రి",
+   "nameEn": "Mace",
+   "nameRoman": "Japatri",
+   "module": "Kirana",
+   "group": "Masala Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "jajikaya",
+   "nameTe": "జాజికాయ",
+   "nameEn": "Nutmeg",
+   "nameRoman": "Jajikaya",
+   "module": "Kirana",
+   "group": "Masala Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "shajeera",
+   "nameTe": "షాజీర",
+   "nameEn": "Shahi Jeera (caraway)",
+   "nameRoman": "Shajeera",
+   "module": "Kirana",
+   "group": "Masala Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "rathi-puvvu",
+   "nameTe": "రాతి పువ్వు",
+   "nameEn": "Stone Flower (kalpasi)",
+   "nameRoman": "Rathi Puvvu",
+   "module": "Kirana",
+   "group": "Masala Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "endu-mirapakayalu",
+   "nameTe": "ఎండు మిరపకాయలు",
+   "nameEn": "Dry Red Chillies",
+   "nameRoman": "Endu Mirapakayalu",
+   "module": "Kirana",
+   "group": "Masala Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "thoka-miriyalu",
+   "nameTe": "తోక మిరియాలు",
+   "nameEn": "Cubeb (tailed pepper)",
+   "nameRoman": "Thoka Miriyalu",
+   "module": "Kirana",
+   "group": "Masala Dinusulu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "karam",
+   "nameTe": "కారం",
+   "nameEn": "Red Chilli Powder",
+   "nameRoman": "Karam",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": [
+    "Chilli Powder",
+    "కారం పొడి"
+   ]
+  },
+  {
+   "id": "pasupu",
+   "nameTe": "పసుపు",
+   "nameEn": "Turmeric Powder",
+   "nameRoman": "Pasupu",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": [
+    "Turmeric"
+   ]
+  },
+  {
+   "id": "dhaniyala-podi",
+   "nameTe": "ధనియాల పొడి",
+   "nameEn": "Coriander Powder",
+   "nameRoman": "Dhaniyala Podi",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": [
+    "Coriander Powder"
+   ]
+  },
+  {
+   "id": "jeelakarra-podi",
+   "nameTe": "జీలకర్ర పొడి",
+   "nameEn": "Cumin Powder",
+   "nameRoman": "Jeelakarra Podi",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "miriyala-podi",
+   "nameTe": "మిరియాల పొడి",
+   "nameEn": "Pepper Powder",
+   "nameRoman": "Miriyala Podi",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "garam-masala",
+   "nameTe": "గరం మసాలా",
+   "nameEn": "Garam Masala",
+   "nameRoman": "Garam Masala",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "inguva",
+   "nameTe": "ఇంగువ",
+   "nameEn": "Asafoetida (hing)",
+   "nameRoman": "Inguva",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "sambar-podi",
+   "nameTe": "సాంబార్ పొడి",
+   "nameEn": "Sambar Powder",
+   "nameRoman": "Sambar Podi",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "rasam-podi",
+   "nameTe": "రసం పొడి",
+   "nameEn": "Rasam Powder",
+   "nameRoman": "Rasam Podi",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "biryani-masala",
+   "nameTe": "బిర్యానీ మసాలా",
+   "nameEn": "Biryani Masala",
+   "nameRoman": "Biryani Masala",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chicken-masala",
+   "nameTe": "చికెన్ మసాలా",
+   "nameEn": "Chicken Masala",
+   "nameRoman": "Chicken Masala",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mutton-masala",
+   "nameTe": "మటన్ మసాలా",
+   "nameEn": "Mutton Masala",
+   "nameRoman": "Mutton Masala",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "paneer-masala",
+   "nameTe": "పనీర్ మసాలా",
+   "nameEn": "Paneer Masala",
+   "nameRoman": "Paneer Masala",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chaat-masala",
+   "nameTe": "చాట్ మసాలా",
+   "nameEn": "Chaat Masala",
+   "nameRoman": "Chaat Masala",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "kasuri-methi",
+   "nameTe": "కసూరి మేతి",
+   "nameEn": "Kasuri Methi (dried fenugreek leaves)",
+   "nameRoman": "Kasuri Methi",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chole-masala",
+   "nameTe": "చోలే మసాలా",
+   "nameEn": "Chole Masala",
+   "nameRoman": "Chole Masala",
+   "module": "Kirana",
+   "group": "Podulu / Masalalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chintapandu",
+   "nameTe": "చింతపండు",
+   "nameEn": "Tamarind",
+   "nameRoman": "Chintapandu",
+   "module": "Kirana",
+   "group": "Pulupu Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Litre",
+    "ML",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": [
+    "Tamarind"
+   ]
+  },
+  {
+   "id": "nimmuppu",
+   "nameTe": "నిమ్మ ఉప్పు",
+   "nameEn": "Citric Acid (lemon salt)",
+   "nameRoman": "Nimmuppu",
+   "module": "Kirana",
+   "group": "Pulupu Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Litre",
+    "ML",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "vinegar",
+   "nameTe": "వెనిగర్",
+   "nameEn": "Vinegar",
+   "nameRoman": "Vinegar",
+   "module": "Kirana",
+   "group": "Pulupu Items",
+   "unit": "L",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Litre",
+    "ML",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "amchur-podi",
+   "nameTe": "ఆమ్‌చూర్ పొడి",
+   "nameEn": "Dry Mango Powder (amchur)",
+   "nameRoman": "Amchur Podi",
+   "module": "Kirana",
+   "group": "Pulupu Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Litre",
+    "ML",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "jeedi-pappu",
+   "nameTe": "జీడిపప్పు",
+   "nameEn": "Cashew Nuts",
+   "nameRoman": "Jeedi Pappu",
+   "module": "Kirana",
+   "group": "Dry Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Cashew"
+   ]
+  },
+  {
+   "id": "badam-pappu",
+   "nameTe": "బాదం పప్పు",
+   "nameEn": "Almonds",
+   "nameRoman": "Badam Pappu",
+   "module": "Kirana",
+   "group": "Dry Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Almond",
+    "బాదం"
+   ]
+  },
+  {
+   "id": "pista",
+   "nameTe": "పిస్తా",
+   "nameEn": "Pistachios",
+   "nameRoman": "Pista",
+   "module": "Kirana",
+   "group": "Dry Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "kismis",
+   "nameTe": "కిస్మిస్ (ఎండుద్రాక్ష)",
+   "nameEn": "Raisins",
+   "nameRoman": "Kismis",
+   "module": "Kirana",
+   "group": "Dry Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Raisin",
+    "ఎండుద్రాక్ష"
+   ]
+  },
+  {
+   "id": "nalla-kismis",
+   "nameTe": "నల్ల కిస్మిస్",
+   "nameEn": "Black Raisins",
+   "nameRoman": "Nalla Kismis",
+   "module": "Kirana",
+   "group": "Dry Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "kharjuram",
+   "nameTe": "ఖర్జూరం",
+   "nameEn": "Dates",
+   "nameRoman": "Kharjuram",
+   "module": "Kirana",
+   "group": "Dry Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "endu-kharjuram",
+   "nameTe": "ఎండు ఖర్జూరం",
+   "nameEn": "Dry Dates",
+   "nameRoman": "Endu Kharjuram",
+   "module": "Kirana",
+   "group": "Dry Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "endu-kobbari",
+   "nameTe": "ఎండు కొబ్బరి",
+   "nameEn": "Dry Coconut (copra)",
+   "nameRoman": "Endu Kobbari",
+   "module": "Kirana",
+   "group": "Dry Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Dry Coconut"
+   ]
+  },
+  {
+   "id": "kobbari-mukkalu",
+   "nameTe": "కొబ్బరి ముక్కలు",
+   "nameEn": "Coconut Pieces",
+   "nameRoman": "Kobbari Mukkalu",
+   "module": "Kirana",
+   "group": "Dry Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "kunkuma-puvvu",
+   "nameTe": "కుంకుమ పువ్వు",
+   "nameEn": "Saffron",
+   "nameRoman": "Kunkuma Puvvu",
+   "module": "Kirana",
+   "group": "Dry Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "semiya",
+   "nameTe": "సేమియా",
+   "nameEn": "Vermicelli",
+   "nameRoman": "Semiya",
+   "module": "Kirana",
+   "group": "Tiffin Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "saggubiyyam",
+   "nameTe": "సగ్గుబియ్యం",
+   "nameEn": "Sago (sabudana)",
+   "nameRoman": "Saggubiyyam",
+   "module": "Kirana",
+   "group": "Tiffin Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "verusenagalu",
+   "nameTe": "వేరుశెనగలు",
+   "nameEn": "Groundnuts (peanuts)",
+   "nameRoman": "Verusenagalu",
+   "module": "Kirana",
+   "group": "Tiffin Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": [
+    "Peanut",
+    "Peanuts",
+    "వేరుశెనగ"
+   ]
+  },
+  {
+   "id": "dosa-kotta-biyyam",
+   "nameTe": "దోసె బియ్యం",
+   "nameEn": "Dosa Rice",
+   "nameRoman": "Dosa Kotta Biyyam",
+   "module": "Kirana",
+   "group": "Tiffin Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "appadalu",
+   "nameTe": "అప్పడాలు",
+   "nameEn": "Papads",
+   "nameRoman": "Appadalu",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": [
+    "Papad",
+    "అప్పడం"
+   ]
+  },
+  {
+   "id": "vadiyalu",
+   "nameTe": "వడియాలు",
+   "nameEn": "Vadiyalu (sun-dried fryums)",
+   "nameRoman": "Vadiyalu",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "majjiga-mirapakayalu",
+   "nameTe": "మజ్జిగ మిరపకాయలు",
+   "nameEn": "Curd Chillies",
+   "nameRoman": "Majjiga Mirapakayalu",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mamidi-ooragaya",
+   "nameTe": "మామిడి ఊరగాయ",
+   "nameEn": "Mango Pickle",
+   "nameRoman": "Mamidi Ooragaya",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "nimmakaya-ooragaya",
+   "nameTe": "నిమ్మకాయ ఊరగాయ",
+   "nameEn": "Lemon Pickle",
+   "nameRoman": "Nimmakaya Ooragaya",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "gongura-ooragaya",
+   "nameTe": "గోంగూర ఊరగాయ",
+   "nameEn": "Gongura Pickle",
+   "nameRoman": "Gongura Ooragaya",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "kobbari-podi",
+   "nameTe": "కొబ్బరి పొడి",
+   "nameEn": "Coconut Powder",
+   "nameRoman": "Kobbari Podi",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": [
+    "Dry Coconut Powder"
+   ]
+  },
+  {
+   "id": "allam-vellulli-paste",
+   "nameTe": "అల్లం వెల్లుల్లి పేస్ట్",
+   "nameEn": "Ginger Garlic Paste",
+   "nameRoman": "Allam Vellulli Paste",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "tomato-puree",
+   "nameTe": "టమాటా ప్యూరీ",
+   "nameEn": "Tomato Puree",
+   "nameRoman": "Tomato Puree",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "bread-podi",
+   "nameTe": "బ్రెడ్ పొడి",
+   "nameEn": "Bread Crumbs",
+   "nameRoman": "Bread Podi",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "vanta-soda",
+   "nameTe": "వంట సోడా",
+   "nameEn": "Baking Soda (cooking soda)",
+   "nameRoman": "Vanta Soda",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": [
+    "Cooking Soda"
+   ]
+  },
+  {
+   "id": "yellow-food-colour",
+   "nameTe": "పసుపు ఫుడ్ కలర్",
+   "nameEn": "Yellow Food Colour",
+   "nameRoman": "Yellow Food Colour",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "red-food-colour",
+   "nameTe": "ఎరుపు ఫుడ్ కలర్",
+   "nameEn": "Red Food Colour",
+   "nameRoman": "Red Food Colour",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "green-food-colour",
+   "nameTe": "ఆకుపచ్చ ఫుడ్ కలర్",
+   "nameEn": "Green Food Colour",
+   "nameRoman": "Green Food Colour",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "orange-food-colour",
+   "nameTe": "ఆరెంజ్ ఫుడ్ కలర్",
+   "nameEn": "Orange Food Colour",
+   "nameRoman": "Orange Food Colour",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "pineapple-essence",
+   "nameTe": "పైనాపిల్ ఎసెన్స్",
+   "nameEn": "Pineapple Essence",
+   "nameRoman": "Pineapple Essence",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "L",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "fried-onions",
+   "nameTe": "వేయించిన ఉల్లిపాయలు",
+   "nameEn": "Fried Onions",
+   "nameRoman": "Fried Onions",
+   "module": "Kirana",
+   "group": "Kirana Miscellaneous",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "baking-powder",
+   "nameTe": "బేకింగ్ పౌడర్",
+   "nameEn": "Baking Powder",
+   "nameRoman": "Baking Powder",
+   "module": "Kirana",
+   "group": "Bakery / Chinese / Special Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "yeast",
+   "nameTe": "ఈస్ట్",
+   "nameEn": "Yeast",
+   "nameRoman": "Yeast",
+   "module": "Kirana",
+   "group": "Bakery / Chinese / Special Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "custard-powder",
+   "nameTe": "కస్టర్డ్ పౌడర్",
+   "nameEn": "Custard Powder",
+   "nameRoman": "Custard Powder",
+   "module": "Kirana",
+   "group": "Bakery / Chinese / Special Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "condensed-milk",
+   "nameTe": "కండెన్స్‌డ్ మిల్క్",
+   "nameEn": "Condensed Milk",
+   "nameRoman": "Condensed Milk",
+   "module": "Kirana",
+   "group": "Bakery / Chinese / Special Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "double-ka-meetha-bread",
+   "nameTe": "డబుల్ కా మీఠా బ్రెడ్",
+   "nameEn": "Double Ka Meetha Bread",
+   "nameRoman": "Double Ka Meetha Bread",
+   "module": "Kirana",
+   "group": "Bakery / Chinese / Special Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "soya-sauce",
+   "nameTe": "సోయా సాస్",
+   "nameEn": "Soya Sauce",
+   "nameRoman": "Soya Sauce",
+   "module": "Kirana",
+   "group": "Bakery / Chinese / Special Items",
+   "unit": "L",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chilli-sauce",
+   "nameTe": "చిల్లీ సాస్",
+   "nameEn": "Chilli Sauce",
+   "nameRoman": "Chilli Sauce",
+   "module": "Kirana",
+   "group": "Bakery / Chinese / Special Items",
+   "unit": "L",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "tomato-sauce",
+   "nameTe": "టమాటా సాస్",
+   "nameEn": "Tomato Sauce",
+   "nameRoman": "Tomato Sauce",
+   "module": "Kirana",
+   "group": "Bakery / Chinese / Special Items",
+   "unit": "L",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "schezwan-sauce",
+   "nameTe": "షెజ్వాన్ సాస్",
+   "nameEn": "Schezwan Sauce",
+   "nameRoman": "Schezwan Sauce",
+   "module": "Kirana",
+   "group": "Bakery / Chinese / Special Items",
+   "unit": "L",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mayonnaise",
+   "nameTe": "మయోనైజ్",
+   "nameEn": "Mayonnaise",
+   "nameRoman": "Mayonnaise",
+   "module": "Kirana",
+   "group": "Bakery / Chinese / Special Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "ajinomoto",
+   "nameTe": "అజినొమోటో",
+   "nameEn": "Ajinomoto (MSG)",
+   "nameRoman": "Ajinomoto",
+   "module": "Kirana",
+   "group": "Bakery / Chinese / Special Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "noodles",
+   "nameTe": "నూడుల్స్",
+   "nameEn": "Noodles",
+   "nameRoman": "Noodles",
+   "module": "Kirana",
+   "group": "Bakery / Chinese / Special Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "sev",
+   "nameTe": "సేవ్",
+   "nameEn": "Sev",
+   "nameRoman": "Sev",
+   "module": "Kirana",
+   "group": "Bakery / Chinese / Special Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "boondi",
+   "nameTe": "బూందీ",
+   "nameEn": "Boondi",
+   "nameRoman": "Boondi",
+   "module": "Kirana",
+   "group": "Bakery / Chinese / Special Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "papdi",
+   "nameTe": "పాప్డీ",
+   "nameEn": "Papdi",
+   "nameRoman": "Papdi",
+   "module": "Kirana",
+   "group": "Bakery / Chinese / Special Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet",
+    "Bottle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "tea-powder",
+   "nameTe": "టీ పొడి",
+   "nameEn": "Tea Powder",
+   "nameRoman": "Tea Powder",
+   "module": "Kirana",
+   "group": "Tea / Coffee",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "coffee-powder",
+   "nameTe": "కాఫీ పొడి",
+   "nameEn": "Coffee Powder",
+   "nameRoman": "Coffee Powder",
+   "module": "Kirana",
+   "group": "Tea / Coffee",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "milk-powder",
+   "nameTe": "పాల పొడి",
+   "nameEn": "Milk Powder",
+   "nameRoman": "Milk Powder",
+   "module": "Kirana",
+   "group": "Tea / Coffee",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "dairy-whitener",
+   "nameTe": "డెయిరీ వైట్‌నర్",
+   "nameEn": "Dairy Whitener",
+   "nameRoman": "Dairy Whitener",
+   "module": "Kirana",
+   "group": "Tea / Coffee",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "sugar-sachets",
+   "nameTe": "చక్కెర ప్యాకెట్లు",
+   "nameEn": "Sugar Sachets",
+   "nameRoman": "Sugar Sachets",
+   "module": "Kirana",
+   "group": "Tea / Coffee",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Kg",
+    "Gram",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "rose-syrup",
+   "nameTe": "రోజ్ సిరప్",
+   "nameEn": "Rose Syrup",
+   "nameRoman": "Rose Syrup",
+   "module": "Kirana",
+   "group": "Welcome Drink Items",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle",
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "badam-syrup",
+   "nameTe": "బాదం సిరప్",
+   "nameEn": "Badam Syrup",
+   "nameRoman": "Badam Syrup",
+   "module": "Kirana",
+   "group": "Welcome Drink Items",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle",
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "lemon-syrup",
+   "nameTe": "నిమ్మ సిరప్",
+   "nameEn": "Lemon Syrup",
+   "nameRoman": "Lemon Syrup",
+   "module": "Kirana",
+   "group": "Welcome Drink Items",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle",
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "sabja-ginjalu",
+   "nameTe": "సబ్జా గింజలు",
+   "nameEn": "Sabja (basil) Seeds",
+   "nameRoman": "Sabja Ginjalu",
+   "module": "Kirana",
+   "group": "Welcome Drink Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle",
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "glucose-powder",
+   "nameTe": "గ్లూకోజ్ పౌడర్",
+   "nameEn": "Glucose Powder",
+   "nameRoman": "Glucose Powder",
+   "module": "Kirana",
+   "group": "Welcome Drink Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle",
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "fruit-crush",
+   "nameTe": "ఫ్రూట్ క్రష్",
+   "nameEn": "Fruit Crush",
+   "nameRoman": "Fruit Crush",
+   "module": "Kirana",
+   "group": "Welcome Drink Items",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle",
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "pineapple-crush",
+   "nameTe": "పైనాపిల్ క్రష్",
+   "nameEn": "Pineapple Crush",
+   "nameRoman": "Pineapple Crush",
+   "module": "Kirana",
+   "group": "Welcome Drink Items",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle",
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mango-crush",
+   "nameTe": "మామిడి క్రష్",
+   "nameEn": "Mango Crush",
+   "nameRoman": "Mango Crush",
+   "module": "Kirana",
+   "group": "Welcome Drink Items",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle",
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "orange-crush",
+   "nameTe": "ఆరెంజ్ క్రష్",
+   "nameEn": "Orange Crush",
+   "nameRoman": "Orange Crush",
+   "module": "Kirana",
+   "group": "Welcome Drink Items",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle",
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "squash",
+   "nameTe": "స్క్వాష్",
+   "nameEn": "Squash",
+   "nameRoman": "Squash",
+   "module": "Kirana",
+   "group": "Welcome Drink Items",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "ML",
+    "Bottle",
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "paalu",
+   "nameTe": "పాలు",
+   "nameEn": "Milk",
+   "nameRoman": "Paalu",
+   "module": "Kirana",
+   "group": "Paala Padarthalu / Dairy",
+   "unit": "L",
+   "purchaseUnits": [
+    "Kg",
+    "Litre",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": [
+    "Milk",
+    "Milk Packets",
+    "పాల ప్యాకెట్లు"
+   ]
+  },
+  {
+   "id": "perugu",
+   "nameTe": "పెరుగు",
+   "nameEn": "Curd",
+   "nameRoman": "Perugu",
+   "module": "Kirana",
+   "group": "Paala Padarthalu / Dairy",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Litre",
+    "Packet"
+   ],
+   "per100": 10,
+   "aliases": [
+    "Curd"
+   ]
+  },
+  {
+   "id": "paneer",
+   "nameTe": "పనీర్",
+   "nameEn": "Paneer",
+   "nameRoman": "Paneer",
+   "module": "Kirana",
+   "group": "Paala Padarthalu / Dairy",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Litre",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "venna",
+   "nameTe": "వెన్న",
+   "nameEn": "Butter",
+   "nameRoman": "Venna",
+   "module": "Kirana",
+   "group": "Paala Padarthalu / Dairy",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Litre",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": [
+    "Butter"
+   ]
+  },
+  {
+   "id": "fresh-cream",
+   "nameTe": "ఫ్రెష్ క్రీమ్",
+   "nameEn": "Fresh Cream",
+   "nameRoman": "Fresh Cream",
+   "module": "Kirana",
+   "group": "Paala Padarthalu / Dairy",
+   "unit": "L",
+   "purchaseUnits": [
+    "Kg",
+    "Litre",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "cheese",
+   "nameTe": "చీజ్",
+   "nameEn": "Cheese",
+   "nameRoman": "Cheese",
+   "module": "Kirana",
+   "group": "Paala Padarthalu / Dairy",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Litre",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "kova",
+   "nameTe": "కోవా",
+   "nameEn": "Khoya",
+   "nameRoman": "Kova",
+   "module": "Kirana",
+   "group": "Paala Padarthalu / Dairy",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Litre",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": [
+    "Khoya"
+   ]
+  },
+  {
+   "id": "majjiga",
+   "nameTe": "మజ్జిగ",
+   "nameEn": "Buttermilk",
+   "nameRoman": "Majjiga",
+   "module": "Kirana",
+   "group": "Paala Padarthalu / Dairy",
+   "unit": "L",
+   "purchaseUnits": [
+    "Kg",
+    "Litre",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": [
+    "Buttermilk"
+   ]
+  },
+  {
+   "id": "pulkalu-rotis",
+   "nameTe": "పుల్కాలు / రోటీలు",
+   "nameEn": "Pulka / Roti",
+   "nameRoman": "Pulkalu / Rotis",
+   "module": "Kirana",
+   "group": "Ready Items",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Piece"
+   ],
+   "per100": 250,
+   "aliases": [
+    "Roti",
+    "Chapati",
+    "Pulka",
+    "రోటీ",
+    "చపాతీ"
+   ]
+  },
+  {
+   "id": "kuragayalu-mottam",
+   "nameTe": "కూరగాయలు (మొత్తం)",
+   "nameEn": "Vegetables (all, mixed)",
+   "nameRoman": "Kuragayalu (Mottam)",
+   "module": "Kayagoralu",
+   "group": "Mottam / Total",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": 20,
+   "aliases": [
+    "Vegetables",
+    "Kayagoralu",
+    "కాయగూరలు"
+   ]
+  },
+  {
+   "id": "ullipayalu",
+   "nameTe": "ఉల్లిపాయలు",
+   "nameEn": "Onion",
+   "nameRoman": "Ullipayalu",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "Onion"
+   ]
+  },
+  {
+   "id": "tomatalu",
+   "nameTe": "టమాటాలు",
+   "nameEn": "Tomato",
+   "nameRoman": "Tomatalu",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "Tomato"
+   ]
+  },
+  {
+   "id": "bangala-dumpalu",
+   "nameTe": "బంగాళదుంపలు",
+   "nameEn": "Potato",
+   "nameRoman": "Bangala Dumpalu",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "Potato",
+    "బంగాళాదుంప"
+   ]
+  },
+  {
+   "id": "vankayalu",
+   "nameTe": "వంకాయలు",
+   "nameEn": "Brinjal",
+   "nameRoman": "Vankayalu",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "Brinjal"
+   ]
+  },
+  {
+   "id": "bendakayalu",
+   "nameTe": "బెండకాయలు",
+   "nameEn": "Ladies Finger (okra)",
+   "nameRoman": "Bendakayalu",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "Ladies Finger",
+    "Okra"
+   ]
+  },
+  {
+   "id": "beerakayalu",
+   "nameTe": "బీరకాయలు",
+   "nameEn": "Ridge Gourd",
+   "nameRoman": "Beerakayalu",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "Ridge Gourd"
+   ]
+  },
+  {
+   "id": "nethi-beerakaya",
+   "nameTe": "నేతి బీరకాయ",
+   "nameEn": "Sponge Gourd",
+   "nameRoman": "Nethi Beerakaya",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "sorakayalu",
+   "nameTe": "సొరకాయలు",
+   "nameEn": "Bottle Gourd",
+   "nameRoman": "Sorakayalu",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "Bottle Gourd"
+   ]
+  },
+  {
+   "id": "potlakayalu",
+   "nameTe": "పొట్లకాయలు",
+   "nameEn": "Snake Gourd",
+   "nameRoman": "Potlakayalu",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "Snake Gourd"
+   ]
+  },
+  {
+   "id": "kakarakayalu",
+   "nameTe": "కాకరకాయలు",
+   "nameEn": "Bitter Gourd",
+   "nameRoman": "Kakarakayalu",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "Bitter Gourd"
+   ]
+  },
+  {
+   "id": "dondakayalu",
+   "nameTe": "దొండకాయలు",
+   "nameEn": "Ivy Gourd (tindora)",
+   "nameRoman": "Dondakayalu",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "Ivy Gourd"
+   ]
+  },
+  {
+   "id": "dosakayalu",
+   "nameTe": "దోసకాయలు",
+   "nameEn": "Yellow Cucumber (dosakaya)",
+   "nameRoman": "Dosakayalu",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "budida-gummadikaya",
+   "nameTe": "బూడిద గుమ్మడికాయ",
+   "nameEn": "Ash Gourd",
+   "nameRoman": "Budida Gummadikaya",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "gummadikaya",
+   "nameTe": "గుమ్మడికాయ",
+   "nameEn": "Pumpkin",
+   "nameRoman": "Gummadikaya",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "Pumpkin"
+   ]
+  },
+  {
+   "id": "mullangi",
+   "nameTe": "ముల్లంగి",
+   "nameEn": "Radish",
+   "nameRoman": "Mullangi",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "carrot",
+   "nameTe": "క్యారెట్",
+   "nameEn": "Carrot",
+   "nameRoman": "Carrot",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "beetroot",
+   "nameTe": "బీట్‌రూట్",
+   "nameEn": "Beetroot",
+   "nameRoman": "Beetroot",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "capsicum",
+   "nameTe": "క్యాప్సికమ్",
+   "nameEn": "Capsicum (green)",
+   "nameRoman": "Capsicum",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "Green Capsicum"
+   ]
+  },
+  {
+   "id": "cabbage",
+   "nameTe": "క్యాబేజీ",
+   "nameEn": "Cabbage",
+   "nameRoman": "Cabbage",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "cauliflower",
+   "nameTe": "కాలీఫ్లవర్",
+   "nameEn": "Cauliflower",
+   "nameRoman": "Cauliflower",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "beans",
+   "nameTe": "బీన్స్",
+   "nameEn": "Beans (french beans)",
+   "nameRoman": "Beans",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "French Beans"
+   ]
+  },
+  {
+   "id": "green-peas",
+   "nameTe": "పచ్చి బఠాణీలు",
+   "nameEn": "Green Peas",
+   "nameRoman": "Green Peas",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "sweet-corn",
+   "nameTe": "స్వీట్ కార్న్",
+   "nameEn": "Sweet Corn",
+   "nameRoman": "Sweet Corn",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "తీపి మొక్కజొన్న"
+   ]
+  },
+  {
+   "id": "baby-corn",
+   "nameTe": "బేబీ కార్న్",
+   "nameEn": "Baby Corn",
+   "nameRoman": "Baby Corn",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mushroom",
+   "nameTe": "పుట్టగొడుగులు (మష్రూమ్)",
+   "nameEn": "Mushroom",
+   "nameRoman": "Mushroom",
+   "module": "Kayagoralu",
+   "group": "Regular Kayagoralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "palakura",
+   "nameTe": "పాలకూర",
+   "nameEn": "Spinach",
+   "nameRoman": "Palakura",
+   "module": "Kayagoralu",
+   "group": "Aaku Kooralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bundle"
+   ],
+   "per100": null,
+   "aliases": [
+    "Spinach"
+   ]
+  },
+  {
+   "id": "thotakura",
+   "nameTe": "తోటకూర",
+   "nameEn": "Amaranth Leaves",
+   "nameRoman": "Thotakura",
+   "module": "Kayagoralu",
+   "group": "Aaku Kooralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bundle"
+   ],
+   "per100": null,
+   "aliases": [
+    "Amaranth Leaves"
+   ]
+  },
+  {
+   "id": "gongura",
+   "nameTe": "గోంగూర",
+   "nameEn": "Gongura (sorrel leaves)",
+   "nameRoman": "Gongura",
+   "module": "Kayagoralu",
+   "group": "Aaku Kooralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bundle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "menthikura",
+   "nameTe": "మెంతికూర",
+   "nameEn": "Fenugreek Leaves",
+   "nameRoman": "Menthikura",
+   "module": "Kayagoralu",
+   "group": "Aaku Kooralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bundle"
+   ],
+   "per100": null,
+   "aliases": [
+    "Fenugreek Leaves"
+   ]
+  },
+  {
+   "id": "kothimeera",
+   "nameTe": "కొత్తిమీర",
+   "nameEn": "Coriander Leaves",
+   "nameRoman": "Kothimeera",
+   "module": "Kayagoralu",
+   "group": "Aaku Kooralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bundle"
+   ],
+   "per100": null,
+   "aliases": [
+    "Coriander"
+   ]
+  },
+  {
+   "id": "pudina",
+   "nameTe": "పుదీనా",
+   "nameEn": "Mint",
+   "nameRoman": "Pudina",
+   "module": "Kayagoralu",
+   "group": "Aaku Kooralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bundle"
+   ],
+   "per100": null,
+   "aliases": [
+    "Mint"
+   ]
+  },
+  {
+   "id": "curry-leaves",
+   "nameTe": "కరివేపాకు",
+   "nameEn": "Curry Leaves",
+   "nameRoman": "Curry Leaves",
+   "module": "Kayagoralu",
+   "group": "Aaku Kooralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bundle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chukkakura",
+   "nameTe": "చుక్కకూర",
+   "nameEn": "Chukka Kura (green sorrel)",
+   "nameRoman": "Chukkakura",
+   "module": "Kayagoralu",
+   "group": "Aaku Kooralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bundle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "bachalikura",
+   "nameTe": "బచ్చలికూర",
+   "nameEn": "Malabar Spinach",
+   "nameRoman": "Bachalikura",
+   "module": "Kayagoralu",
+   "group": "Aaku Kooralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bundle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "munagaku",
+   "nameTe": "మునగాకు",
+   "nameEn": "Drumstick Leaves",
+   "nameRoman": "Munagaku",
+   "module": "Kayagoralu",
+   "group": "Aaku Kooralu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bundle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chilakada-dumpa",
+   "nameTe": "చిలగడదుంప",
+   "nameEn": "Sweet Potato",
+   "nameRoman": "Chilakada Dumpa",
+   "module": "Kayagoralu",
+   "group": "Roots / Dumpalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "kanda-gadda",
+   "nameTe": "కంద గడ్డ",
+   "nameEn": "Elephant Foot Yam",
+   "nameRoman": "Kanda Gadda",
+   "module": "Kayagoralu",
+   "group": "Roots / Dumpalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chama-dumpa",
+   "nameTe": "చామదుంప",
+   "nameEn": "Colocasia (taro)",
+   "nameRoman": "Chama Dumpa",
+   "module": "Kayagoralu",
+   "group": "Roots / Dumpalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "pendalam",
+   "nameTe": "పెండలం",
+   "nameEn": "Purple Yam",
+   "nameRoman": "Pendalam",
+   "module": "Kayagoralu",
+   "group": "Roots / Dumpalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "allam",
+   "nameTe": "అల్లం",
+   "nameEn": "Ginger",
+   "nameRoman": "Allam",
+   "module": "Kayagoralu",
+   "group": "Roots / Dumpalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "Ginger"
+   ]
+  },
+  {
+   "id": "vellulli",
+   "nameTe": "వెల్లుల్లి",
+   "nameEn": "Garlic",
+   "nameRoman": "Vellulli",
+   "module": "Kayagoralu",
+   "group": "Roots / Dumpalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "Garlic"
+   ]
+  },
+  {
+   "id": "pachi-mirapakayalu",
+   "nameTe": "పచ్చి మిరపకాయలు",
+   "nameEn": "Green Chillies",
+   "nameRoman": "Pachi Mirapakayalu",
+   "module": "Kayagoralu",
+   "group": "Mirapakayalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": [
+    "Green Chilli",
+    "పచ్చిమిర్చి"
+   ]
+  },
+  {
+   "id": "bajji-mirapakayalu",
+   "nameTe": "బజ్జీ మిరపకాయలు",
+   "nameEn": "Bajji Chillies",
+   "nameRoman": "Bajji Mirapakayalu",
+   "module": "Kayagoralu",
+   "group": "Mirapakayalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "red-capsicum",
+   "nameTe": "ఎరుపు క్యాప్సికమ్",
+   "nameEn": "Red Capsicum",
+   "nameRoman": "Red Capsicum",
+   "module": "Kayagoralu",
+   "group": "Mirapakayalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "yellow-capsicum",
+   "nameTe": "పసుపు క్యాప్సికమ్",
+   "nameEn": "Yellow Capsicum",
+   "nameRoman": "Yellow Capsicum",
+   "module": "Kayagoralu",
+   "group": "Mirapakayalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "nalla-vankaya",
+   "nameTe": "నల్ల వంకాయ",
+   "nameEn": "Purple Brinjal",
+   "nameRoman": "Nalla Vankaya",
+   "module": "Kayagoralu",
+   "group": "Vankaya Rakaalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "tella-vankaya",
+   "nameTe": "తెల్ల వంకాయ",
+   "nameEn": "White Brinjal",
+   "nameRoman": "Tella Vankaya",
+   "module": "Kayagoralu",
+   "group": "Vankaya Rakaalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "gutti-vankaya",
+   "nameTe": "గుత్తి వంకాయ",
+   "nameEn": "Small Brinjal (for stuffing)",
+   "nameRoman": "Gutti Vankaya",
+   "module": "Kayagoralu",
+   "group": "Vankaya Rakaalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "podugu-vankaya",
+   "nameTe": "పొడుగు వంకాయ",
+   "nameEn": "Long Brinjal",
+   "nameRoman": "Podugu Vankaya",
+   "module": "Kayagoralu",
+   "group": "Vankaya Rakaalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "banda-vankaya",
+   "nameTe": "బండ వంకాయ",
+   "nameEn": "Round Brinjal (bharta)",
+   "nameRoman": "Banda Vankaya",
+   "module": "Kayagoralu",
+   "group": "Vankaya Rakaalu",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "cluster-beans-goruchikkudu",
+   "nameTe": "గోరుచిక్కుడు",
+   "nameEn": "Cluster Beans",
+   "nameRoman": "Cluster Beans / Goruchikkudu",
+   "module": "Kayagoralu",
+   "group": "Beans",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chikkudukaya",
+   "nameTe": "చిక్కుడుకాయ",
+   "nameEn": "Flat Beans (chikkudu)",
+   "nameRoman": "Chikkudukaya",
+   "module": "Kayagoralu",
+   "group": "Beans",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "alasanda-kayalu",
+   "nameTe": "అలసంద కాయలు",
+   "nameEn": "Long Beans (yardlong)",
+   "nameRoman": "Alasanda Kayalu",
+   "module": "Kayagoralu",
+   "group": "Beans",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "broad-beans",
+   "nameTe": "బ్రాడ్ బీన్స్",
+   "nameEn": "Broad Beans",
+   "nameRoman": "Broad Beans",
+   "module": "Kayagoralu",
+   "group": "Beans",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "munagakaya",
+   "nameTe": "మునగకాయ",
+   "nameEn": "Drumstick",
+   "nameRoman": "Munagakaya",
+   "module": "Kayagoralu",
+   "group": "South Indian Special",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "Drumstick"
+   ]
+  },
+  {
+   "id": "aratikaya",
+   "nameTe": "అరటికాయ",
+   "nameEn": "Raw Banana",
+   "nameRoman": "Aratikaya",
+   "module": "Kayagoralu",
+   "group": "South Indian Special",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "Raw Banana"
+   ]
+  },
+  {
+   "id": "panasa-pottu",
+   "nameTe": "పనస పొట్టు",
+   "nameEn": "Raw Jackfruit (chopped)",
+   "nameRoman": "Panasa Pottu",
+   "module": "Kayagoralu",
+   "group": "South Indian Special",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mamidikaya",
+   "nameTe": "మామిడికాయ",
+   "nameEn": "Raw Mango",
+   "nameRoman": "Mamidikaya",
+   "module": "Kayagoralu",
+   "group": "South Indian Special",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "broccoli",
+   "nameTe": "బ్రోకలీ",
+   "nameEn": "Broccoli",
+   "nameRoman": "Broccoli",
+   "module": "Kayagoralu",
+   "group": "North Indian / Chinese",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bundle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "spring-onion",
+   "nameTe": "ఉల్లికాడలు",
+   "nameEn": "Spring Onion",
+   "nameRoman": "Spring Onion",
+   "module": "Kayagoralu",
+   "group": "North Indian / Chinese",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bundle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "celery",
+   "nameTe": "సెలెరీ",
+   "nameEn": "Celery",
+   "nameRoman": "Celery",
+   "module": "Kayagoralu",
+   "group": "North Indian / Chinese",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bundle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "lettuce",
+   "nameTe": "లెట్యూస్",
+   "nameEn": "Lettuce",
+   "nameRoman": "Lettuce",
+   "module": "Kayagoralu",
+   "group": "North Indian / Chinese",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bundle"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "cucumber",
+   "nameTe": "కీర దోసకాయ",
+   "nameEn": "Cucumber (salad)",
+   "nameRoman": "Cucumber",
+   "module": "Kayagoralu",
+   "group": "Salad Items",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "paper-plates",
+   "nameTe": "పేపర్ ప్లేట్లు",
+   "nameEn": "Paper Plates",
+   "nameRoman": "Paper Plates",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "Dinner Plates",
+    "భోజనం ప్లేట్లు"
+   ]
+  },
+  {
+   "id": "sweet-plates",
+   "nameTe": "స్వీట్ ప్లేట్లు",
+   "nameEn": "Sweet Plates",
+   "nameRoman": "Sweet Plates",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "paper-bowls",
+   "nameTe": "పేపర్ బౌల్స్",
+   "nameEn": "Paper Bowls",
+   "nameRoman": "Paper Bowls",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "Bowls"
+   ]
+  },
+  {
+   "id": "paper-glasses",
+   "nameTe": "పేపర్ గ్లాసులు",
+   "nameEn": "Paper Glasses (cups)",
+   "nameRoman": "Paper Glasses",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "Paper Cups",
+    "పేపర్ కప్పులు"
+   ]
+  },
+  {
+   "id": "plastic-glasses",
+   "nameTe": "ప్లాస్టిక్ గ్లాసులు",
+   "nameEn": "Plastic Glasses",
+   "nameRoman": "Plastic Glasses",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "tea-cups",
+   "nameTe": "టీ కప్పులు",
+   "nameEn": "Tea Cups",
+   "nameRoman": "Tea Cups",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "water-glasses",
+   "nameTe": "నీళ్ల గ్లాసులు",
+   "nameEn": "Water Glasses",
+   "nameRoman": "Water Glasses",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "spoons",
+   "nameTe": "స్పూన్లు",
+   "nameEn": "Spoons",
+   "nameRoman": "Spoons",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "forks",
+   "nameTe": "ఫోర్కులు",
+   "nameEn": "Forks",
+   "nameRoman": "Forks",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "disposable-containers",
+   "nameTe": "డిస్పోజబుల్ డబ్బాలు",
+   "nameEn": "Disposable Containers",
+   "nameRoman": "Disposable Containers",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "Food Containers",
+    "ఫుడ్ డబ్బాలు"
+   ]
+  },
+  {
+   "id": "parcel-boxes",
+   "nameTe": "పార్సెల్ బాక్సులు",
+   "nameEn": "Parcel Boxes",
+   "nameRoman": "Parcel Boxes",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "food-packing-covers",
+   "nameTe": "ఫుడ్ ప్యాకింగ్ కవర్లు",
+   "nameEn": "Food Packing Covers",
+   "nameRoman": "Food Packing Covers",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "aluminium-containers",
+   "nameTe": "అల్యూమినియం డబ్బాలు",
+   "nameEn": "Aluminium Containers",
+   "nameRoman": "Aluminium Containers",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "garbage-bags",
+   "nameTe": "చెత్త సంచులు",
+   "nameEn": "Garbage Bags",
+   "nameRoman": "Garbage Bags",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "ice-cream-cups",
+   "nameTe": "ఐస్ క్రీమ్ కప్పులు",
+   "nameEn": "Ice Cream Cups",
+   "nameRoman": "Ice Cream Cups",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "plastic-covers",
+   "nameTe": "ప్లాస్టిక్ కవర్లు",
+   "nameEn": "Plastic Covers",
+   "nameRoman": "Plastic Covers",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "carry-covers",
+   "nameTe": "క్యారీ కవర్లు",
+   "nameEn": "Carry Covers (carry bags)",
+   "nameRoman": "Carry Covers",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "Carry Bags",
+    "క్యారీ బ్యాగులు"
+   ]
+  },
+  {
+   "id": "packing-covers",
+   "nameTe": "ప్యాకింగ్ కవర్లు",
+   "nameEn": "Packing Covers",
+   "nameRoman": "Packing Covers",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "zip-lock-covers",
+   "nameTe": "జిప్ లాక్ కవర్లు",
+   "nameEn": "Zip Lock Covers",
+   "nameRoman": "Zip Lock Covers",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "disposable-gloves",
+   "nameTe": "డిస్పోజబుల్ గ్లవ్స్",
+   "nameEn": "Disposable Gloves",
+   "nameRoman": "Disposable Gloves",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "Hand Gloves",
+    "చేతి గ్లవ్స్"
+   ]
+  },
+  {
+   "id": "banana-leaves",
+   "nameTe": "అరటి ఆకులు",
+   "nameEn": "Banana Leaves",
+   "nameRoman": "Banana Leaves",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "hair-caps",
+   "nameTe": "హెయిర్ క్యాప్స్",
+   "nameEn": "Hair Caps",
+   "nameRoman": "Hair Caps",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "aprons",
+   "nameTe": "ఏప్రాన్లు",
+   "nameEn": "Aprons",
+   "nameRoman": "Aprons",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "toothpicks",
+   "nameTe": "టూత్‌పిక్స్",
+   "nameEn": "Toothpicks",
+   "nameRoman": "Toothpicks",
+   "module": "Disposables",
+   "group": "Serving & Packing",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "aluminium-foil",
+   "nameTe": "అల్యూమినియం ఫాయిల్",
+   "nameEn": "Aluminium Foil",
+   "nameRoman": "Aluminium Foil",
+   "module": "Disposables",
+   "group": "Kitchen Utility",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "butter-paper",
+   "nameTe": "బటర్ పేపర్",
+   "nameEn": "Butter Paper",
+   "nameRoman": "Butter Paper",
+   "module": "Disposables",
+   "group": "Kitchen Utility",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "cling-wrap",
+   "nameTe": "క్లింగ్ ర్యాప్",
+   "nameEn": "Cling Wrap (cling film)",
+   "nameRoman": "Cling Wrap",
+   "module": "Disposables",
+   "group": "Kitchen Utility",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "Cling Film",
+    "క్లింగ్ ఫిల్మ్"
+   ]
+  },
+  {
+   "id": "tissue-papers",
+   "nameTe": "టిష్యూ పేపర్లు",
+   "nameEn": "Tissue Papers",
+   "nameRoman": "Tissue Papers",
+   "module": "Disposables",
+   "group": "Kitchen Utility",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "Tissue Paper"
+   ]
+  },
+  {
+   "id": "paper-napkins",
+   "nameTe": "పేపర్ న్యాప్‌కిన్లు",
+   "nameEn": "Paper Napkins",
+   "nameRoman": "Paper Napkins",
+   "module": "Disposables",
+   "group": "Kitchen Utility",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "tissue-rolls",
+   "nameTe": "టిష్యూ రోల్స్",
+   "nameEn": "Tissue Rolls",
+   "nameRoman": "Tissue Rolls",
+   "module": "Disposables",
+   "group": "Kitchen Utility",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "kitchen-rolls",
+   "nameTe": "కిచెన్ రోల్స్",
+   "nameEn": "Kitchen Rolls",
+   "nameRoman": "Kitchen Rolls",
+   "module": "Disposables",
+   "group": "Kitchen Utility",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "dishwash-liquid",
+   "nameTe": "పాత్రలు కడిగే సబ్బు ద్రవం",
+   "nameEn": "Dishwash Liquid",
+   "nameRoman": "Dishwash Liquid",
+   "module": "Disposables",
+   "group": "Cleaning",
+   "unit": "L",
+   "purchaseUnits": [
+    "Bottle",
+    "Litre",
+    "Packet",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "పాత్రల సబ్బు"
+   ]
+  },
+  {
+   "id": "floor-cleaner",
+   "nameTe": "ఫ్లోర్ క్లీనర్",
+   "nameEn": "Floor Cleaner",
+   "nameRoman": "Floor Cleaner",
+   "module": "Disposables",
+   "group": "Cleaning",
+   "unit": "L",
+   "purchaseUnits": [
+    "Bottle",
+    "Litre",
+    "Packet",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "bleaching-powder",
+   "nameTe": "బ్లీచింగ్ పౌడర్",
+   "nameEn": "Bleaching Powder",
+   "nameRoman": "Bleaching Powder",
+   "module": "Disposables",
+   "group": "Cleaning",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Bottle",
+    "Litre",
+    "Packet",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "scrub-pads",
+   "nameTe": "స్క్రబ్ ప్యాడ్లు",
+   "nameEn": "Scrub Pads",
+   "nameRoman": "Scrub Pads",
+   "module": "Disposables",
+   "group": "Cleaning",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Bottle",
+    "Litre",
+    "Packet",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "cleaning-cloth",
+   "nameTe": "శుభ్రం చేసే గుడ్డ",
+   "nameEn": "Cleaning Cloth",
+   "nameRoman": "Cleaning Cloth",
+   "module": "Disposables",
+   "group": "Cleaning",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Bottle",
+    "Litre",
+    "Packet",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "hand-wash",
+   "nameTe": "హ్యాండ్ వాష్",
+   "nameEn": "Hand Wash",
+   "nameRoman": "Hand Wash",
+   "module": "Disposables",
+   "group": "Cleaning",
+   "unit": "L",
+   "purchaseUnits": [
+    "Bottle",
+    "Litre",
+    "Packet",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "sanitizer",
+   "nameTe": "సానిటైజర్",
+   "nameEn": "Sanitizer",
+   "nameRoman": "Sanitizer",
+   "module": "Disposables",
+   "group": "Cleaning",
+   "unit": "L",
+   "purchaseUnits": [
+    "Bottle",
+    "Litre",
+    "Packet",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "aratipandlu",
+   "nameTe": "అరటిపండ్లు",
+   "nameEn": "Banana",
+   "nameRoman": "Aratipandlu",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "apple",
+   "nameTe": "ఆపిల్",
+   "nameEn": "Apple",
+   "nameRoman": "Apple",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "orange",
+   "nameTe": "కమలాపండ్లు",
+   "nameEn": "Orange",
+   "nameRoman": "Orange",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mosambi",
+   "nameTe": "బత్తాయి",
+   "nameEn": "Sweet Lime (mosambi)",
+   "nameRoman": "Mosambi",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "grapes",
+   "nameTe": "ద్రాక్ష",
+   "nameEn": "Grapes",
+   "nameRoman": "Grapes",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "pomegranate",
+   "nameTe": "దానిమ్మ",
+   "nameEn": "Pomegranate",
+   "nameRoman": "Pomegranate",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "papaya",
+   "nameTe": "బొప్పాయి",
+   "nameEn": "Papaya",
+   "nameRoman": "Papaya",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "pineapple",
+   "nameTe": "అనాస పండు",
+   "nameEn": "Pineapple",
+   "nameRoman": "Pineapple",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "watermelon",
+   "nameTe": "పుచ్చకాయ",
+   "nameEn": "Watermelon",
+   "nameRoman": "Watermelon",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "muskmelon",
+   "nameTe": "కర్బూజ",
+   "nameEn": "Muskmelon",
+   "nameRoman": "Muskmelon",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mango",
+   "nameTe": "మామిడి పండ్లు",
+   "nameEn": "Mango",
+   "nameRoman": "Mango",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "guava",
+   "nameTe": "జామ పండ్లు",
+   "nameEn": "Guava",
+   "nameRoman": "Guava",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "sapota",
+   "nameTe": "సపోటా",
+   "nameEn": "Sapota (chikoo)",
+   "nameRoman": "Sapota",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "custard-apple",
+   "nameTe": "సీతాఫలం",
+   "nameEn": "Custard Apple",
+   "nameRoman": "Custard Apple",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "kiwi",
+   "nameTe": "కివీ",
+   "nameEn": "Kiwi",
+   "nameRoman": "Kiwi",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "dragon-fruit",
+   "nameTe": "డ్రాగన్ ఫ్రూట్",
+   "nameEn": "Dragon Fruit",
+   "nameRoman": "Dragon Fruit",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "pear",
+   "nameTe": "బేరి పండ్లు",
+   "nameEn": "Pear",
+   "nameRoman": "Pear",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "strawberry",
+   "nameTe": "స్ట్రాబెర్రీ",
+   "nameEn": "Strawberry",
+   "nameRoman": "Strawberry",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "cherries",
+   "nameTe": "చెర్రీలు",
+   "nameEn": "Cherries",
+   "nameRoman": "Cherries",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "plums",
+   "nameTe": "ప్లమ్స్",
+   "nameEn": "Plums",
+   "nameRoman": "Plums",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "peach",
+   "nameTe": "పీచ్",
+   "nameEn": "Peach",
+   "nameRoman": "Peach",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "green-grapes",
+   "nameTe": "ఆకుపచ్చ ద్రాక్ష",
+   "nameEn": "Green Grapes",
+   "nameRoman": "Green Grapes",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "black-grapes",
+   "nameTe": "నల్ల ద్రాక్ష",
+   "nameEn": "Black Grapes",
+   "nameRoman": "Black Grapes",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "seedless-grapes",
+   "nameTe": "గింజలు లేని ద్రాక్ష",
+   "nameEn": "Seedless Grapes",
+   "nameRoman": "Seedless Grapes",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "anjeer-fresh",
+   "nameTe": "తాజా అంజీర",
+   "nameEn": "Fresh Figs (anjeer)",
+   "nameRoman": "Anjeer Fresh",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "dates-fresh",
+   "nameTe": "తాజా ఖర్జూరం",
+   "nameEn": "Fresh Dates",
+   "nameRoman": "Dates Fresh",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "tender-coconut",
+   "nameTe": "కొబ్బరి బొండాలు",
+   "nameEn": "Tender Coconut",
+   "nameRoman": "Tender Coconut",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "lemon",
+   "nameTe": "నిమ్మకాయలు",
+   "nameEn": "Lemon",
+   "nameRoman": "Lemon",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": [
+    "నిమ్మకాయ"
+   ]
+  },
+  {
+   "id": "amla",
+   "nameTe": "ఉసిరికాయలు",
+   "nameEn": "Amla (gooseberry)",
+   "nameRoman": "Amla",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "avocado",
+   "nameTe": "అవకాడో",
+   "nameEn": "Avocado",
+   "nameRoman": "Avocado",
+   "module": "Fruits",
+   "group": "Fruits",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece",
+    "Dozen"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "whole-chicken",
+   "nameTe": "పూర్తి కోడి (హోల్ చికెన్)",
+   "nameEn": "Whole Chicken",
+   "nameRoman": "Whole Chicken",
+   "module": "Non-Veg",
+   "group": "Chicken",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chicken-curry-cut",
+   "nameTe": "చికెన్ కర్రీ కట్",
+   "nameEn": "Chicken Curry Cut",
+   "nameRoman": "Chicken Curry Cut",
+   "module": "Non-Veg",
+   "group": "Chicken",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "Chicken",
+    "చికెన్"
+   ]
+  },
+  {
+   "id": "chicken-biryani-cut",
+   "nameTe": "చికెన్ బిర్యానీ కట్",
+   "nameEn": "Chicken Biryani Cut",
+   "nameRoman": "Chicken Biryani Cut",
+   "module": "Non-Veg",
+   "group": "Chicken",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chicken-boneless",
+   "nameTe": "బోన్‌లెస్ చికెన్",
+   "nameEn": "Chicken Boneless",
+   "nameRoman": "Chicken Boneless",
+   "module": "Non-Veg",
+   "group": "Chicken",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chicken-breast",
+   "nameTe": "చికెన్ బ్రెస్ట్",
+   "nameEn": "Chicken Breast",
+   "nameRoman": "Chicken Breast",
+   "module": "Non-Veg",
+   "group": "Chicken",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chicken-leg-pieces",
+   "nameTe": "చికెన్ లెగ్ పీస్‌లు",
+   "nameEn": "Chicken Leg Pieces",
+   "nameRoman": "Chicken Leg Pieces",
+   "module": "Non-Veg",
+   "group": "Chicken",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chicken-wings",
+   "nameTe": "చికెన్ వింగ్స్",
+   "nameEn": "Chicken Wings",
+   "nameRoman": "Chicken Wings",
+   "module": "Non-Veg",
+   "group": "Chicken",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chicken-drumsticks",
+   "nameTe": "చికెన్ డ్రమ్‌స్టిక్స్",
+   "nameEn": "Chicken Drumsticks",
+   "nameRoman": "Chicken Drumsticks",
+   "module": "Non-Veg",
+   "group": "Chicken",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chicken-liver",
+   "nameTe": "చికెన్ లివర్",
+   "nameEn": "Chicken Liver",
+   "nameRoman": "Chicken Liver",
+   "module": "Non-Veg",
+   "group": "Chicken",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chicken-gizzard",
+   "nameTe": "చికెన్ గిజార్డ్",
+   "nameEn": "Chicken Gizzard",
+   "nameRoman": "Chicken Gizzard",
+   "module": "Non-Veg",
+   "group": "Chicken",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "chicken-keema",
+   "nameTe": "చికెన్ కీమా",
+   "nameEn": "Chicken Keema",
+   "nameRoman": "Chicken Keema",
+   "module": "Non-Veg",
+   "group": "Chicken",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "natu-kodi",
+   "nameTe": "నాటు కోడి",
+   "nameEn": "Country Chicken (natu kodi)",
+   "nameRoman": "Natu Kodi",
+   "module": "Non-Veg",
+   "group": "Chicken",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "natu-kodi-curry-cut",
+   "nameTe": "నాటు కోడి కర్రీ కట్",
+   "nameEn": "Country Chicken Curry Cut",
+   "nameRoman": "Natu Kodi Curry Cut",
+   "module": "Non-Veg",
+   "group": "Chicken",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mutton-curry-cut",
+   "nameTe": "మటన్ కర్రీ కట్",
+   "nameEn": "Mutton Curry Cut",
+   "nameRoman": "Mutton Curry Cut",
+   "module": "Non-Veg",
+   "group": "Mutton",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "Mutton",
+    "మటన్"
+   ]
+  },
+  {
+   "id": "mutton-biryani-cut",
+   "nameTe": "మటన్ బిర్యానీ కట్",
+   "nameEn": "Mutton Biryani Cut",
+   "nameRoman": "Mutton Biryani Cut",
+   "module": "Non-Veg",
+   "group": "Mutton",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mutton-boneless",
+   "nameTe": "బోన్‌లెస్ మటన్",
+   "nameEn": "Mutton Boneless",
+   "nameRoman": "Mutton Boneless",
+   "module": "Non-Veg",
+   "group": "Mutton",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mutton-with-bone",
+   "nameTe": "ఎముకతో మటన్",
+   "nameEn": "Mutton With Bone",
+   "nameRoman": "Mutton With Bone",
+   "module": "Non-Veg",
+   "group": "Mutton",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mutton-keema",
+   "nameTe": "మటన్ కీమా",
+   "nameEn": "Mutton Keema",
+   "nameRoman": "Mutton Keema",
+   "module": "Non-Veg",
+   "group": "Mutton",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "Mutton Kheema"
+   ]
+  },
+  {
+   "id": "mutton-liver",
+   "nameTe": "మటన్ లివర్ (కలేజీ)",
+   "nameEn": "Mutton Liver (kaleji)",
+   "nameRoman": "Mutton Liver",
+   "module": "Non-Veg",
+   "group": "Mutton",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mutton-brain",
+   "nameTe": "మటన్ మెదడు (భేజా)",
+   "nameEn": "Mutton Brain (bheja)",
+   "nameRoman": "Mutton Brain",
+   "module": "Non-Veg",
+   "group": "Mutton",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mutton-paya",
+   "nameTe": "మటన్ పాయా",
+   "nameEn": "Mutton Paya (trotters)",
+   "nameRoman": "Mutton Paya",
+   "module": "Non-Veg",
+   "group": "Mutton",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mutton-head",
+   "nameTe": "మటన్ తలకాయ",
+   "nameEn": "Mutton Head",
+   "nameRoman": "Mutton Head",
+   "module": "Non-Veg",
+   "group": "Mutton",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mutton-boti",
+   "nameTe": "మటన్ బోటి",
+   "nameEn": "Mutton Boti (tripe)",
+   "nameRoman": "Mutton Boti",
+   "module": "Non-Veg",
+   "group": "Mutton",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mutton-chops",
+   "nameTe": "మటన్ చాప్స్",
+   "nameEn": "Mutton Chops",
+   "nameRoman": "Mutton Chops",
+   "module": "Non-Veg",
+   "group": "Mutton",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mutton-ribs",
+   "nameTe": "మటన్ రిబ్స్",
+   "nameEn": "Mutton Ribs",
+   "nameRoman": "Mutton Ribs",
+   "module": "Non-Veg",
+   "group": "Mutton",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "rohu-fish",
+   "nameTe": "రోహు చేప",
+   "nameEn": "Rohu Fish",
+   "nameRoman": "Rohu Fish",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "katla-fish",
+   "nameTe": "కట్ల చేప",
+   "nameEn": "Katla Fish",
+   "nameRoman": "Katla Fish",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "korameenu",
+   "nameTe": "కొరమీను",
+   "nameEn": "Murrel (korameenu)",
+   "nameRoman": "Korameenu",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "bommidala-chepa",
+   "nameTe": "బొమ్మిడాల చేప",
+   "nameEn": "Bombay Duck (bommidala)",
+   "nameRoman": "Bommidala Chepa",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "vanjaram",
+   "nameTe": "వంజరం",
+   "nameEn": "Seer Fish (vanjaram)",
+   "nameRoman": "Vanjaram",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "apollo-fish",
+   "nameTe": "అపోలో ఫిష్",
+   "nameEn": "Apollo Fish",
+   "nameRoman": "Apollo Fish",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "tilapia",
+   "nameTe": "తిలాపియా చేప",
+   "nameEn": "Tilapia",
+   "nameRoman": "Tilapia",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "pomfret",
+   "nameTe": "చందువా చేప (పాంఫ్రెట్)",
+   "nameEn": "Pomfret",
+   "nameRoman": "Pomfret",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "bangda",
+   "nameTe": "బంగడ చేప",
+   "nameEn": "Mackerel (bangda)",
+   "nameRoman": "Bangda",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "sardine",
+   "nameTe": "సార్డిన్ (కవళ్లు)",
+   "nameEn": "Sardine",
+   "nameRoman": "Sardine",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "tuna",
+   "nameTe": "ట్యూనా చేప",
+   "nameEn": "Tuna",
+   "nameRoman": "Tuna",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "salmon",
+   "nameTe": "సాల్మన్ చేప",
+   "nameEn": "Salmon",
+   "nameRoman": "Salmon",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "fish-curry-cut",
+   "nameTe": "చేపల కర్రీ కట్",
+   "nameEn": "Fish Curry Cut",
+   "nameRoman": "Fish Curry Cut",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "Fish",
+    "చేపలు"
+   ]
+  },
+  {
+   "id": "fish-fry-cut",
+   "nameTe": "చేపల ఫ్రై కట్",
+   "nameEn": "Fish Fry Cut",
+   "nameRoman": "Fish Fry Cut",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "fish-boneless",
+   "nameTe": "బోన్‌లెస్ చేప",
+   "nameEn": "Fish Boneless",
+   "nameRoman": "Fish Boneless",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "fish-fillet",
+   "nameTe": "ఫిష్ ఫిల్లెట్",
+   "nameEn": "Fish Fillet",
+   "nameRoman": "Fish Fillet",
+   "module": "Non-Veg",
+   "group": "Fish",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "royyalu-prawns",
+   "nameTe": "రొయ్యలు",
+   "nameEn": "Prawns",
+   "nameRoman": "Royyalu / Prawns",
+   "module": "Non-Veg",
+   "group": "Seafood",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": [
+    "Prawns"
+   ]
+  },
+  {
+   "id": "small-prawns",
+   "nameTe": "చిన్న రొయ్యలు",
+   "nameEn": "Small Prawns",
+   "nameRoman": "Small Prawns",
+   "module": "Non-Veg",
+   "group": "Seafood",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "medium-prawns",
+   "nameTe": "మధ్యస్థ రొయ్యలు",
+   "nameEn": "Medium Prawns",
+   "nameRoman": "Medium Prawns",
+   "module": "Non-Veg",
+   "group": "Seafood",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "large-prawns",
+   "nameTe": "పెద్ద రొయ్యలు",
+   "nameEn": "Large Prawns",
+   "nameRoman": "Large Prawns",
+   "module": "Non-Veg",
+   "group": "Seafood",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "tiger-prawns",
+   "nameTe": "టైగర్ రొయ్యలు",
+   "nameEn": "Tiger Prawns",
+   "nameRoman": "Tiger Prawns",
+   "module": "Non-Veg",
+   "group": "Seafood",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "crab",
+   "nameTe": "పీతలు",
+   "nameEn": "Crab",
+   "nameRoman": "Crab",
+   "module": "Non-Veg",
+   "group": "Seafood",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "squid",
+   "nameTe": "స్క్విడ్",
+   "nameEn": "Squid",
+   "nameRoman": "Squid",
+   "module": "Non-Veg",
+   "group": "Seafood",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "lobster",
+   "nameTe": "లాబ్‌స్టర్",
+   "nameEn": "Lobster",
+   "nameRoman": "Lobster",
+   "module": "Non-Veg",
+   "group": "Seafood",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "kodi-gudlu",
+   "nameTe": "కోడి గుడ్లు",
+   "nameEn": "Eggs",
+   "nameRoman": "Kodi Gudlu",
+   "module": "Non-Veg",
+   "group": "Eggs",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Piece",
+    "Dozen",
+    "Tray"
+   ],
+   "per100": null,
+   "aliases": [
+    "Eggs",
+    "గుడ్లు"
+   ]
+  },
+  {
+   "id": "white-eggs",
+   "nameTe": "తెల్ల గుడ్లు",
+   "nameEn": "White Eggs",
+   "nameRoman": "White Eggs",
+   "module": "Non-Veg",
+   "group": "Eggs",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Piece",
+    "Dozen",
+    "Tray"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "brown-eggs",
+   "nameTe": "బ్రౌన్ గుడ్లు",
+   "nameEn": "Brown Eggs",
+   "nameRoman": "Brown Eggs",
+   "module": "Non-Veg",
+   "group": "Eggs",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Piece",
+    "Dozen",
+    "Tray"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "natu-kodi-gudlu",
+   "nameTe": "నాటు కోడి గుడ్లు",
+   "nameEn": "Country Eggs",
+   "nameRoman": "Natu Kodi Gudlu",
+   "module": "Non-Veg",
+   "group": "Eggs",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Piece",
+    "Dozen",
+    "Tray"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "quail-eggs",
+   "nameTe": "కౌజు పిట్ట గుడ్లు",
+   "nameEn": "Quail Eggs",
+   "nameRoman": "Quail Eggs",
+   "module": "Non-Veg",
+   "group": "Eggs",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Piece",
+    "Dozen",
+    "Tray"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "commercial-gas-cylinder",
+   "nameTe": "కమర్షియల్ గ్యాస్ సిలిండర్",
+   "nameEn": "Commercial Gas Cylinder",
+   "nameRoman": "Commercial Gas Cylinder",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Cylinder"
+   ],
+   "per100": null,
+   "aliases": [
+    "LPG Cylinder",
+    "గ్యాస్ సిలిండర్"
+   ]
+  },
+  {
+   "id": "domestic-gas-cylinder",
+   "nameTe": "డొమెస్టిక్ గ్యాస్ సిలిండర్",
+   "nameEn": "Domestic Gas Cylinder",
+   "nameRoman": "Domestic Gas Cylinder",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Cylinder"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "lpg-refill",
+   "nameTe": "గ్యాస్ రీఫిల్",
+   "nameEn": "LPG Refill",
+   "nameRoman": "LPG Refill",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Cylinder"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "gas-cylinder-deposit",
+   "nameTe": "గ్యాస్ సిలిండర్ డిపాజిట్",
+   "nameEn": "Gas Cylinder Deposit",
+   "nameRoman": "Gas Cylinder Deposit",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Cylinder"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "gas-regulator",
+   "nameTe": "గ్యాస్ రెగ్యులేటర్",
+   "nameEn": "Gas Regulator",
+   "nameRoman": "Gas Regulator",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "gas-pipe",
+   "nameTe": "గ్యాస్ పైపు",
+   "nameEn": "Gas Pipe",
+   "nameRoman": "Gas Pipe",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "gas-stove-lighter",
+   "nameTe": "గ్యాస్ లైటర్",
+   "nameEn": "Gas Stove Lighter",
+   "nameRoman": "Gas Stove Lighter",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "charcoal",
+   "nameTe": "కర్ర బొగ్గు",
+   "nameEn": "Charcoal",
+   "nameRoman": "Charcoal",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Bag",
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "firewood",
+   "nameTe": "కట్టెలు",
+   "nameEn": "Firewood",
+   "nameRoman": "Firewood",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Bundle",
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "coal",
+   "nameTe": "రాతి బొగ్గు",
+   "nameEn": "Coal",
+   "nameRoman": "Coal",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Bag",
+    "Kg"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "kerosene",
+   "nameTe": "కిరోసిన్",
+   "nameEn": "Kerosene",
+   "nameRoman": "Kerosene",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "L",
+   "purchaseUnits": [
+    "Can",
+    "Litre"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "generator-diesel",
+   "nameTe": "జనరేటర్ డీజిల్",
+   "nameEn": "Generator Diesel",
+   "nameRoman": "Generator Diesel",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "generator-petrol",
+   "nameTe": "జనరేటర్ పెట్రోల్",
+   "nameEn": "Generator Petrol",
+   "nameRoman": "Generator Petrol",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "portable-gas-canister",
+   "nameTe": "పోర్టబుల్ గ్యాస్ డబ్బా",
+   "nameEn": "Portable Gas Canister",
+   "nameRoman": "Portable Gas Canister",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "match-box",
+   "nameTe": "అగ్గిపెట్టె",
+   "nameEn": "Match Box",
+   "nameRoman": "Match Box",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Box",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "camphor",
+   "nameTe": "కర్పూరం",
+   "nameEn": "Camphor",
+   "nameRoman": "Camphor",
+   "module": "Gas / Fuel",
+   "group": "Gas / Fuel",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "drinking-water-can-20-litre",
+   "nameTe": "తాగునీటి క్యాన్ (20 లీటర్లు)",
+   "nameEn": "Drinking Water Can (20 L)",
+   "nameRoman": "Drinking Water Can 20 Litre",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Can"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "drinking-water-can-10-litre",
+   "nameTe": "తాగునీటి క్యాన్ (10 లీటర్లు)",
+   "nameEn": "Drinking Water Can (10 L)",
+   "nameRoman": "Drinking Water Can 10 Litre",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Can"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mineral-water-bottle-250-ml",
+   "nameTe": "మినరల్ వాటర్ బాటిల్ (250 ml)",
+   "nameEn": "Mineral Water Bottle (250 ml)",
+   "nameRoman": "Mineral Water Bottle 250 ML",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Bottle",
+    "Box"
+   ],
+   "per100": null,
+   "aliases": [
+    "Water Bottles",
+    "నీళ్ల బాటిళ్లు"
+   ]
+  },
+  {
+   "id": "mineral-water-bottle-500-ml",
+   "nameTe": "మినరల్ వాటర్ బాటిల్ (500 ml)",
+   "nameEn": "Mineral Water Bottle (500 ml)",
+   "nameRoman": "Mineral Water Bottle 500 ML",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Bottle",
+    "Box"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mineral-water-bottle-1-litre",
+   "nameTe": "మినరల్ వాటర్ బాటిల్ (1 లీటరు)",
+   "nameEn": "Mineral Water Bottle (1 L)",
+   "nameRoman": "Mineral Water Bottle 1 Litre",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Bottle",
+    "Box"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "mineral-water-bottle-2-litre",
+   "nameTe": "మినరల్ వాటర్ బాటిల్ (2 లీటర్లు)",
+   "nameEn": "Mineral Water Bottle (2 L)",
+   "nameRoman": "Mineral Water Bottle 2 Litre",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Bottle",
+    "Box"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "water-pouch",
+   "nameTe": "వాటర్ ప్యాకెట్",
+   "nameEn": "Water Pouch",
+   "nameRoman": "Water Pouch",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Packet",
+    "Piece"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "ro-water",
+   "nameTe": "RO నీళ్లు",
+   "nameEn": "RO Water",
+   "nameRoman": "RO Water",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "tanker-water",
+   "nameTe": "ట్యాంకర్ నీళ్లు",
+   "nameEn": "Tanker Water",
+   "nameRoman": "Tanker Water",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "ice-cubes",
+   "nameTe": "ఐస్ ముక్కలు",
+   "nameEn": "Ice Cubes",
+   "nameRoman": "Ice Cubes",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bag"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "ice-blocks",
+   "nameTe": "ఐస్ దిమ్మెలు",
+   "nameEn": "Ice Blocks",
+   "nameRoman": "Ice Blocks",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Block"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "crushed-ice",
+   "nameTe": "పొడి ఐస్",
+   "nameEn": "Crushed Ice",
+   "nameRoman": "Crushed Ice",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "kg",
+   "purchaseUnits": [
+    "Kg",
+    "Bag"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "ice-bags",
+   "nameTe": "ఐస్ సంచులు",
+   "nameEn": "Ice Bags",
+   "nameRoman": "Ice Bags",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Bag"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "soda-bottles",
+   "nameTe": "సోడా బాటిళ్లు",
+   "nameEn": "Soda Bottles",
+   "nameRoman": "Soda Bottles",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Bottle",
+    "Box"
+   ],
+   "per100": null,
+   "aliases": [
+    "Soda",
+    "సోడా"
+   ]
+  },
+  {
+   "id": "club-soda",
+   "nameTe": "క్లబ్ సోడా",
+   "nameEn": "Club Soda",
+   "nameRoman": "Club Soda",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Bottle",
+    "Box"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "soft-drinks",
+   "nameTe": "కూల్ డ్రింక్స్",
+   "nameEn": "Soft Drinks",
+   "nameRoman": "Soft Drinks",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "pcs",
+   "purchaseUnits": [
+    "Bottle",
+    "Box",
+    "Can"
+   ],
+   "per100": null,
+   "aliases": []
+  },
+  {
+   "id": "fruit-juice",
+   "nameTe": "పండ్ల రసం",
+   "nameEn": "Fruit Juice",
+   "nameRoman": "Fruit Juice",
+   "module": "Water / Ice",
+   "group": "Water / Ice",
+   "unit": "L",
+   "purchaseUnits": [
+    "Litre",
+    "Bottle",
+    "Packet"
+   ],
+   "per100": null,
+   "aliases": []
+  }
+ ]
+}

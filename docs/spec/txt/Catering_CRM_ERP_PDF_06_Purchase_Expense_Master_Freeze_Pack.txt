@@ -1,0 +1,2252 @@
+                                                       CATERING CRM + ERP
+
+
+                                                            PDF 06
+  PURCHASE & EXPENSE MASTER FREEZE
+                PACK
+      Kirana + Vegetables + Disposables + Fruits + Non-Veg + Gas/Fuel + Water/Ice + Outside
+     Purchases + Staff/Service Expenses + Search/Scroll + Reports + Lovable Implementation
+                                             Prompt
+
+
+
+    Document Status                  FROZEN EXTENSION PACK
+
+    Version                          1.0 - 15 August 2026
+
+    Purpose                          Add a complete purchase, outside purchase and related expense operating layer to the existing frozen
+                                     Catering CRM + ERP without bypassing its Item, Purchase, GRN, Stock, Outsource, Staff, Logistics,
+                                     Expense or Finance engines.
+
+    Primary Rule                     One master item = one Item ID. Transaction history may be unlimited; duplicate master rows are not
+                                     allowed.
+
+    No-Assumption Rule               Unknown business rates, tax rules, approval limits and statutory values remain OWNER CONFIGURATION
+                                     REQUIRED.
+
+
+
+
+   Integration with the              This PDF is an extension layer. It does not replace the Frozen Master Blueprint, CMF #01-20, TWF
+   existing 5 PDFs                   #01-15, Master Data Freeze 01 or the Complete Implementation Freeze Pack. Where this document
+                                     adds a user-friendly purchase screen, the backend must still post into the correct frozen ERP
+                                     workflow.
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                              Page 1
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ Contents
+ 1    1. Freeze Scope & Non-Negotiable Rules
+ 2    2. Final Navigation & Backend Routing
+ 3    3. Master Item Governance, Duplicates & Aliases
+ 4    4. Global Search + Sticky Scroll Experience
+ 5    5. Global UOM & Item-Applicable Units
+ 6    6. Kirana Master - Clean Seed List
+ 7    7. Vegetables / Kayagoralu Master - Clean Seed List
+ 8    8. Disposables + Cleaning/Utility Inventory
+ 9    9. Fruits Master - Clean Seed List
+ 10   10. Non-Veg Master - Clean Seed List
+ 11   11. Gas / Fuel Master - Clean Seed List
+ 12   12. Water / Ice Master - Clean Seed List
+ 13   13. Outside Purchases / Outsource Engine
+ 14   14. Expenses: Staff, Cleaning, Transport, Utilities, Rent, Live Counters
+ 15   15. Purchase Entry, Multi-Item Bills, Bill Photo & Staff Auto-Link
+ 16   16. Purchase History, Dashboards & Reports
+ 17   17. Event Cost / P&L Integration
+ 18   18. Permissions, Audit, Edit/Cancel/Delete Rules
+ 19   19. Functional Acceptance Tests / Definition of Done
+ 20   20. Lovable Master Implementation Prompt
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits   Page 2
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ 1. Freeze Scope & Non-Negotiable Rules
+ This pack consolidates the purchase master lists, folder structure, search/scroll behaviour, staff-wise purchase tracking,
+ outside purchases and additional expense sections requested for the catering CRM/ERP.
+ 1       One Item Master record per real item. Different spellings, singular/plural forms and local names become aliases, not
+         new item rows.
+ 2       Purchase transactions can be unlimited. Duplicate transactions are different from duplicate master items.
+ 3       Normal stock purchases must ultimately flow through Purchase/GRN/Stock Movement. Do not create a parallel stock
+         database.
+ 4       Outside ready-made food/services use the existing universal Outsource engine, not a separate hard-coded CRM for
+         each food.
+ 5       Temporary staff payments use Staff Advance/Settlement; transport uses Logistics/Expense; utilities and rent use
+         Expense/Overhead; live-counter service cost links to Event/Session where applicable.
+ 6       Logged-in staff identity must automatically attach to purchase transactions.
+ 7       All important edits, cancellations, reversals and deletions are audited. Posted stock/finance history must not
+         disappear.
+ 8       Payment status should be Finance-derived whenever a finance transaction exists.
+ 9       Every Event-related purchase/expense should link to Event and Meal Session where applicable; general overhead
+         uses an Overhead Cost Centre.
+ 10      Search must support partial matching and aliases; long lists must use a sticky search bar and vertical scrolling.
+
+     Core architecture               Easy UI is allowed. Simplified backend is not. A user may enter a purchase from one screen, but the
+     safeguard                       system must still create the correct authoritative transactions underneath.
+
+
+
+ 2. Final Navigation & Backend Routing
+ 2.1 Purchase Home
+     Folder                                        Authoritative Backend
+
+     Kirana                                        Inventory Purchase -> GRN -> Stock
+
+     Vegetables / Kayagoralu                       Inventory Purchase -> GRN -> Stock
+
+     Disposables                                   Inventory Purchase -> GRN -> Stock
+
+     Fruits                                        Inventory Purchase -> GRN -> Stock
+
+     Non-Veg                                       Inventory Purchase -> GRN -> Stock
+
+     Gas / Fuel                                    Inventory Purchase / Expense based on item purpose
+
+     Water / Ice                                   Inventory Purchase / Outsource based on configuration
+
+     Outside Purchases                             Universal Outsource Order / Delivery / Settlement
+
+     Other Items                                   Authorized Item Master + Inventory Purchase or Expense based on classification
+
+
+ 2.2 Expenses Home
+     Section                                       Authoritative Backend
+
+     Staff Advances                                Staff Advance / Settlement
+
+     Temporary Staff Payments                      Temporary Assignment / Staff Settlement
+
+     Cleaning Department                           Service/Expense; cleaning materials remain inventory items
+
+     Transport Charges                             Trip / Logistics / Event Expense
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                       Page 3
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+     Section                                            Authoritative Backend
+
+     Utility Bills                                      General Overhead Expense
+
+     Rent / Fixed Expenses                              General Overhead / Rental Expense
+
+     Live Counter Expenses                              Outsource + Live Event + Event Cost
+
+     Other Expenses                                     Expense Master + Event/Overhead allocation
+
+
+ Source reconciliation note: the latest inventory folder structure listed eight inventory folders; the previously
+ requested Outside Purchases remains a separate ninth Purchase folder because it has its own
+ outsourced-food/service workflow and should not be lost.
+
+
+ 3. Master Item Governance, Duplicates & Aliases
+ The system must normalize obvious duplicate names before seeding. A single master record may be visible in multiple
+ folder views through category/tag links, but it keeps one Item ID.
+
+     Duplicate / Ambiguity                      Canonical handling                  Frozen rule
+
+     Kobbari Bondam / Tender Coconut            Tender Coconut                      Keep one Item Master row; use Kobbari Bondam as alias.
+
+     Mosambi / Sweet Lime                       Mosambi                             Keep one Item Master row; Sweet Lime can be an alias.
+
+     Green Chilli / Pachi Mirapakayalu          Pachi Mirapakayalu                  One master item with alias search.
+
+     Capsicum / Green Capsicum                  Capsicum (Green)                    One default green item; Red/Yellow Capsicum stay separate.
+
+     Aratipandlu repeated in Catering Special   Aratipandlu                         Use tag/view membership, not another master row.
+     list
+
+     Grapes + Green/Black/Seedless Grapes       Grapes + optional variants          Create variants only when the business purchases them
+                                                                                    separately.
+
+     Diesel / Generator Diesel                  Generator Diesel                    Default catering seed uses Generator Diesel; generic Diesel
+                                                                                    can be added later only if needed.
+
+     Petrol / Generator Petrol                  Generator Petrol                    Default catering seed uses Generator Petrol.
+
+     Charcoal Bags                              Charcoal                            Use UOM = Bag; do not create a second item.
+
+     Firewood Bundles                           Firewood                            Use UOM = Bundle; do not create a second item.
+
+     Kerosene Can                               Kerosene                            Use UOM = Can/Litre; do not create a second item.
+
+     White Eggs / Kodi Gudlu                    Kodi Gudlu                          Default seed treats White Eggs as alias unless owner needs
+                                                                                    a distinct product.
+
+     Ghee outside purchase / Neyyi              Neyyi                               Outside transaction links to the same Item Master row.
+
+     Gas outside purchase                       Existing Gas/Fuel item              Outside transaction links to existing gas master identity.
+
+     Lemon in Vegetables and Fruits             One Lemon Item Master               May appear in more than one folder view through links/tags,
+                                                                                    but one item_id only.
+
+
+ 3.1 Duplicate Prevention on Add Item
+ 1        Normalize case, spaces and punctuation.
+ 2        Search exact name, alias, singular/plural variants and common English-letter Telugu spellings.
+ 3        Show likely duplicate warning before creation.
+ 4        Allow staff to choose an existing item; only authorized Admin/Master-Data role may create a genuinely new item.
+ 5        Store alternate names/aliases on the same record.
+ 6        Never auto-merge historical transactions without approved master-data governance.
+
+
+ 4. Global Search + Sticky Scroll Experience
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                                    Page 4
+    Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+     Every Purchase folder and every Additional Expense section must have a sticky search bar at the top and a vertically
+     scrollable content/history area below it.
+
+      Folder                         Example typed text              Expected live result
+
+      Kirana                         Kandi                           Kandi Pappu
+
+      Kirana                         Pappu                           Kandi, Pesara, Minapa, Senaga, Putnala, Jeedi, Badam Pappu results
+
+      Kirana                         Biyyam / Rice                   All rice-related items
+
+      Vegetables                     Ulli                            Ullipayalu
+
+      Vegetables                     Vanka                           Vankayalu + Vankaya variants
+
+      Vegetables                     Caps                            Capsicum (Green), Red Capsicum, Yellow Capsicum
+
+      Non-Veg                        chick                           Chicken items
+
+      Water / Ice                    water                           Water items
+
+      Disposables                    plate                           Paper Plates
+
+      Gas / Fuel                     gas                             Gas-related items
+
+
+     Search behaviour
+     ●
+         Instant filtering while typing; no mandatory Search button.
+     ●
+         Full name, starting letters and partial-word matching.
+     ●
+         Alias matching: e.g. Green Chilli can find Pachi Mirapakayalu; Kobbari Bondam can find Tender Coconut.
+     ●
+         Category heading + item name matching.
+     ●
+         Search result should show item name, category and allowed UOMs.
+     ●
+         Clear-search action returns the full scroll list.
+     ●
+         Sticky search remains visible while list scrolls.
+     ●
+         Expandable/collapsible category sections for large lists.
+     ●
+         Use lazy loading or list virtualization only if required for performance; it must not break search.
+
+     Per-folder search labels
+      Folder                                           Sticky placeholder
+
+      Kirana                                           Search Kirana Items...
+
+      Vegetables                                       Search Vegetables...
+
+      Disposables                                      Search Disposable Items...
+
+      Fruits                                           Search Fruits...
+
+      Non-Veg                                          Search Non-Veg Items...
+
+      Gas / Fuel                                       Search Gas / Fuel...
+
+      Water / Ice                                      Search Water / Ice...
+
+      Outside Purchases                                Search Outside Purchases...
+
+      Other Items                                      Search Other Items...
+
+
+
+     5. Global UOM & Item-Applicable Units
+     Use the existing controlled UOM/Conversion Master. The UI may show only units applicable to the selected item.
+
+                                Dozen                                           Crate                                     Block
+
+m                               Bundle                                          Tray                                      Tanker
+
+
+
+
+    FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                        Page 5
+     Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+e                                Bag                                           Can                       Bunch
+
+                                 Packet                                        Bottle                    Tin
+
+ce                               Box                                           Cylinder
+
+
+      Examples
+       Item                                                              Allowed units example
+
+       Kandi Pappu                                                       Kg / Gram
+
+       Kothimeera                                                        Kg / Bundle
+
+       Eggs                                                              Piece / Dozen / Tray
+
+       Gas Cylinder                                                      Cylinder
+
+       Water                                                             Can / Bottle / Litre / Tanker
+
+       Paper Plates                                                      Packet / Box
+
+       Charcoal                                                          Kg / Bag
+
+       Firewood                                                          Kg / Bundle
+
+       Kerosene                                                          Litre / Can
+
+      Item-specific pack/tin/bag/box conversions must use the existing UOM Conversion Engine rather than repeated
+      manual calculations.
+
+
+
+
+     FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                              Page 6
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ 6. Kirana Master - Clean Seed List
+ Purchase -> Kirana opens with a sticky Search Kirana Items... bar, followed by expandable category sections in a vertical
+ scroll list.
+
+ Pappulu
+     Kandi Pappu                                   Pesalu                             Ulavalu
+
+     Pesara Pappu                                  Minumulu                           Rajma
+
+     Minapa Pappu                                  Senagalu                           Bataneelu
+
+     Senaga Pappu                                  Tella Senagalu / Kabuli Senagalu   Tella Bataneelu
+
+     Putnala Pappu                                 Alasandalu
+
+
+ Biyyam / Rice Items
+     Sona Masoori Biyyam                           Basmati Biyyam                     Idly Ravva
+
+     HMT Biyyam                                    Biyyam Ravva                       Atukulu
+
+
+ Pindi / Ravvalu
+     Godhuma Pindi                                 Biyyam Pindi                       Sanna Ravva
+
+     Maida                                         Corn Flour                         Ragi Pindi
+
+     Senaga Pindi                                  Bombay Ravva
+
+
+ Noonelu / Neyyi
+     Sunflower Noone                               Kobbari Noone                      Dalda
+
+     Palm Oil                                      Aava Noone                         Neyyi
+
+     Nuvvula Noone                                 Verusenaga Noone
+
+
+ Uppu / Panchadara / Bellam
+     Uppu                                          Panchadara                         Bellam Podi
+
+     Ralla Uppu                                    Bellam                             Thaati Bellam
+
+
+ Popu Dinusulu
+     Aavalu                                        Dhaniyalu                          Miriyalu
+
+     Jeelakarra                                    Vaamu                              Nuvvulu
+
+     Menthulu                                      Sompu                              Gasagasalu
+
+
+ Masala Dinusulu
+     Lavangalu                                     Biryani Aaku                       Shajeera
+
+     Dalchina Chekka                               Anasa Puvvu                        Rathi Puvvu
+
+     Yelakulu                                      Japatri                            Endu Mirapakayalu
+
+     Pedda Yelakulu                                Jajikaya                           Thoka Miriyalu
+
+
+ Podulu / Masalalu
+     Karam                                         Inguva                             Paneer Masala
+
+     Pasupu                                        Sambar Podi                        Chaat Masala
+
+     Dhaniyala Podi                                Rasam Podi                         Kasuri Methi
+
+     Jeelakarra Podi                               Biryani Masala                     Chole Masala
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                       Page 7
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+     Miriyala Podi                                 Chicken Masala
+
+     Garam Masala                                  Mutton Masala
+
+
+ Pulupu Items
+     Chintapandu                                   Vinegar
+
+     Nimmuppu                                      Amchur Podi
+
+
+ Dry Fruits
+     Jeedi Pappu                                   Nalla Kismis                  Kobbari Mukkalu
+
+     Badam Pappu                                   Kharjuram                     Kunkuma Puvvu
+
+     Pista                                         Endu Kharjuram
+
+     Kismis                                        Endu Kobbari
+
+
+ Tiffin Samanlu
+     Semiya                                        Verusenagalu
+
+     Saggubiyyam                                   Dosa Kotta Biyyam
+
+
+ Biryani Special
+     Food Colour
+
+
+ Kirana Miscellaneous
+     Appadalu                                      Kobbari Podi                  Red Food Colour
+
+     Vadiyalu                                      Allam Vellulli Paste          Green Food Colour
+
+     Majjiga Mirapakayalu                          Tomato Puree                  Orange Food Colour
+
+     Mamidi Ooragaya                               Bread Podi                    Pineapple Essence
+
+     Nimmakaya Ooragaya                            Vanta Soda                    Fried Onions
+
+     Gongura Ooragaya                              Yellow Food Colour
+
+
+ Tea / Coffee
+     Tea Powder                                    Milk Powder
+
+     Coffee Powder                                 Dairy Whitener
+
+
+ Welcome Drink / Juice
+     Rose Syrup                                    Glucose Powder                Orange Crush
+
+     Badam Syrup                                   Fruit Crush                   Squash
+
+     Lemon Syrup                                   Pineapple Crush
+
+     Sabja Ginjalu                                 Mango Crush
+
+
+ Bakery / Chinese / Special
+     Cooking Soda                                  Soya Sauce                    Noodles
+
+     Baking Powder                                 Chilli Sauce                  Sev
+
+     Yeast                                         Tomato Sauce                  Boondi
+
+     Custard Powder                                Schezwan Sauce                Papdi
+
+     Condensed Milk                                Mayonnaise                    Dry Coconut Powder
+
+     Double Ka Meetha Bread                        Ajinomoto                     Peanuts
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                        Page 8
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ 7. Vegetables / Kayagoralu Master - Clean Seed List
+ Purchase -> Vegetables opens with Search Vegetables... and the full category-wise scroll list below.
+
+ Regular Kayagoralu
+     Ullipayalu                                    Kakarakayalu                            Capsicum (Green)
+
+     Tomatalu                                      Dondakayalu                             Cabbage
+
+     Bangala Dumpalu                               Dosakayalu                              Cauliflower
+
+     Vankayalu                                     Budida Gummadikaya                      Beans
+
+     Bendakayalu                                   Gummadikaya                             Green Peas
+
+     Beerakayalu                                   Mullangi                                Sweet Corn
+
+     Sorakayalu                                    Carrot                                  Baby Corn
+
+     Potlakayalu                                   Beetroot                                Mushroom
+
+
+ Aaku Kooralu
+     Palakura                                      Kothimeera                              Bachalikura
+
+     Thotakura                                     Pudina                                  Munagaku
+
+     Gongura                                       Curry Leaves
+
+     Menthikura                                    Chukkakura
+
+
+ Roots / Dumpalu
+     Chilakada Dumpa                               Chama Dumpa                             Allam
+
+     Kanda Gadda                                   Pendalam                                Vellulli
+
+
+ Mirapakayalu / Spicy Items
+ Pachi Mirapakayalu is the canonical item; Green Chilli is an alias. Green Capsicum is represented by Capsicum (Green).
+
+     Pachi Mirapakayalu                            Red Capsicum
+
+     Bajji Mirapakayalu                            Yellow Capsicum
+
+
+ Special Gourds
+     Nethi Beerakaya
+
+
+ Vankaya Rakaalu
+     Nalla Vankaya                                 Gutti Vankaya                           Banda Vankaya
+
+     Tella Vankaya                                 Podugu Vankaya
+
+
+ Beans / Legume Vegetables
+     French Beans                                  Chikkudukaya                            Broad Beans
+
+     Cluster Beans / Goruchikkudu                  Alasanda Kayalu
+
+
+ South Indian Catering Special
+     Munagakaya                                    Panasa Pottu
+
+     Aratikaya                                     Mamidikaya
+
+
+ North Indian / Chinese Use
+     Broccoli                                      Celery
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                            Page 9
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+     Spring Onion                                  Lettuce
+
+
+ Salad / Fresh Use
+     Cucumber                                      Lemon
+
+
+ Vegetable purchase units
+ ●
+     Kg
+ ●
+     Gram
+ ●
+     Bundle
+ ●
+     Piece
+ ●
+     Dozen
+ ●
+     Bag
+ ●
+     Crate
+ ●
+     Box
+ Same vegetable must not be created twice for singular/plural or spelling variations such as Ullipaya/Ullipayalu,
+ Tomato/Tomatalu or Bangala Dumpa/Bangala Dumpalu.
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                               Page 10
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ 8. Disposables + Cleaning/Utility Inventory
+ Items that were previously mixed into Kirana but are clearly disposable/packing items are shown in Purchase ->
+ Disposables as one master record each.
+
+ Disposable Catering + Packing Items
+     Paper Plates                                  Food Packing Covers                       Aluminium Foil
+
+     Paper Bowls                                   Aluminium Containers                      Butter Paper
+
+     Paper Glasses                                 Garbage Bags                              Cling Wrap
+
+     Plastic Glasses                               Rapsa                                     Tissue Papers
+
+     Tea Cups                                      Ice Cream Cups                            Paper Napkins
+
+     Water Glasses                                 Plastic Covers                            Tissue Rolls
+
+     Spoons                                        Carry Covers                              Kitchen Rolls
+
+     Forks                                         Packing Covers                            Rubber Bands
+
+     Disposable Containers                         Zip Lock Covers                           Tooth Picks
+
+     Parcel Boxes                                  Disposable Gloves
+
+
+ Kitchen Utility - Non-Disposable
+ Can stay under Other Items or a Kitchen Utility subcategory; do not duplicate these in Disposables.
+
+                            Match Boxes                                    Gas Lighter
+
+
+ Cleaning inventory
+ Cleaning materials are stock/inventory purchases. Cleaning labour or agency charges are Expenses -> Cleaning
+ Department.
+
+ Cleaning Powders / Liquids
+     Wheel Powder                                  Vim Bar                                   Dettol Liquid
+
+     Surf Powder                                   Vim Liquid                                Hand Wash Liquid
+
+     Washing Powder                                Floor Cleaning Liquid                     Glass Cleaning Liquid
+
+     Washing Machine Liquid                        Phenyl                                    Acid
+
+     Dish Wash Liquid                              Harpic                                    Floor Cleaner
+
+     Dish Wash Bar                                 Bleaching Powder                          Toilet Cleaner
+
+
+ Cleaning Tools / Samanlu
+     Steel Pechulu / Steel Scrubbers               Floor Mop                                 Toilet Brush
+
+     Normal Scrubbers                              Floor Cleaning Cloth                      Cleaning Brush
+
+     Sponge Scrubbers                              Kitchen Cleaning Cloth                    Rubber Gloves
+
+     Cheepurulu                                    Dust Pan                                  Garbage Covers / Dustbin Covers
+
+     Floor Wiper                                   Bathroom Brush
+
+
+ Soap / Personal Cleaning
+     Normal Bath Soap                              Washing Soap                              Dish Wash Soap
+
+     Hand Wash Soap                                Detergent Soap
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                 Page 11
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ 9. Fruits Master - Clean Seed List
+ Purchase -> Fruits uses Search Fruits... and a vertical scroll list. The earlier Catering Special Fruits list should be a
+ tag/filter, not duplicate master rows.
+
+ Default Fruit Master
+     Aratipandlu                                   Muskmelon                                Cherries
+
+     Apple                                         Mango                                    Plums
+
+     Orange                                        Guava                                    Peach
+
+     Mosambi                                       Sapota                                   Anjeer Fresh
+
+     Grapes                                        Custard Apple                            Dates Fresh
+
+     Pomegranate                                   Kiwi                                     Tender Coconut
+
+     Papaya                                        Dragon Fruit                             Lemon
+
+     Pineapple                                     Pear                                     Amla
+
+     Watermelon                                    Strawberry                               Avocado
+
+
+ Optional grape variants
+ Activate separate variant records only if the business buys/tracks these separately. Otherwise use the generic Grapes master.
+
+     Green Grapes                                  Black Grapes                             Seedless Grapes
+
+
+ Fruit purchase units
+ ●
+     Kg
+ ●
+     Gram
+ ●
+     Piece
+ ●
+     Dozen
+ ●
+     Box
+ ●
+     Crate
+ ●
+     Bag
+ ●
+     Bunch
+ Tender Coconut is the canonical master; Kobbari Bondam is an alias. Mosambi is canonical; Sweet Lime is an
+ alias. Lemon remains one Item Master even if visible in more than one folder view.
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                   Page 12
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ 10. Non-Veg Master - Clean Seed List
+ Chicken
+     Whole Chicken                                 Chicken Leg Pieces                          Chicken Keema
+
+     Chicken Curry Cut                             Chicken Wings                               Natu Kodi
+
+     Chicken Biryani Cut                           Chicken Drumsticks                          Natu Kodi Curry Cut
+
+     Chicken Boneless                              Chicken Liver
+
+     Chicken Breast                                Chicken Gizzard
+
+
+ Mutton
+     Mutton Curry Cut                              Mutton Keema                                Mutton Head
+
+     Mutton Biryani Cut                            Mutton Liver                                Mutton Boti
+
+     Mutton Boneless                               Mutton Brain                                Mutton Chops
+
+     Mutton With Bone                              Mutton Paya                                 Mutton Ribs
+
+
+ Fish
+     Rohu Fish                                     Tilapia                                     Fish Curry Cut
+
+     Katla Fish                                    Pomfret                                     Fish Fry Cut
+
+     Korameenu                                     Bangda                                      Fish Boneless
+
+     Bommidala Chepa                               Sardine                                     Fish Fillet
+
+     Vanjaram                                      Tuna
+
+     Apollo Fish                                   Salmon
+
+
+ Seafood
+     Royyalu / Prawns                              Large Prawns                                Squid
+
+     Small Prawns                                  Tiger Prawns                                Lobster
+
+     Medium Prawns                                 Crab
+
+
+ Eggs
+ White Eggs is treated as an alias of Kodi Gudlu by default; create a separate White Eggs item only if the business explicitly purchases it
+ as a distinct product.
+
+     Kodi Gudlu                                    Natu Kodi Gudlu
+
+     Brown Eggs                                    Quail Eggs
+
+
+ Non-Veg purchase units
+ ●
+     Kg
+ ●
+     Gram
+ ●
+     Piece
+ ●
+     Dozen
+ ●
+     Tray
+ ●
+     Box
+ ●
+     Crate
+
+ Receiving / quality fields
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                        Page 13
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ ●
+     Ordered Quantity
+ ●
+     Delivered Quantity
+ ●
+     Actual Measured Quantity
+ ●
+     Accepted Quantity
+ ●
+     Rejected Quantity
+ ●
+     Short Quantity
+ ●
+     Quality status
+ ●
+     Supplier
+ ●
+     Rate
+ ●
+     Bill/Photo
+ ●
+     Event/Session
+ ●
+     Destination Store
+ Do not invent food-safety temperature limits or statutory thresholds; use Owner Configuration where required.
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                             Page 14
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ 11. Gas / Fuel Master - Clean Seed List
+ Final Gas / Fuel Seed
+     Commercial Gas Cylinder                       Gas Pipe                        Kerosene
+
+     Domestic Gas Cylinder                         Gas Stove Lighter               Generator Diesel
+
+     LPG Refill                                    Charcoal                        Generator Petrol
+
+     Gas Cylinder Deposit                          Firewood                        Portable Gas Canister
+
+     Gas Regulator                                 Coal
+
+
+ Gas/Fuel duplicate rules
+ ●
+     Charcoal Bags is not a separate master: use Charcoal with UOM = Bag.
+ ●
+     Firewood Bundles is not a separate master: use Firewood with UOM = Bundle.
+ ●
+     Kerosene Can is not a separate master: use Kerosene with UOM = Can/Litre.
+ ●
+     Default catering seed uses Generator Diesel and Generator Petrol. Add generic Diesel/Petrol later only when there is
+     a real separate business need.
+ ●
+     Commercial Gas Cylinder / LPG Refill transaction may include cylinder count, rate per cylinder and delivery/transport
+     charges.
+
+ Gas/Fuel purchase units
+ ●
+     Cylinder
+ ●
+     Kg
+ ●
+     Bag
+ ●
+     Bundle
+ ●
+     Litre
+ ●
+     Can
+ ●
+     Piece
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                       Page 15
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ 12. Water / Ice Master - Clean Seed List
+ Water / Ice / Beverage Support
+     Drinking Water Can 20 Litre                   Mineral Water Bottle 2 Litre   Ice Blocks
+
+     Drinking Water Can 10 Litre                   Water Pouch                    Crushed Ice
+
+     Mineral Water Bottle 250 ML                   RO Water                       Ice Bags
+
+     Mineral Water Bottle 500 ML                   Tanker Water                   Soda Bottles
+
+     Mineral Water Bottle 1 Litre                  Ice Cubes                      Club Soda
+
+
+ Water/Ice rules
+ ●
+     Cooking Water and Cleaning Water are not default purchase master rows unless separately purchased/accounted.
+ ●
+     Tender Coconut Water belongs under Fruits/Beverage logic, not Water/Ice.
+ ●
+     Use one product identity per exact pack size, e.g. 250 ML vs 500 ML bottles may remain distinct because they are
+     separately purchased SKUs.
+
+ Water purchase units
+ ●
+     Can
+ ●
+     Bottle
+ ●
+     Litre
+ ●
+     Packet
+ ●
+     Bag
+ ●
+     Block
+ ●
+     Tanker
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                     Page 16
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ 13. Outside Purchases / Outsource Engine
+ Purchase -> Outside Purchases is for ready-made food/services bought from outside suppliers. Use the existing universal
+ Outsource engine. Do not create a separate CRM per Pulka, Bobbatlu, Ice Cream or Pan.
+
+ Pulka / Pulkalu
+     Small Pulka                                   Big Pulka
+
+
+ Rumali Roti
+     Rumali Roti                                   Small Rumali Roti             Big Rumali Roti
+
+
+ Bobbatlu
+     Regular Bobbatlu                              Big Bobbatlu
+
+     Small Bobbatlu                                Special Bobbatlu
+
+
+ Ice Cream
+     Ice Cream Cup                                 Kulfi                         Chocobar
+
+     Ice Cream Tub                                 Ice Cream Cone                Bulk Ice Cream
+
+
+ Paan / Pan
+     Sweet Pan                                     Special Pan                   Other Pan
+
+     Normal Pan                                    Chocolate Pan
+
+     Meetha Pan                                    Fire Pan (optional)
+
+
+ 13.1 Common Outsource Fields
+ ●
+     Event
+ ●
+     Meal Session
+ ●
+     Category
+ ●
+     Item/Variant
+ ●
+     Vendor
+ ●
+     Vendor Mobile
+ ●
+     Ordered Quantity
+ ●
+     Delivered Quantity
+ ●
+     Accepted Quantity
+ ●
+     Returned / Short Quantity
+ ●
+     Unit
+ ●
+     Rate
+ ●
+     Transport Charge
+ ●
+     Other Charges
+ ●
+     Advance
+ ●
+     Amount Paid
+ ●
+     Balance
+ ●
+     Delivery Date/Time
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                    Page 17
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ ●
+     Responsible Person
+ ●
+     Quality Status
+ ●
+     Bill / Proof
+ ●
+     Payment Status
+ ●
+     Final Settlement
+
+ 13.2 Paan / Pan detailed fields
+ ●
+     Pan Supplier / Person Name
+ ●
+     Mobile Number
+ ●
+     Pan Type
+ ●
+     Pan Count
+ ●
+     Rate Per Pan
+ ●
+     Total Pan Amount
+ ●
+     Transport Charges
+ ●
+     Other Charges
+ ●
+     Grand Total
+ ●
+     Event / Order
+ ●
+     Purchase Date
+ ●
+     Delivery Date
+ ●
+     Advance Paid
+ ●
+     Balance
+ ●
+     Payment Status
+ ●
+     Notes
+
+ 13.3 Ghee and Gas outside purchase rule
+ If Neyyi/Ghee or Gas already exists in Item Master, the outside-purchase transaction must reference that existing
+ master identity. Do not create a duplicate master item just because the supplier or purchase path is different.
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                              Page 18
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ 14. Expenses: Staff, Cleaning, Transport, Utilities, Rent, Live
+ Counters
+ 14.1 Staff Advances
+ ●
+     Staff Name
+ ●
+     Staff ID
+ ●
+     Mobile
+ ●
+     Role
+ ●
+     Advance Amount
+ ●
+     Advance Date
+ ●
+     Reason
+ ●
+     Payment Mode
+ ●
+     Paid By
+ ●
+     Event / Order link
+ ●
+     Settlement Status
+ ●
+     Settlement Date
+ ●
+     Balance / Recovery Amount
+ ●
+     Notes
+ Statuses: Paid, Unpaid, Partial, Adjusted, Recovered, Pending Settlement.
+
+ 14.2 Temporary / Additional Staff
+ ●
+     Person Name
+ ●
+     Mobile
+ ●
+     Work Type
+ ●
+     Event / Order
+ ●
+     Meal Session
+ ●
+     Work Date
+ ●
+     Number of Days / Hours
+ ●
+     Daily Wage / Hourly / Fixed Rate
+ ●
+     OT
+ ●
+     Allowance
+ ●
+     Transport
+ ●
+     Total Amount
+ ●
+     Advance Paid
+ ●
+     Balance
+ ●
+     Payment Status
+ ●
+     Payment Date
+ ●
+     Notes
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits   Page 19
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ Example roles: Server, Cook, Helper, Cleaner, Driver, Supervisor, Dish Washing Staff, Counter Staff, Live Counter Staff, Temporary
+ Worker.
+
+ 14.3 Cleaning Department Service Expense
+ ●
+     Cleaning Person / Agency
+ ●
+     Mobile
+ ●
+     Work Type
+ ●
+     Number of Staff
+ ●
+     Event
+ ●
+     Date
+ ●
+     Amount
+ ●
+     Advance Paid
+ ●
+     Balance
+ ●
+     Transport Charges
+ ●
+     Payment Status
+ ●
+     Notes
+ Cleaning material purchases remain inventory items; this section is for labour/service/agency expenses.
+
+ 14.4 Transport Charges
+ ●
+     Person / Driver
+ ●
+     Mobile
+ ●
+     Vehicle Number
+ ●
+     Vehicle Type
+ ●
+     From
+ ●
+     To
+ ●
+     Purpose
+ ●
+     Event / Order
+ ●
+     Date
+ ●
+     Trip Count
+ ●
+     Rate Per Trip
+ ●
+     Transport Amount
+ ●
+     Loading Charges
+ ●
+     Unloading Charges
+ ●
+     Toll
+ ●
+     Parking
+ ●
+     Other Charges
+ ●
+     Total Amount
+ ●
+     Advance
+ ●
+     Balance
+ ●
+     Payment Status
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                    Page 20
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ ●
+     Notes
+ Vehicle types: Auto, Bike, Car, Van, Tata Ace, Dost, Pickup, Mini Truck, Truck, Other.
+
+ 14.5 Utility Bills
+ ●
+     Current / Electricity Bill
+ ●
+     WiFi Bill
+ ●
+     Water Bill
+ ●
+     Phone Bill
+ ●
+     Gas Utility Bill
+ ●
+     Other Utility Bill
+
+ Common fields: Provider, Consumer/Account Number, Bill Month, Bill Date, Due Date, Amount, Paid Date, Payment
+ Method, Payment Status, Bill/Receipt Photo, Branch, Cost Centre, Notes.
+
+ 14.6 Rent / Fixed Expenses
+ ●
+     Shop Rent
+ ●
+     Kitchen Rent
+ ●
+     Godown Rent
+ ●
+     Office Rent
+ ●
+     Equipment Rent
+ ●
+     Vehicle Rent
+ ●
+     Other Rent
+
+ Fields: Rent Type, Owner/Vendor, Mobile, Property/Asset, Branch, Month, Rent Amount, Deposit Reference, Due Date,
+ Paid Date, Payment Method, Payment Status, Receipt Photo, Notes.
+
+ 14.7 Live Counter Expenses
+ ●
+     Dosa Counter
+ ●
+     Pulka Counter
+ ●
+     Rumali Roti Counter
+ ●
+     Chaat Counter
+ ●
+     Pan Counter
+ ●
+     Ice Cream Counter
+ ●
+     Juice Counter
+ ●
+     Tea Counter
+ ●
+     Coffee Counter
+ ●
+     Sweet Counter
+ ●
+     Chinese Counter
+ ●
+     Tandoori Counter
+ ●
+     Other Live Counter
+
+ Fields: Counter, Vendor/Person, Mobile, Event, Meal Session, Event Date, Number of Staff, Quantity/Count, Pricing
+ Basis, Rate, Fixed Amount, Transport, Setup Charges, Other Charges, Total, Advance, Paid, Balance, Payment Status,
+ Notes.
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                 Page 21
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ 14.8 Global Additional-Expense Payment Rule
+ Balance = Final Payable - Total Amount Paid. Payment status values may include Unpaid, Advance Paid, Partially
+ Paid, Fully Paid, Settled and Cancelled. Where Finance is linked, the status must be derived rather than freely
+ typed.
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                             Page 22
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ 15. Purchase Entry, Multi-Item Bills, Bill Photo & Staff
+ Auto-Link
+ 15.1 Purchase Header
+ ●
+     Purchase ID (auto-generated)
+ ●
+     Supplier
+ ●
+     Supplier Mobile
+ ●
+     Purchase Date
+ ●
+     Purchase Time
+ ●
+     Bill Number
+ ●
+     Bill Photo / PDF
+ ●
+     Purchased By Staff (automatic from login)
+ ●
+     Event / Meal Session / Overhead Allocation
+ ●
+     Destination Store
+
+ 15.2 Purchase Lines
+ ●
+     Item
+ ●
+     Category
+ ●
+     Quantity
+ ●
+     Purchase UOM
+ ●
+     Rate
+ ●
+     Line Discount (if applicable)
+ ●
+     Tax (only if configured)
+ ●
+     Other Charge Allocation
+ ●
+     Line Total
+ ●
+     Batch/Lot (if required)
+ ●
+     Expiry (if required)
+
+ 15.3 Bill Totals
+ ●
+     Subtotal
+ ●
+     Discount
+ ●
+     Freight / Transport
+ ●
+     Other Charges
+ ●
+     Tax only if configured
+ ●
+     Round Off if configured
+ ●
+     Grand Total
+
+ 15.4 Payment
+ ●
+     Payment Method
+ ●
+     Amount Paid
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits   Page 23
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ ●
+     Advance
+ ●
+     Balance
+ ●
+     Payment Status
+ Simple line formula: Line Total = Quantity x Rate. Final Grand Total may include discount, transport, tax, other
+ charges and round-off, so it must not be forced to equal only Quantity x Rate.
+
+ 15.5 Logged-in Staff Auto-Link
+ ●
+     Staff ID
+ ●
+     Staff Name snapshot
+ ●
+     Staff Mobile reference
+ ●
+     Created By User
+ ●
+     Purchase Date/Time
+ The staff member must not type their own name every time. If the logged-in staff creates the purchase, the
+ system automatically attaches that staff identity.
+
+ 15.6 Multiple Items in One Bill
+  Item                                                                           Qty        UOM
+
+  Kandi Pappu                                                                    10         Kg
+
+  Ullipayalu                                                                     20         Kg
+
+  Apple                                                                          5          Kg
+
+  Chicken Biryani Cut                                                            15         Kg
+
+  Water Can                                                                      10         Can
+
+ All lines may be saved under one Purchase Bill ID when they belong to the same supplier bill. The backend must still
+ route each line correctly by item/category and create appropriate GRN/stock effects.
+
+ 15.7 Bill Photo / Evidence
+ ●
+     Take Bill Photo
+ ●
+     Upload Bill Photo
+ ●
+     Upload PDF
+ ●
+     Attach to Purchase / GRN / Vendor Bill
+ ●
+     View later
+ ●
+     Download where permitted
+ ●
+     Audit attachment changes
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                      Page 24
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ 16. Purchase History, Dashboards & Reports
+ 16.1 Consolidated Purchase History
+ ●
+     Date
+ ●
+     Purchase ID
+ ●
+     Staff
+ ●
+     Supplier
+ ●
+     Item
+ ●
+     Category
+ ●
+     Quantity
+ ●
+     UOM
+ ●
+     Rate
+ ●
+     Total
+ ●
+     Event
+ ●
+     Meal Session
+ ●
+     Store
+ ●
+     Payment Status
+ ●
+     GRN Status
+
+ Filters: Today, Yesterday, This Week, This Month, Custom Date, Staff, Category, Item, Supplier, Event, Branch, Store,
+ Paid/Unpaid/Partial.
+
+ 16.2 Staff Purchase Report
+ ●
+     Purchase count
+ ●
+     Purchase value
+ ●
+     Suppliers used
+ ●
+     Items purchased
+ ●
+     Events
+ ●
+     Date range
+ Do not sum Kg + Litre + Piece + Packet into one meaningless Total Quantity. Group quantity by Item and/or UOM.
+
+ 16.3 Item Purchase Report
+ ●
+     Total Purchased Quantity
+ ●
+     Total Purchase Value
+ ●
+     Average Rate where valid
+ ●
+     Latest Rate
+ ●
+     Minimum Rate
+ ●
+     Maximum Rate
+ ●
+     Suppliers
+ ●
+     Purchased By Staff
+ ●
+     Events Used
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                     Page 25
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ ●
+     Current Stock
+ ●
+     Price History
+
+ 16.4 Supplier Purchase Report
+ ●
+     Total Bills
+ ●
+     Total Purchase Value
+ ●
+     Amount Paid
+ ●
+     Outstanding
+ ●
+     Items Supplied
+ ●
+     Rejected Quantity
+ ●
+     Returns
+ ●
+     Last Purchase
+ ●
+     Price History
+ ●
+     Events supplied
+ ●
+     Quality / delivery issues
+ Supplier outstanding must come from Finance, not from a manually typed total.
+
+ 16.5 Person-Wise Cross-Module Report
+ For a Person/Vendor/Temporary Worker, show permitted history across Outside Purchase, Staff Advance, Temporary
+ Labour, Cleaning, Transport, Live Counter and Payments. Do not merge unrelated legal/vendor/staff identities only
+ because the names look similar.
+
+ 16.6 Purchase Dashboard
+ ●
+     Today's Purchases
+ ●
+     Today's Purchase Value
+ ●
+     This Month Purchase Value
+ ●
+     Pending Supplier Payments
+ ●
+     Top Purchased Items
+ ●
+     Recent Purchases
+ ●
+     Low Stock
+ ●
+     Purchase Pending
+ ●
+     GRN Pending
+ ●
+     Purchase Variance
+ ●
+     Staff-wise Purchase Today
+ Every dashboard KPI must drill down to source transactions. No fake/sample production numbers.
+
+
+ 17. Event Cost / P&L Integration
+ For each Event, create an Event Cost / Purchase Breakdown that groups actual direct costs without mixing them into
+ general overhead.
+
+  Cost Group                                      Examples
+
+  Inventory Purchases                             Kirana, Vegetables, Fruits, Non-Veg, Disposables, Water/Ice, Gas
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                       Page 26
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+  Cost Group                                      Examples
+
+  Outside Purchases                               Pulka, Rumali, Bobbatlu, Ice Cream, Pan, outside sweets/services
+
+  Labour                                          Temporary Staff, Cleaning Service
+
+  Logistics                                       Transport
+
+  Live Counters                                   Vendor/Counter setup/service
+
+  Other Direct Event Expenses                     Approved Event-linked additional costs
+
+ The Event Actual Cost and Event P&L must consume these authoritative transactions. General rent, current bill,
+ WiFi and similar overheads should remain in Overhead Cost Centres unless an approved allocation rule applies.
+
+
+ 18. Permissions, Audit, Edit/Cancel/Delete Rules
+  Action                              Frozen behaviour
+
+  Create                              Authorized role; logged-in creator captured.
+
+  Edit Draft                          Allowed by permission; Updated By/At captured.
+
+  Submit                              Moves record into controlled workflow.
+
+  Approve                             Separate permission from Create/Submit.
+
+  Cancel                              Reason required; downstream effects reversed/handled through controlled workflow.
+
+  Delete                              No unrestricted hard delete after posting. Use soft-delete/archive only when safe and retain audit.
+
+  Stock impact                        Cannot be silently edited; changes occur through Stock Movements/returns/adjustments.
+
+  Payment impact                      Cannot be silently edited; use Finance reversal/adjustment workflow.
+
+  Closed Event                        Cannot be silently edited; reopen requires permission, reason and approval.
+
+  Attachments                         Changes audited where material.
+
+
+ Audit minimum
+ ●
+     Created By
+ ●
+     Created At
+ ●
+     Updated By
+ ●
+     Updated At
+ ●
+     Submitted By
+ ●
+     Approved By
+ ●
+     Old Value
+ ●
+     New Value
+ ●
+     Reason
+ ●
+     Approval / Reversal Reference
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                              Page 27
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ 19. Functional Acceptance Tests / Definition of Done
+ 1     Search 'Kandi' returns Kandi Pappu immediately; no Search button required.
+ 2     Search 'pappu' returns all relevant pappu-named items including dry-fruit pappu names.
+ 3     Search 'Ulli' returns Ullipayalu; 'Tom' returns Tomatalu; 'Vanka' returns base and variant Vankaya records.
+ 4     Alias search finds Pachi Mirapakayalu when user searches Green Chilli.
+ 5     Master-data add warns if staff tries to create Ullipaya when Ullipayalu already exists.
+ 6     Lemon may be visible in more than one folder view but must have one Item ID.
+ 7     Staff creates a purchase; Staff ID/Name attach automatically without manual entry.
+ 8     One bill can contain Kirana + Vegetables + Fruits + Non-Veg + Water items under one Purchase Bill ID.
+ 9     Purchase save persists after refresh.
+ 10    Purchase submit/GRN creates correct stock movement and destination-store quantity.
+ 11    Partial GRN records ordered, delivered, accepted, rejected and short quantity separately.
+ 12    Bill photo remains linked and viewable later.
+ 13    Outside Pulka order records ordered/delivered/accepted/returned separately and does not create a separate Pulka
+       CRM.
+ 14    Staff advance appears in Staff settlement, not as Kirana purchase.
+ 15    Rent/Current/WiFi post to Overhead Expense, not fake Event IDs.
+ 16    Event-linked live-counter/transport/outside-food costs appear in Event Actual Cost/P&L.
+ 17    Finance-derived payment status matches receipts/payments; manual free-text does not override finance.
+ 18    User without purchase permission cannot create/edit purchase via UI or API.
+ 19    Double-click submit does not create duplicate GRN, payment or stock movement.
+ 20    Soft delete/cancel retains audit and does not erase posted financial/stock history.
+ 21    Dashboard totals reconcile to purchase/expense source transactions.
+ 22    Staff-wise report answers: who bought what, quantity/UOM, rate, supplier, spend and dates.
+ 23    Item-wise report answers monthly quantity, average/latest rate, spend and staff/supplier details.
+ 24    Supplier report shows bills, rejections, price history, amount paid and outstanding.
+ 25    Search and vertical scrolling remain usable on desktop, tablet and mobile.
+
+
+     Production-ready                Pages and buttons alone are not completion. Correct data + correct routing + correct workflow +
+     definition                      correct permissions + correct calculations + correct audit + correct reports + passing tests are
+                                     required.
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                          Page 28
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ 20. Lovable Master Implementation Prompt
+ Copy/paste the following prompt into the existing Catering CRM + ERP Lovable project together with this PDF 06 and the
+ previous frozen PDFs.
+
+ ROLE & SOURCE OF TRUTH
+ You are implementing PDF 06 - Purchase & Expense Master Freeze Pack inside the existing Frozen Catering CRM + ERP.
+
+ The previous five frozen PDFs remain authoritative. This PDF is an extension and must not replace or bypass the frozen Item, UOM,
+ Vendor, Purchase, GRN, Stock Movement, Outsource, Staff, Logistics, Expense, Finance, Approval, Audit or Event P&L architecture.
+
+ Read the complete PDF before editing code. Do not work from only the first pages.
+
+ PRIMARY OUTCOME
+ Build a clean operational Purchase experience where the owner can immediately know:
+ ●   what was purchased today,
+ ●   which staff member purchased it,
+ ●   which item and category,
+ ●   quantity and UOM,
+ ●   supplier,
+ ●   rate and total,
+ ●   bill/proof,
+ ●   payment status,
+ ●   monthly purchase value,
+ ●   staff-wise value,
+ ●   item-wise value,
+ ●   supplier-wise value,
+ ●   outside purchase cost,
+ ●   temporary staff cost,
+ ●   transport cost,
+ ●   live-counter cost,
+ ●   rent/utility pending,
+ ●   Event total direct additional cost.
+
+ FINAL NAVIGATION
+ PURCHASE:
+ Kirana
+ Vegetables / Kayagoralu
+ Disposables
+ Fruits
+ Non-Veg
+ Gas / Fuel
+ Water / Ice
+ Outside Purchases
+ Other Items
+
+ EXPENSES:
+ Staff Advances
+ Temporary Staff Payments
+ Cleaning Department
+ Transport Charges
+ Utility Bills
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                Page 29
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ Rent / Fixed Expenses
+ Live Counter Expenses
+ Other Expenses
+
+ MASTER DATA RULE
+ One real item must have one Item Master record only.
+
+ Do not create separate rows for spelling, singular/plural or obvious aliases. Store aliases/local names against the same record.
+
+ Examples:
+ ●   Tender Coconut = canonical; Kobbari Bondam = alias.
+ ●   Mosambi = canonical; Sweet Lime = alias.
+ ●   Pachi Mirapakayalu = canonical; Green Chilli = alias.
+ ●   Capsicum (Green) is the default green capsicum identity; Red and Yellow can remain distinct.
+ ●   Charcoal Bags is Charcoal with UOM Bag.
+ ●   Firewood Bundles is Firewood with UOM Bundle.
+ ●   Kerosene Can is Kerosene with UOM Can/Litre.
+ ●   Ghee outside purchase must reference the existing Neyyi/Ghee item.
+ ●   Gas outside purchase must reference the existing Gas/Fuel master.
+ ●   Lemon can appear in multiple folder views but keeps one item_id.
+
+ Before creating a new item:
+ normalize -> exact/alias/partial duplicate search -> warn -> reuse existing item if matched.
+ Only authorized admin/master-data users may create a genuinely new Item Master record.
+
+ SEARCH + SCROLL
+ Every Purchase folder and Additional Expense section must have:
+ ●   sticky search bar at top,
+ ●   live filtering while typing,
+ ●   partial-name matching,
+ ●   starting-letter matching,
+ ●   alias matching,
+ ●   vertical scroll list/history,
+ ●   category headings,
+ ●   expandable/collapsible sections when useful.
+
+ No mandatory Search button.
+
+ Examples:
+ Kandi -> Kandi Pappu
+ Pappu -> related pappu items
+ Ulli -> Ullipayalu
+ Vanka -> Vankayalu + variants
+ Caps -> Capsicum-related items
+ chick -> Chicken items
+ water -> Water items
+ plate -> Paper Plates
+
+ SEED MASTER LISTS
+ Seed the clean category/item lists exactly as specified in PDF 06:
+ ●   Kirana master categories and items
+ ●   Vegetables/Kayagoralu
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                      Page 30
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ ●   Disposables
+ ●   Cleaning inventory
+ ●   Fruits
+ ●   Non-Veg
+ ●   Gas/Fuel
+ ●   Water/Ice
+ ●   Outside Purchase variants
+
+ Do not reintroduce duplicates that PDF 06 explicitly removed or converted to aliases/units.
+
+ PURCHASE ENTRY
+ Any normal inventory item tap opens Add Purchase.
+
+ Header:
+ Purchase ID
+ Supplier
+ Supplier Mobile
+ Purchase Date
+ Purchase Time
+ Bill Number
+ Bill Photo/PDF
+ Purchased By Staff - automatic from logged-in user
+ Event / Meal Session / Overhead Allocation
+ Destination Store
+
+ Lines:
+ Item
+ Category
+ Quantity
+ Purchase UOM
+ Rate
+ Line Discount if applicable
+ Tax only if configured
+ Other Charge allocation if applicable
+ Line Total
+ Batch/Lot if required
+ Expiry if required
+
+ Totals:
+ Subtotal
+ Discount
+ Freight/Transport
+ Other Charges
+ Tax if configured
+ Round Off if configured
+ Grand Total
+
+ Payment:
+ Payment Method
+ Advance
+ Amount Paid
+ Balance
+ Payment Status
+
+ Line Total = Quantity x Rate.
+ Grand Total must include all bill components and must not be forced to only Quantity x Rate.
+
+ UOM
+ Use the existing controlled UOM/Conversion Master.
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                  Page 31
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ Possible units include:
+ Kg, Gram, Litre, ML, Piece, Dozen, Bundle, Bag, Packet, Box, Crate, Tray, Can, Bottle, Cylinder, Block, Tanker, Bunch, Tin.
+
+ Show only relevant units per Item where possible.
+ Do not accept uncontrolled free-text units when a master UOM exists.
+ Use item-specific conversion rules for pack/tin/bag/box conversions.
+
+ STAFF AUTO-LINK
+ Every purchase created by staff must automatically store:
+ Staff ID
+ Staff Name snapshot
+ Staff Mobile reference if available
+ Created By user
+ Purchase date/time
+
+ Do not require the staff member to type their own name each time.
+
+ MULTI-ITEM BILL
+ Allow unlimited lines on one supplier bill.
+ A single Purchase Bill ID may contain Kirana, Vegetables, Fruits, Non-Veg, Water or other inventory items when they belong to the
+ same supplier bill.
+
+ Save one header + many lines.
+ Do not create fake separate bills for each line.
+
+ RECEIVING / STOCK
+ Normal stock purchases must use the frozen Purchase/GRN/Stock Movement architecture.
+
+ No direct stock balance edit.
+
+ Where GRN is required, capture:
+ ordered qty
+ delivered qty
+ actual measured qty
+ accepted qty
+ rejected qty
+ short qty
+ quality
+ batch/expiry where configured
+ receiver
+ date/time
+ proof
+
+ Accepted GRN quantity must create authoritative stock receipt movement to the destination Store/Stock Location.
+
+ OUTSIDE PURCHASES
+ Use one universal Outsource engine for:
+ Small/Big Pulka
+ Rumali Roti
+ Bobbatlu
+ Ice Cream
+ Paan/Pan
+ outside sweets
+ outside counters
+ outside chefs/services
+
+ Common fields:
+ Event
+ Meal Session
+ Category
+ Item/Variant
+ Vendor
+ Vendor Mobile
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                   Page 32
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ Ordered Qty
+ Delivered Qty
+ Accepted Qty
+ Returned/Short Qty
+ UOM
+ Rate
+ Transport
+ Other Charges
+ Advance
+ Amount Paid
+ Balance
+ Delivery Date/Time
+ Responsible Person
+ Quality
+ Proof
+ Payment Status
+ Final Settlement
+
+ Do not build a separate Pulka CRM, Bobbatlu CRM, Ice Cream CRM or Pan CRM.
+
+ STAFF / CLEANING / TRANSPORT / UTILITIES / RENT / LIVE COUNTERS
+ Route each transaction correctly:
+
+ Staff Advances -> Staff Advance/Settlement.
+ Temporary Staff -> Temporary Assignment/Settlement.
+ Cleaning labour/agency -> Service Expense; cleaning materials remain inventory purchases.
+ Transport -> Trip/Logistics/Event Expense.
+ Utility Bills -> General Overhead Expense.
+ Rent/Fixed -> General Overhead/Rental Expense.
+ Live Counter -> Outsource + Live Event + Event Cost when applicable.
+
+ Never create a fake Event ID for general overhead.
+
+ PAYMENT STATUS
+ Use:
+ Unpaid
+ Advance Paid
+ Partially Paid
+ Fully Paid
+ Settled
+ Cancelled
+
+ Balance = Final Payable - Total Amount Paid.
+
+ Where Finance is linked, derive payment status from authoritative finance entries. Do not allow a free-text status to contradict Finance.
+
+ HISTORY + REPORTS
+ Build:
+ Consolidated Purchase History
+ Staff Purchase Report
+ Item Purchase Report
+ Supplier Purchase Report
+ Person-wise cross-module report
+ Additional Expense Report
+ Event Cost / Purchase Breakdown
+
+ Filters:
+ Today
+ Yesterday
+ This Week
+ This Month
+ Custom Date
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                       Page 33
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ Staff
+ Category
+ Item
+ Supplier
+ Event
+ Branch
+ Store
+ Payment Status
+
+ Do not sum incompatible units such as Kg + Litres + Pieces into one Total Quantity. Group by UOM or Item.
+
+ DASHBOARD
+ Purchase Dashboard must show real source-derived:
+ Today's Purchases
+ Today's Purchase Value
+ This Month Purchase Value
+ Pending Supplier Payments
+ Top Purchased Items
+ Recent Purchases
+ Low Stock
+ Purchase Pending
+ GRN Pending
+ Purchase Variance
+ Staff-wise Purchase Today
+
+ Every KPI must drill to source transactions.
+
+ EVENT COST INTEGRATION
+ For Event-linked costs show:
+ Inventory Purchases
+ Outside Purchases
+ Temporary Labour
+ Cleaning Service
+ Transport
+ Live Counters
+ Other direct Event expenses
+
+ Feed these authoritative costs into Event Actual Cost / Event P&L.
+
+ Rent, Current, WiFi and similar general overhead remain Overhead unless an approved allocation rule applies.
+
+ PERMISSIONS + AUDIT
+ Do not give unrestricted hard Delete on posted Purchase/Expense records.
+
+ Use permissions for Create/Edit/Submit/Approve/Cancel/Export.
+ Store Created By/At, Updated By/At, Submitted By, Approved By, old/new values, reason and reversal/cancellation reference.
+
+ Posted stock or finance history must never disappear through a UI delete.
+
+ Backend/API must enforce permissions and status rules; hiding a button is not enough.
+
+ ERRORS
+ Show clear errors for:
+ Permission Denied
+ Duplicate Item
+ Invalid Status Transition
+ Owner Configuration Required
+ Insufficient Stock / Reservation conflict when relevant
+ Duplicate Submission
+ Record changed by another user
+ Financially Closed Event
+ Accounting Period Closed
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                Page 34
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+ External Integration Failed
+
+ Do not silently fail.
+
+ ACCEPTANCE TESTS
+ Before marking PDF 06 complete, run the functional tests listed in PDF 06, including:
+ ●   partial search and alias search,
+ ●   duplicate master prevention,
+ ●   staff auto-link,
+ ●   multi-category one-bill purchase,
+ ●   GRN/stock movement,
+ ●   outside purchase routing,
+ ●   staff advance routing,
+ ●   overhead routing,
+ ●   Event P&L integration,
+ ●   finance-derived payment status,
+ ●   direct API permission rejection,
+ ●   idempotent submit/double-click protection,
+ ●   audit retention,
+ ●   dashboard/report reconciliation.
+
+ DO NOT STOP AT UI
+ Do not claim complete because the cards, folders and forms exist.
+
+ A function is complete only when:
+ Save persists,
+ Refresh retains it,
+ correct permissions apply,
+ correct backend transaction is created,
+ correct calculation updates,
+ audit is written,
+ related reports update,
+ duplicate click does not duplicate effects,
+ cancel/reversal is safe.
+
+ FINAL COMMAND
+ Implement this PDF 06 phase-by-phase inside the existing Catering CRM + ERP.
+
+ Do not modify unrelated frozen screens or architecture unless required for integration.
+ Do not invent missing business values.
+ Do not create duplicate master items.
+ Do not bypass Purchase/GRN/Stock, Outsource, Staff, Logistics, Expense or Finance.
+
+ At completion provide:
+ 1. implemented sections,
+ 2. master seed count by folder,
+ 3. duplicate/alias mappings,
+ 4. routes/screens created,
+ 5. DB tables/fields changed,
+ 6. workflow/backend linkage,
+ 7. reports created,
+ 8. tests passed/failed,
+ 9. owner configuration still pending,
+ 10. any deferred limitations.
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits             Page 35
+Catering CRM + ERP | PDF 06 - Purchase & Expense Master Freeze Pack
+
+
+
+
+   FINAL FREEZE RESULT               This PDF 06 creates one clean operational layer for inventory buying, outside purchases,
+                                     staff/service expenses, search/scroll UX, duplicate prevention, staff tracking, reports and Event-cost
+                                     integration while preserving the existing frozen ERP transaction integrity.
+
+
+
+
+FROZEN EXTENSION | No duplicate master items | No silent financial/stock edits                                                         Page 36
+

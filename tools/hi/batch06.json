@@ -1,0 +1,22 @@
+{
+"Draft": "कच्चा",
+"Sent": "भेजा",
+"Rejected": "अस्वीकृत",
+"Expired": "समय ख़त्म",
+"Partially Paid": "कुछ चुकाया",
+"Fully Paid": "पूरा चुकाया",
+"Settled": "हिसाब पूरा",
+"Unpaid": "नहीं चुकाया",
+"Advance Paid": "एडवांस दिया",
+"Pending": "मंज़ूरी बाकी",
+"Approved": "मंज़ूर",
+"No date": "तारीख नहीं",
+"Outside Purchase": "बाहर की ख़रीद (पुरानी)",
+"Staff Advance": "स्टाफ एडवांस",
+"Temporary Staff": "अस्थायी स्टाफ",
+"Cleaning Department": "सफ़ाई विभाग",
+"Utility Bill": "बिजली / पानी का बिल",
+"Rent / Fixed Expense": "किराया / तय खर्च",
+"Live Counter": "लाइव काउंटर",
+"Other Expense": "दूसरा खर्च"
+}
