@@ -130,7 +130,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         },
       });
     }, () => {
-      // Gracefully handle permission errors
       setSession({ status: "loading" });
     });
     return unsubscribe;

@@ -2,6 +2,7 @@ import { doc, onSnapshot, type DocumentData } from "firebase/firestore";
 import { db } from "../firebase";
 import type { MonthPlan } from "./functions";
 import { toCalcMeta, type CalcMeta } from "./calcMode";
+import { MOCK_YEAR_TARGET, isMockEnabled } from "./mockData";
 
 /** `targets/{year}` — yearTarget, profitMarginPct, weights set by the admin; 🔒 months / aheadOrBehind by the server. */
 export interface YearTargetDoc {
@@ -47,7 +48,21 @@ export function subscribeYearTarget(
 ): () => void {
   return onSnapshot(
     doc(db, "targets", String(year)),
-    (snap) => onData(snap.exists() ? toTarget(snap.data()) : null),
-    (e) => onError?.(e),
+    (snap) => {
+      if (snap.exists()) {
+        onData(toTarget(snap.data()));
+      } else if (isMockEnabled()) {
+        onData(MOCK_YEAR_TARGET);
+      } else {
+        onData(null);
+      }
+    },
+    (e) => {
+      if (isMockEnabled()) {
+        onData(MOCK_YEAR_TARGET);
+        return;
+      }
+      onError?.(e);
+    },
   );
 }

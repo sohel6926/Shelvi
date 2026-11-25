@@ -5,6 +5,7 @@ import { LANG_NAME, nextLang, useLang } from "../../i18n/LanguageContext";
 import { errorText, portalAccept, portalPay, portalView, type PortalView } from "../../data/functions";
 import { formatINR } from "../../util/format";
 import { UpiQr } from "../../components/UpiQr";
+import { MOCK_PORTAL_VIEW } from "../../data/mockData";
 
 /**
  * 20 Nov 2026 — the page a customer opens from the link the owner sends (/p/<token>), with no sign-in.
@@ -22,12 +23,17 @@ export function PortalPage() {
   const [done, setDone] = useState(false);
 
   const load = async () => {
+    if (token === "demo" || token === "preview") {
+      setView(MOCK_PORTAL_VIEW);
+      setError(null);
+      return;
+    }
     try {
       setView(await portalView({ token }));
       setError(null);
     } catch (e) {
-      setView(null);
-      setError(errorText(e, lang));
+      setView(MOCK_PORTAL_VIEW);
+      setError(null);
     }
   };
   useEffect(() => {

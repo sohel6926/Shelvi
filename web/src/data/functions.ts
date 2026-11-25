@@ -4,6 +4,7 @@ import { hiIfOn, type Bilingual, type Lang } from "../i18n/LanguageContext";
 import type { CalcMode, CalcModes } from "./calcMode";
 import type { TimelineMeal, TimelineStep } from "../util/timeline";
 import type { CostTarget } from "./costTarget";
+import { getMockCallableResult, isMockEnabled } from "./mockData";
 
 /**
  * Typed wrappers for the Cloud Functions in docs/api-contract.md (v2 onCall, region asia-south1).
@@ -70,6 +71,10 @@ function callable<Req, Res>(name: string, options?: { timeout?: number }) {
       const result = await fn(request);
       return result.data;
     } catch (e) {
+      if (isMockEnabled()) {
+        const mock = getMockCallableResult<Res>(name, request);
+        if (mock !== undefined) return mock;
+      }
       throw toCallableError(e);
     }
   };

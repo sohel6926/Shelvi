@@ -18,6 +18,7 @@ import { createStamp, updateStamp } from "./audit";
 import { cancelInfo, type CancelInfo } from "./cancel";
 import { costTargetFields, toCostTarget, type CostTarget } from "./costTarget";
 import type { DueBill } from "./functions";
+import { isMockEnabled, getMockCollection } from "./mockData";
 
 /**
  * Read models for the modules the Android app writes (quotations, invoices, payments, expenses,
@@ -68,8 +69,29 @@ function subscribe<T>(
 ): Unsubscribe {
   return onSnapshot(
     q,
-    (snap) => onData(snap.docs.map((d) => map(d.id, d.data()))),
-    (e) => onError?.(e),
+    (snap) => {
+      const rows = snap.docs.map((d) => map(d.id, d.data()));
+      if (rows.length === 0 && isMockEnabled()) {
+        const seg = (q as unknown as { _query?: { path?: { segments?: string[] } } })._query?.path?.segments?.[0] || "";
+        const mock = getMockCollection<T>(seg);
+        if (mock && mock.length > 0) {
+          onData(mock);
+          return;
+        }
+      }
+      onData(rows);
+    },
+    (e) => {
+      if (isMockEnabled()) {
+        const seg = (q as unknown as { _query?: { path?: { segments?: string[] } } })._query?.path?.segments?.[0] || "";
+        const mock = getMockCollection<T>(seg);
+        if (mock && mock.length > 0) {
+          onData(mock);
+          return;
+        }
+      }
+      onError?.(e);
+    },
   );
 }
 

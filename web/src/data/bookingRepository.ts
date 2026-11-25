@@ -14,6 +14,7 @@ import { db } from "../firebase";
 import { toCalcMeta, type CalcMeta } from "./calcMode";
 import { createStamp, updateStamp } from "./audit";
 import { toServiceStyle, type ServiceStyle } from "./dishRepository";
+import { isMockEnabled, MOCK_BOOKINGS } from "./mockData";
 
 /**
  * Mirrors data/model/BookingStatus.kt labels exactly — Firestore stores the label string.
@@ -460,10 +461,20 @@ export function subscribeBookings(
     q,
     (snap) => {
       const list = snap.docs.map((d) => toBooking(d.id, d.data()));
+      if (list.length === 0 && isMockEnabled()) {
+        onData(MOCK_BOOKINGS as unknown as Booking[]);
+        return;
+      }
       list.sort((a, b) => (b.eventDate?.getTime() ?? 0) - (a.eventDate?.getTime() ?? 0));
       onData(list);
     },
-    (e) => onError?.(e),
+    (e) => {
+      if (isMockEnabled()) {
+        onData(MOCK_BOOKINGS as unknown as Booking[]);
+        return;
+      }
+      onError?.(e);
+    },
   );
 }
 
