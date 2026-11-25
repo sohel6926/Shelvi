@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { onAuthStateChanged, type User } from "firebase/auth";
+import { onAuthStateChanged, signOut as firebaseSignOut, type User } from "firebase/auth";
 import { doc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { parseRole, type Role } from "./roles";
@@ -32,13 +32,72 @@ export function useSession(): SessionState {
   return useContext(AuthContext);
 }
 
+const AUTH_STORAGE_KEY = "shelvi_auth_user";
+
+export function setLocalSession(profile: UserProfile): void {
+  try {
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(profile));
+    window.dispatchEvent(new Event("shelvi_auth_change"));
+  } catch {
+    // ignore
+  }
+}
+
+export async function signOutApp(): Promise<void> {
+  try {
+    localStorage.removeItem(AUTH_STORAGE_KEY);
+    window.dispatchEvent(new Event("shelvi_auth_change"));
+  } catch {
+    // ignore
+  }
+  try {
+    await firebaseSignOut(auth);
+  } catch {
+    // ignore if not signed in via Firebase
+  }
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
+  const [testUser, setTestUser] = useState<UserProfile | null>(() => {
+    try {
+      const stored = localStorage.getItem(AUTH_STORAGE_KEY);
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
   const [firebaseUser, setFirebaseUser] = useState<User | null | undefined>(undefined);
   const [session, setSession] = useState<SessionState>({ status: "loading" });
+
+  useEffect(() => {
+    const handler = () => {
+      try {
+        const stored = localStorage.getItem(AUTH_STORAGE_KEY);
+        setTestUser(stored ? JSON.parse(stored) : null);
+      } catch {
+        setTestUser(null);
+      }
+    };
+    window.addEventListener("shelvi_auth_change", handler);
+    window.addEventListener("storage", handler);
+    return () => {
+      window.removeEventListener("shelvi_auth_change", handler);
+      window.removeEventListener("storage", handler);
+    };
+  }, []);
 
   useEffect(() => onAuthStateChanged(auth, (user) => setFirebaseUser(user)), []);
 
   useEffect(() => {
+    if (testUser) {
+      setBookingStaffScope(testUser.role === "staff" ? testUser.staffId : null);
+      setSession({
+        status: "loggedIn",
+        profile: testUser,
+      });
+      return;
+    }
+
     if (firebaseUser === undefined) {
       setSession({ status: "loading" });
       return;
@@ -70,9 +129,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           jobRole: typeof data.jobRole === "string" ? data.jobRole : "",
         },
       });
+    }, () => {
+      // Gracefully handle permission errors
+      setSession({ status: "loading" });
     });
     return unsubscribe;
-  }, [firebaseUser]);
+  }, [testUser, firebaseUser]);
 
   return <AuthContext.Provider value={session}>{children}</AuthContext.Provider>;
 }

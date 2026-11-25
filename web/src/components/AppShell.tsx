@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { navAllowedForRole, roleOpensPath } from "../data/roles";
-import { signOut } from "firebase/auth";
+import { useSession, signOutApp } from "../auth/AuthProvider";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -70,8 +70,6 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { auth } from "../firebase";
-import { useSession } from "../auth/AuthProvider";
 import { useBranch } from "../session/BranchContext";
 import { subscribeActiveBranches, type Branch } from "../data/branchRepository";
 import { useLang, LANG_NAME, nextLang } from "../i18n/LanguageContext";
@@ -255,7 +253,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               {session.profile.name || session.profile.email}
             </Typography>
             <ListItemButton
-              onClick={() => signOut(auth)}
+              onClick={() => signOutApp()}
               sx={{ color: "inherit", width: "auto", borderRadius: 1 }}
             >
               <ListItemIcon sx={{ color: "inherit", minWidth: 32 }}>

@@ -1,6 +1,5 @@
 import { Box, Button, Paper, Typography } from "@mui/material";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
+import { signOutApp } from "./AuthProvider";
 import { useLang } from "../i18n/LanguageContext";
 
 /** Shown to a signed-in user an admin has not approved yet (users/{uid}.active == false). */
@@ -20,7 +19,7 @@ export function PendingApproval({ name }: { name: string }) {
             "Your account is created. An admin must approve it before you can use the CRM.",
           )}
         </Typography>
-        <Button variant="outlined" onClick={() => signOut(auth)}>
+        <Button variant="outlined" onClick={() => signOutApp()}>
           {L("బయటకు", "Log out")}
         </Button>
       </Paper>
